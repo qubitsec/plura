@@ -8,6 +8,8 @@ PLURA Release Notes
 
 ### [Japanese](https://github.com/qubitsec/plura/blob/main/update/v5.5/ja/)
 
+### [English](https://github.com/qubitsec/plura/blob/main/update/v5.5/en/)
+
 ## References
 
 - [official PLURA website](https://plura.io/).
