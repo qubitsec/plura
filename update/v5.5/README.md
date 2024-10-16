@@ -4,7 +4,7 @@ PLURA Release Notes
 
 ## Major Changes
 
-### 1. [Korean](https://github.com/qubitsec/plura/blob/main/update/v5.5/ko/)
+### [Korean](https://github.com/qubitsec/plura/blob/main/update/v5.5/ko/)
 
 ## References
 
