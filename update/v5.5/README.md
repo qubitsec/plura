@@ -6,8 +6,6 @@ PLURA Release Notes
 
 ### 1. [Korean](https://github.com/qubitsec/plura/blob/main/update/v5.5/ko/)
 
-### 2. [Japanese](https://github.com/qubitsec/plura/blob/main/update/v5.5/ja/)
-
 ## References
 
 - [official PLURA website](https://plura.io/).
