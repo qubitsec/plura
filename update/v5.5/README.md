@@ -4,11 +4,11 @@ PLURA Release Notes
 
 ## Major Changes
 
-### 1. Upgrading to PLURA 5.5
+### 1. Update 2024
 
 PLURA 5.5 introduces significant updates, including new features, security enhancements, and performance improvements. It’s important to carefully review these changes before upgrading your PLURA platform.
 
-### 2. Breaking Changes
+### 2. Update 2023
 
 - **JDK Requirement**: PLURA 5.5 now requires JDK 17 or higher.
 - **Removed Deprecated APIs**: Several deprecated APIs from previous versions have been removed. Ensure your integrations and configurations are updated.
