@@ -1,2 +1,4 @@
 # PLURA v5
-PLURA 5.5 Change Log
+
+1) PLURA Policy
+2) PLURA Change Log
