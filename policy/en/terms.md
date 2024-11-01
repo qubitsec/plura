@@ -3,7 +3,7 @@
 # Chapter 1: General Provisions
 
 ## Article 1 (Purpose)
-These Terms and Conditions define the rights, obligations, and responsibilities of Qubit Security Inc. (hereinafter referred to as "the Company") and its members concerning the use of services provided by the Company and related matters.
+These Terms and Conditions define the rights, obligations, and responsibilities of **Qubit Security Inc.** (hereinafter referred to as "the Company") and its members concerning the use of services provided by the Company and related matters.
 
 ## Article 2 (Definition of Terms)
 1. The definitions of terms used in these Terms and Conditions are as follows:
