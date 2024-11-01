@@ -92,8 +92,6 @@
 
    - 게시중단요청서비스: support@plura.kr
 
-Here's the content in Markdown format:
-
 ---
 
 ## [제 15 조] 권리의 귀속
