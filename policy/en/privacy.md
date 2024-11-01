@@ -1,4 +1,4 @@
-### Privacy Policy
+# Privacy Policy
 
 **Qubit Security Co., Ltd.** (hereinafter referred to as “the Company”) places great importance on protecting customers' personal information and complies with the "Act on Promotion of Information and Communications Network Utilization and Information Protection" (hereinafter referred to as the Information and Communications Network Act). This Privacy Policy explains how the personal information you provide is used and what measures are taken to protect your information. The Company will notify customers through website notices or individual notifications in the event of any amendments to this Privacy Policy.
 
