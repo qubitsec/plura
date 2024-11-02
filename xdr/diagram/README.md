@@ -1,4 +1,4 @@
-# PLURA-XDR
+# PLURA-XDR Diagram
 
 ## PLURA-WAF
 
