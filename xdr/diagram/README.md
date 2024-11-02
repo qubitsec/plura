@@ -1,5 +1,7 @@
 # PLURA-XDR
 
+## PLURA-WAF
+
 ```mermaid
 flowchart LR
     User --> CloudFront
@@ -16,6 +18,9 @@ flowchart LR
     ALB4 --> WebServer[Web Server]
 ```
 
+---
+
+## PLURA-XDR
 
 ```mermaid
 flowchart LR
