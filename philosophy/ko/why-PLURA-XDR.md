@@ -59,15 +59,6 @@ flowchart LR
 
 ![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
 
-```mermaid
-pie
-    title Security System Components
-    "Network Perimeter Security" : 40
-    "Integrated Security Event Management" : 30
-    "Host Security" : 30
-
-```
-
 ## 2020년대
 
 이러한 개념을 기반으로 2020년대에는 `제로 트러스트 아키텍처` (ZTA, Zero Trust Architecture)가 제안되고 있습니다. 
