@@ -55,7 +55,7 @@ flowchart LR
 
 또한, 자동 차단에 대한 요구가 증가함에 따라 **보안 운영 자동화(SOAR, Security Orchestration, Automation and Response)** 시스템이 도입되어 SIEM의 탐지 결과를 바탕으로 자동화된 대응을 가능하게 했습니다.
 
-![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
+![2020_SIEM_SOAR_EDR](https://github.com/qubitsec/plura/blob/main/philosophy/img/plura_support.jpg)
 
 ### 2020년대: 제로 트러스트 아키텍처의 등장
 
