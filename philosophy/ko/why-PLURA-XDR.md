@@ -1,4 +1,4 @@
-# PLURA XDR 철학
+# PLURA-XDR 철학
 
 > “보안은 단일 제품이 아닌 플랫폼에서 기본적으로 통합되어야 한다.”  </br>
 > – 리 클라리치 (Lee Klarich), Palo Alto Networks CPO
