@@ -44,6 +44,10 @@ flowchart LR
     DMZ --> 내부보안
 ```
 
+1. 네트워크 침입차단 시스템 (NIPS, Network based Intrusion Prevention System)
+2. 로그 관리 시스템 (LMS, Log Management System)
+3. 호스트 침입차단 시스템 (HIPS, Host based Intrusion Prevention System)
+
 ---
 
 ## 2000년대
