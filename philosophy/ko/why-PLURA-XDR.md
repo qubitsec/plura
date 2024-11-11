@@ -18,6 +18,41 @@
 
 ![1990_Network_Perimeter_Security_Model](http://blog.plura.io/wp-content/uploads/2023/05/1990_Network_Perimeter_Security_Model.png)
 
+---
+
+```mermaid
+flowchart LR
+    외부공격자[외부 공격자] -->|Internet| Firewall
+    외부공격자 -->|Non-HTTP Attacks| Firewall
+    Firewall -->|HTTPS Attacks| IPS
+    IPS --> WAF
+    WAF --> DMZ[DMZ]
+    DMZ --> 내부망[내부 망]
+    
+    subgraph 외부망[外部 망]
+        외부공격자
+    end
+    
+    subgraph DMZ구역[DMZ]
+        Firewall
+        IPS
+        WAF
+    end
+    
+    subgraph 내부망구역[内部 망]
+        내부서버1[서버 1]
+        내부서버2[서버 2]
+        내부서버3[서버 3]
+        내부보안[보안 시스템]
+    end
+    
+    DMZ --> 내부서버1
+    DMZ --> 내부서버2
+    DMZ --> 내부서버3
+    DMZ --> 내부보안
+```
+
+
 2000년대에 들어서면서 단일 제품의 한계를 경험하며, 이를 연동해야 한다는 개념이 설득력을 얻게 됩니다. 그래서, **로그관리시스템 (LMS, Log Management System)**에서 **통합보안이벤트관리 (SIEM, Security Information and Event Management) 시스템**으로 확장하게 되었습니다.
 
 여러 네트워크 장비의 로그를 통합 수집하고, 이렇게 수집된 로그들 간의 관계를 분석(상관분석)하여 이상징후를 탐지합니다.
