@@ -47,7 +47,7 @@ flowchart LR
 
 ---
 
-### 2000년대
+## 2000년대
 
 2000년대에 들어서면서 단일 제품의 한계를 경험하며, 이를 연동해야 한다는 개념이 설득력을 얻게 됩니다. 그래서, **로그관리시스템 (LMS, Log Management System)**에서 **통합보안이벤트관리 (SIEM, Security Information and Event Management) 시스템**으로 확장하게 되었습니다.
 
@@ -57,7 +57,27 @@ flowchart LR
 
 ![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
 
-### 2020년대
+```mermaid
+flowchart LR
+    subgraph 네트워크_경계_보안[네트워크 경계 보안]
+        Firewall --> "IPS / NDR"
+        "IPS / NDR" --> WAF
+        WAF --> "VPN / SDP"
+    end
+
+    subgraph 통합보안이벤트관리[통합보안이벤트관리]
+        SIEM --> SOAR
+    end
+
+    subgraph 호스트보안[호스트보안]
+        EDR_HIPS["EDR / HIPS"]
+    end
+
+    "VPN / SDP" --> SOAR
+    EDR_HIPS --> SOAR
+```
+
+## 2020년대
 
 이러한 개념을 기반으로 2020년대에는 **제로 트러스트 아키텍처 (ZTA, Zero Trust Architecture)**가 제안되고 있습니다. 
 
