@@ -62,7 +62,7 @@ flowchart LR
 
 ## 2020년대
 
-이 개념이 발전하여 2020년대에는 `제로 트러스트 아키텍처` (ZTA, Zero Trust Architecture)가 제안되고 있습니다.
+이 개념이 발전하여 2020년대에는 “모든 것을 의심하라” 개념의  `제로 트러스트 아키텍처` (ZTA, Zero Trust Architecture)가 제안되었습니다.
 
 ![Zero Trust Architecture](https://github.com/qubitsec/plura/blob/main/philosophy/img/zta_architecture.jpg)
 
