@@ -23,32 +23,29 @@
 ```mermaid
 flowchart LR
     외부공격자[외부 공격자] -->Firewall
-    외부공격자 -->Firewall
     Firewall --> IPS
     IPS --> WAF
     WAF --> DMZ[DMZ]
-    DMZ --> 내부망[내부 망]
+    내부서버2 --> 내부망[내부 망]
     
-    subgraph 외부망[外部 망]
+    subgraph 공격자[外部 망]
         외부공격자
     end
     
-    subgraph DMZ구역[DMZ]
+    subgraph 외부망[외부망]
         Firewall
         IPS
         WAF
     end
     
     subgraph 내부망구역[内部 망]
-        내부서버1[서버 1]
-        내부서버2[서버 2]
-        내부서버3[서버 3]
+        내부서버1[서버#1]
+        내부서버2[서버#2]
         내부보안[보안 시스템]
     end
     
     DMZ --> 내부서버1
     DMZ --> 내부서버2
-    DMZ --> 내부서버3
     DMZ --> 내부보안
 ```
 
