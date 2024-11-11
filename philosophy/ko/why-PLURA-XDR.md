@@ -44,10 +44,6 @@ flowchart LR
     DMZ --> 내부보안
 ```
 
-1. 네트워크 침입차단 시스템 (NIPS, Network based Intrusion Prevention System)
-2. 로그 관리 시스템 (LMS, Log Management System)
-3. 호스트 침입차단 시스템 (HIPS, Host based Intrusion Prevention System)
-
 ---
 
 ## 2000년대
@@ -57,6 +53,10 @@ flowchart LR
 통합 보안 이벤트 관리의 핵심 목표는 상관 분석을 통해 이상 징후를 탐지하는 것이지만, 더 나아가 `보안 운영 자동화` (SOAR, Security Orchestration, Automation and Response) 시스템을 통해 자동화된 대응을 제안하게 되었습니다.
 
 ![2020_SIEM_SOAR_EDR](https://github.com/qubitsec/plura/blob/main/philosophy/img/plura_support.jpg)
+
+1. 네트워크 침입차단 시스템 (NIPS, Network based Intrusion Prevention System)
+2. 로그 관리 시스템 (LMS, Log Management System)
+3. 호스트 침입차단 시스템 (HIPS, Host based Intrusion Prevention System)
 
 ---
 
