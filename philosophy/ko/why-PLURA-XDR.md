@@ -3,6 +3,8 @@
 > “보안은 단일 제품이 아닌 플랫폼에서 기본적으로 통합되어야 한다.” </br>
 > – 팔로알토 CPO 리 클라리치(Lee Klarich, Palo Alto Networks)
 
+## 1990년대
+
 정보보안 시스템의 체계는 1990년대부터 **네트워크 경계 보안(Network Perimeter Security Model) 중심**이었습니다.
 
 네트워크 접속 지점을 단일화한 다음, 단일 접속지점에서 강력한 보안 평가 및 통제를 적용하여 보안 목적을 달성하는 구조입니다. 이를 위해 단일 제품이 아닌 다단계로 여러 제품을 네트워크 상에 위치시켜 다양한 공격에 대응하는 개념입니다.
@@ -70,7 +72,7 @@ pie
 
 이러한 개념을 기반으로 2020년대에는 **제로 트러스트 아키텍처 (ZTA, Zero Trust Architecture)**가 제안되고 있습니다. 
 
-![Zero Trust Architecture](http://blog.plura.io/wp-content/uploads/2023/05/blog_20230516-1.jpg)
+![Zero Trust Architecture](https://github.com/qubitsec/plura/blob/main/philosophy/img/zta_architecture.jpg)
 
 **PLURA-XDR**은 이러한 대응 방식을 수직적으로 통합하여 제공하는 플랫폼입니다.
 
