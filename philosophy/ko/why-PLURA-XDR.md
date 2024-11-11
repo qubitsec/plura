@@ -1,6 +1,6 @@
 # PLURA XDR 철학
 
-> “보안은 단일 제품이 아닌 플랫폼에서 기본적으로 통합되어야 한다.”
+> “보안은 단일 제품이 아닌 플랫폼에서 기본적으로 통합되어야 한다.” </br>
 > – 팔로알토 CPO 리 클라리치(Lee Klarich, Palo Alto Networks)
 
 정보보안 시스템의 체계는 1990년대부터 **네트워크 경계 보안(Network Perimeter Security Model) 중심**이었습니다.
