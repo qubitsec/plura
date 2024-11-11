@@ -26,11 +26,11 @@ flowchart LR
     WAF --> DMZ[DMZ]
     내부서버2 --> 내부망[내부 망]
     
-    subgraph 공격자[外部 망]
+    subgraph 공격자[인터넷]
         외부공격자
     end
     
-    subgraph 외부망[외부망]
+    subgraph 외부망[外部 망]
         Firewall
         IPS
         WAF
