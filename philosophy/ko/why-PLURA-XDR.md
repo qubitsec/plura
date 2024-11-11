@@ -58,23 +58,12 @@ flowchart LR
 ![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
 
 ```mermaid
-flowchart LR
-    subgraph 네트워크_경계_보안[네트워크 경계 보안]
-        Firewall --> "IPS / NDR"
-        "IPS / NDR" --> WAF
-        WAF --> "VPN / SDP"
-    end
+pie
+    title Security System Components
+    "Network Perimeter Security" : 40
+    "Integrated Security Event Management" : 30
+    "Host Security" : 30
 
-    subgraph 통합보안이벤트관리[통합보안이벤트관리]
-        SIEM --> SOAR
-    end
-
-    subgraph 호스트보안[호스트보안]
-        EDR_HIPS["EDR / HIPS"]
-    end
-
-    "VPN / SDP" --> SOAR
-    EDR_HIPS --> SOAR
 ```
 
 ## 2020년대
