@@ -57,6 +57,8 @@ flowchart LR
 
 ![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
 
+### 2020년대
+
 이러한 개념을 기반으로 2020년대에는 **제로 트러스트 아키텍처 (ZTA, Zero Trust Architecture)**가 제안되고 있습니다. 
 
 ![Zero Trust Architecture](http://blog.plura.io/wp-content/uploads/2023/05/blog_20230516-1.jpg)
