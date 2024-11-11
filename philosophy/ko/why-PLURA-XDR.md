@@ -22,9 +22,9 @@
 
 ```mermaid
 flowchart LR
-    외부공격자[외부 공격자] -->|Internet| Firewall
-    외부공격자 -->|Non-HTTP Attacks| Firewall
-    Firewall -->|HTTPS Attacks| IPS
+    외부공격자[외부 공격자] -->Firewall
+    외부공격자 -->Firewall
+    Firewall --> IPS
     IPS --> WAF
     WAF --> DMZ[DMZ]
     DMZ --> 내부망[내부 망]
