@@ -16,8 +16,6 @@
 5. 침입탐지시스템(IDS, Intrusion Detection System)
 6. 네트워크탐지와대응(NDR, Network Detection and Response)
 
-![1990_Network_Perimeter_Security_Model](http://blog.plura.io/wp-content/uploads/2023/05/1990_Network_Perimeter_Security_Model.png)
-
 ---
 
 ```mermaid
