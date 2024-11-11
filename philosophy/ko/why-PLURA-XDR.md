@@ -16,8 +16,6 @@
 5. 침입탐지시스템(IDS, Intrusion Detection System)
 6. 네트워크탐지와대응(NDR, Network Detection and Response)
 
----
-
 ```mermaid
 flowchart LR
     외부공격자[외부 공격자] -->Firewall
@@ -47,6 +45,7 @@ flowchart LR
     DMZ --> 내부보안
 ```
 
+---
 
 2000년대에 들어서면서 단일 제품의 한계를 경험하며, 이를 연동해야 한다는 개념이 설득력을 얻게 됩니다. 그래서, **로그관리시스템 (LMS, Log Management System)**에서 **통합보안이벤트관리 (SIEM, Security Information and Event Management) 시스템**으로 확장하게 되었습니다.
 
