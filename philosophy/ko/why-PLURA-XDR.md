@@ -58,7 +58,7 @@ flowchart LR
 
 ![2020_SIEM_SOAR_EDR](https://github.com/qubitsec/plura/blob/main/philosophy/img/plura_support.jpg)
 
-대표적인 보안 시스템의 발전은 다음과 같습니다:
+용어 설명:
 
 1. **네트워크 침입 차단 시스템** (NIPS, Network-based Intrusion Prevention System)
 2. **로그 관리 시스템** (LMS, Log Management System)
