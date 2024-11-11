@@ -5,7 +5,7 @@
 
 ## 1990년대
 
-정보보안 시스템의 기초는 1990년대 **네트워크 경계 보안(Network Perimeter Security Model)** 중심의 접근 방식에서 시작되었습니다. 이는 네트워크 접속 지점을 단일화하고 해당 지점에서 강력한 보안 통제를 적용하여 보안 목표를 달성하는 구조입니다. 이를 위해 단일 제품이 아닌 여러 보안 제품을 다단계로 네트워크 상에 배치하여 다양한 공격에 대응하는 개념을 도입했습니다.
+정보보안 시스템의 기초는 1990년대 `네트워크 경계 보안` (Network Perimeter Security Model) 중심의 접근 방식에서 시작되었습니다. 이는 네트워크 접속 지점을 단일화하고 해당 지점에서 강력한 보안 통제를 적용하여 보안 목표를 달성하는 구조입니다. 이를 위해 단일 제품이 아닌 여러 보안 제품을 다단계로 네트워크 상에 배치하여 다양한 공격에 대응하는 개념을 도입했습니다.
 
 대표적인 네트워크 경계 보안 제품은 다음과 같습니다:
 
@@ -49,9 +49,9 @@ flowchart LR
 
 ## 2000년대
 
-2000년대에 들어서며 단일 제품의 한계가 드러나기 시작했고, **로그 관리 시스템 (LMS, Log Management System)**에서 **통합 보안 이벤트 관리 (SIEM, Security Information and Event Management)** 시스템으로 발전하게 됩니다. 여러 네트워크 장비의 로그를 통합 수집하여, 상관 분석을 통해 이상 징후를 탐지하는 방식입니다.
+2000년대에 들어서며 단일 제품의 한계가 드러나기 시작했고, `로그 관리 시스템` (LMS, Log Management System)에서 `*통합 보안 이벤트 관리` (SIEM, Security Information and Event Management) 시스템으로 발전하게 됩니다. 여러 네트워크 장비의 로그를 통합 수집하여, 상관 분석을 통해 이상 징후를 탐지하는 방식입니다.
 
-통합 보안 이벤트 관리의 핵심 목표는 상관 분석을 통해 이상 징후를 탐지하는 것이지만, 더 나아가 **보안 운영 자동화 (SOAR, Security Orchestration, Automation and Response)** 시스템을 통해 자동화된 대응을 제안하게 되었습니다.
+통합 보안 이벤트 관리의 핵심 목표는 상관 분석을 통해 이상 징후를 탐지하는 것이지만, 더 나아가 `보안 운영 자동화` (SOAR, Security Orchestration, Automation and Response) 시스템을 통해 자동화된 대응을 제안하게 되었습니다.
 
 ![2020_SIEM_SOAR_EDR](http://blog.plura.io/wp-content/uploads/2023/05/2020_SIEM_SOAR_EDR.png)
 
