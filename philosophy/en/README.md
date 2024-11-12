@@ -1,6 +1,6 @@
 # PLURA-XDR Philosophy
 
-> "Security should be fundamentally integrated on a platform, not as a single product."  
+> "Cybersecurity is delivered in natively integrated capabilities from platforms, not point products"  
 > – Lee Klarich, Palo Alto Networks CPO
 
 ---
