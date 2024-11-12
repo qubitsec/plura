@@ -48,7 +48,7 @@ For these reasons, PLURA-XDR offers the **PLURA-EDR (Server)** version for free,
 
 PLURA-XDR is committed to helping all companies build a secure business environment. **Apply for our free service now and experience powerful cybersecurity!**
 
-[**Apply for Free Service**](https://www.plura.io/signup)
+> [**Apply for Free Service**](https://www.plura.io/signup)
 
 ---
 
@@ -66,6 +66,6 @@ PLURA-XDR is committed to helping all companies build a secure business environm
   **"Protected by PLURA"** </br>
   Customers using the free service must display a badge saying **"Protected by PLURA"** on their website and include a link to the PLURA homepage. This is part of our collaborative effort to form a cybersecurity community and build a safe digital environment together.
 
-[**Badge Installation Guide**]
+> [**Badge Installation Guide**]
 
 ---
