@@ -56,7 +56,7 @@ PLURA-XDR is committed to helping all companies build a secure business environm
 
 - **Eligibility Criteria for Free Service:**
 
-  - **Annual sales of less than 1 billion KRW**
+  - **Annual sales of less than $1 millian**
   - **Fewer than 10 employees**
   - **Established within the last 10 years**
 
