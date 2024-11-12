@@ -44,7 +44,7 @@ PLURA-XDR은 다양한 보안 솔루션을 통합한 플랫폼이며, 그 중 `P
 
 이러한 이유로, PLURA-XDR은 **PLURA-EDR (Server)** 버전을 무료로 제공하여 기업들이 가장 중요한 서버 보안을 효과적으로 강화할 수 있도록 지원하고자 합니다.
 
-> [PLURA-EDR (Server)](https://s-www.plura.io/platform/edr)
+> [PLURA-EDR (Server)](https://www.plura.io/platform/edr)
 
 ---
 
