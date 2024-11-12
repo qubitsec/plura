@@ -63,7 +63,7 @@ PLURA-XDR is committed to helping all companies build a secure business environm
   SMEs and startups that meet all of the above conditions can use PLURA-XDR's free services.
 
 - **Badge Usage Guidelines for Free Service Customers:** </br>
-  "Protected by PLURA" </br>
+  **"Protected by PLURA"** </br>
   Customers using the free service must display a badge saying **"Protected by PLURA"** on their website and include a link to the PLURA homepage. This is part of our collaborative effort to form a cybersecurity community and build a safe digital environment together.
 
 [**Badge Installation Guide**]
