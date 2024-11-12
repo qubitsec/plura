@@ -74,7 +74,15 @@ Unlike traditional perimeter security methods, ZTA shifts the **focus of data pr
 
 ![Zero Trust Architecture](https://github.com/qubitsec/plura/blob/main/philosophy/img/zta_architecture.jpg)
 
-**PLURA-XDR** is a platform that vertically integrates and further develops this Zero Trust concept. It provides a system that intelligently defends an organization's assets by tracking and automatically blocking all activities before and after security incidents, based on multi-stage verification and continuous monitoring for data and system protection. Additionally, it reduces the complexity of security processes and maximizes response efficiency by managing various security products within a single integrated platform.
+PLURA-XDR is a platform that vertically integrates and further develops the Zero Trust concept. Specifically, PLURA-XDR provides the following core elements of ZTA:
+
+- **Activity Logs**  
+  It records all activities occurring within the network and systems in detail, enabling real-time monitoring and analysis of anomalies. This allows for early detection and response to potential threats.
+
+- **Integrated Security Information and Event Management (SIEM) System**  
+  It centrally collects and correlates various security events, allowing rapid and accurate responses to complex threats. The SIEM system integrates with activity logs to enhance security intelligence.
+
+Through these features, PLURA-XDR continuously verifies all access within and outside the network, tracking and automatically blocking all activities before and after security incidents. Furthermore, it provides an intelligent defense framework that protects an organization’s assets, reducing the complexity of security processes and maximizing response efficiency. 
 
 ---
 
