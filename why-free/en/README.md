@@ -1,4 +1,4 @@
-## **Why Does PLURA-XDR Offer Free Services?**
+## Why Does PLURA-XDR Offer Free Services?
 
 PLURA-XDR believes that all companies, regardless of size, should have access to robust cybersecurity. Therefore, we provide free services to companies that meet certain conditions. The reasons are as follows:
 
