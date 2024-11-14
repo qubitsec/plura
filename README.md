@@ -1,4 +1,7 @@
 # PLURA
 
-1) PLURA Policy
-2) PLURA v5 Change Log
+1) Philosophy
+2) Policy
+3) PLURA v5 Change Log
+4) Why-free
+5) XDR
