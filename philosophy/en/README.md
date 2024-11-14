@@ -20,33 +20,7 @@ Representative network perimeter security products include:
 5. **Intrusion Detection System** (IDS)
 6. **Network Detection and Response** (NDR)
 
-```mermaid
-flowchart LR
-    ExternalAttacker[External Attacker] --> Firewall
-    Firewall --> IPS
-    IPS --> WAF
-    WAF --> DMZ[DMZ]
-    
-    subgraph Attacker[Internet]
-        ExternalAttacker
-    end
-    
-    subgraph ExternalNetwork[External Network]
-        Firewall
-        IPS
-        WAF
-    end
-    
-    subgraph InternalNetwork[Internal Network]
-        InternalServer1[Server #1]
-        InternalServer2[Server #2]
-        InternalSecurity[Security System]
-    end
-    
-    DMZ --> InternalServer1
-    DMZ --> InternalServer2
-    DMZ --> InternalSecurity
-```
+![PLURA-XDR](https://w.plura.io/img/plura_xdr.jpg)
 
 ---
 
@@ -56,7 +30,7 @@ In the 2000s, the limitations of single products began to emerge, leading to the
 
 While the core goal of integrated security event management is to detect anomalies through correlation analysis, it further proposes automated responses through **Security Orchestration, Automation, and Response** (SOAR) systems.
 
-![2020_SIEM_SOAR_EDR](https://github.com/qubitsec/plura/blob/main/philosophy/img/plura_support.jpg)
+![PLURA-XDR Lineup](https://w.plura.io/img/plura_support.jpg)
 
 **Terminology Explanation:**
 
@@ -72,7 +46,7 @@ In the 2020s, the core paradigm of security is expanding to **Zero Trust Archite
 
 Unlike traditional perimeter security methods, ZTA shifts the **focus of data protection** from the network perimeter to assets (data and applications), blocking all unauthorized access and suspecting all users. This approach has become an essential security strategy in modern environments where remote work, cloud-based infrastructure, and diverse device connections are commonplace.
 
-![Zero Trust Architecture](https://github.com/qubitsec/plura/blob/main/philosophy/img/zta_architecture.jpg)
+![Zero Trust Architecture](https://w.plura.io/img/zta_architecture.jpg)
 
 PLURA-XDR is a platform that vertically integrates and further develops the Zero Trust concept. Specifically, PLURA-XDR provides the following core elements of ZTA:
 
