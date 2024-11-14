@@ -20,6 +20,8 @@
 5. **침입 탐지 시스템** (IDS, Intrusion Detection System)
 6. **네트워크 탐지 및 대응** (NDR, Network Detection and Response)
 
+![PLURA-XDR](https://w.plura.io/img/plura_xdr.jpg)
+
 ```mermaid
 flowchart LR
     외부공격자[외부 공격자] --> Firewall
