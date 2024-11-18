@@ -15,7 +15,7 @@
 ### **사용법**
 웹사이트에 다음 코드를 추가하세요:
 ```html
-<script src="https://your-cdn-link/plura-badge-basic.js"></script>
+<script src="https://purplecow.plura.io/web/badge/plura-badge-basic.js"></script>
 ```
 
 ---
@@ -31,7 +31,7 @@
 ### **사용법**
 웹사이트에 다음 코드를 추가하세요:
 ```html
-<script src="https://your-cdn-link/plura-badge-browser-lang.js"></script>
+<script src="https://purplecow.plura.io/web/badge/plura-badge-browser-lang.js"></script>
 ```
 
 ---
@@ -47,7 +47,7 @@
 ### **사용법**
 웹사이트에 다음 코드를 추가하세요:
 ```html
-<script src="https://your-cdn-link/plura-badge-cookie-lang.js"></script>
+<script src="https://purplecow.plura.io/web/badge/plura-badge-cookie-lang.js"></script>
 ```
 
 쿠키 설정 예:
