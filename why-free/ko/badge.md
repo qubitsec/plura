@@ -5,17 +5,17 @@
 ---
 
 ## 1. **plura-badge-basic.js**
-언어 설정 없이 기본 배지를 표시하는 가장 간단한 스크립트입니다.
+기본 배지를 표시하는 가장 간단한 스크립트입니다.
 
 ### **특징**
-- 항상 영어 배지(`protected_by_plura-en.png`)를 표시합니다.
+- 한국어 배지(`protected_by_plura-ko.png`)를 표시합니다.
 - 모든 웹사이트에서 동일한 배지를 표시합니다.
 - 빠르고 간단한 통합이 가능합니다.
 
 ### **사용법**
 웹사이트에 다음 코드를 추가하세요:
 ```html
-<script src="https://purplecow.plura.io/web/badge/plura-badge-basic.js"></script>
+<script src="https://purplecow.plura.io/web/badge/plura-badge-basic-ko.js"></script>
 ```
 
 ---
