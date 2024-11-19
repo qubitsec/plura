@@ -80,6 +80,9 @@ img[src*="protected_by_plura"] {
 | `ja`      | 일본어    |
 
 ---
+## **PLURA Community 배지 참여 사이트**
+- [ChecURL](https://checurl.site)
+---
 
 ## **문의**
 이 스크립트와 관련하여 문의사항이 있으면 PLURA 공식 웹사이트(https://www.plura.io)를 방문하거나 지원팀에 연락하세요.
