@@ -68,6 +68,6 @@ PLURA-XDR은 모든 기업이 안전한 비즈니스 환경을 구축할 수 있
   `PLURA로 보호됨` </br>
   무료 서비스를 이용하는 고객은 자사의 홈페이지에 `PLURA로 보호됨`이라는 뱃지를 표시하고, PLURA 홈페이지로 연결되는 링크를 포함해 주셔야 합니다. 이는 사이버 보안 커뮤니티를 형성하고, 함께 안전한 디지털 환경을 조성하기 위한 협력의 일환입니다.
 
-> [**뱃지 설치 안내**](https://w.plura.io/why-free/ko/badge.html)
+> [**뱃지 설치 안내**](https://github.com/qubitsec/plura/blob/main/why-free/ko/badge.md)
 
 ---
