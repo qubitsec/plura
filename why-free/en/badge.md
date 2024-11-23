@@ -8,7 +8,7 @@ This repository provides a script to display the "Protected by PLURA" badge on y
 
 ### Add the Script:
 ```html
-<script src="https://purplecow.plura.io/web/badge/plura-badge.js"></script>
+<script src="https://welcome.plura.io/badge/plura-badge.js"></script>
 ```
 
 ### Badge Position:
