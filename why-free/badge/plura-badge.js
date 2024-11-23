@@ -13,7 +13,7 @@
         locale = language.includes(locale) ? locale : "ko";
 
         let img = document.createElement("img");
-        img.src = "https://purplecow.plura.io/web/badge/protected_by_plura-" + locale + ".png?siteId=" + siteId;
+        img.src = "https://welcome.plura.io/badge/protected_by_plura-" + locale + ".png?siteId=" + siteId;
         img.style.height = "auto";
 
         link.appendChild(img);
