@@ -35,6 +35,7 @@ img[src*="protected_by_plura"] {
 ---
 
 ## **PLURA Community Badge Sites**
+- [Company Website](https://w.qubitsec.com/en)
 - [PLURA-Blog](https://newblog.plura.io)
 - [ChecURL](https://checurl.site)
 
