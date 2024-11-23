@@ -35,6 +35,7 @@ img[src*="protected_by_plura"] {
 ---
 
 ## **PLURAコミュニティバッジ参加サイト**
+- [Company Website](https://w.qubitsec.com/ja)
 - [PLURA-Blog](https://newblog.plura.io)
 - [ChecURL](https://checurl.site)
 
