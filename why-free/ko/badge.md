@@ -8,7 +8,7 @@
 
 ### 스크립트 추가:
 ```html
-<script src="https://purplecow.plura.io/web/badge/plura-badge.js"></script>
+<script src="https://welcome.plura.io/badge/plura-badge.js"></script>
 ```
 
 ### 배지 위치:
