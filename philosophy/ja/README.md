@@ -37,7 +37,7 @@
 1. **ネットワーク侵入防止システム**（NIPS、Network-based Intrusion Prevention System）
 2. **ログ管理システム**（LMS、Log Management System）
 3. **ホスト侵入防止システム**（HIPS、Host-based Intrusion Prevention System）
-
+4. **運用自動化** (SOAR, Security Orchestration, Automation and Response)
 ---
 
 ### 2020年代：ゼロトラストアーキテクチャの登場
