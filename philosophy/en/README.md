@@ -37,7 +37,7 @@ While the core goal of integrated security event management is to detect anomali
 1. **Network-based Intrusion Prevention System** (NIPS)
 2. **Log Management System** (LMS)
 3. **Host-based Intrusion Prevention System** (HIPS)
-
+4. **Security Orchestration, Automation and Response** (SOAR)
 ---
 
 ### 2020s: The Emergence of Zero Trust Architecture
