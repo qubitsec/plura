@@ -1,7 +1,5 @@
 ## 1. **정책 수립 및 기밀 정보 관리 지원** (Policies and Confidential Information Management)
 
----
-
 ### (1) 기업이 가이드라인을 준수하고 IT 자산을 보호하도록 지원하는 관점
 
 1. **정책 수립 및 문서화 중앙화 지원**  
