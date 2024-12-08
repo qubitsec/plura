@@ -84,7 +84,6 @@
 PLURA-XDR supports **Daily Education and Awareness** by enhancing guideline compliance and strengthening security capabilities through the following:
 
 1. **Corporate Support Perspective**:  
-   - **✅ Systematic Education Management with LMS Integration**: Effectively monitors compliance by linking training completion statuses and security event data to analyze guideline adherence.  
    - **✅ Scheduled Training Monitoring with Real-Time Alerts**: Tracks training progress and evaluates its effectiveness in real-time while establishing a system to quickly address issues when they arise.  
    - **✅ Sharing the Latest Threat Information and Response Strategies**: Provides continuous updates to strengthen employee security awareness and prepare for emerging threats.  
    - **✅ Data-Driven Decision Support**: Utilizes security data to identify weaknesses and areas for improvement, prioritizing responses strategically.  
