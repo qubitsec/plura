@@ -13,7 +13,7 @@ This document serves as a valuable reference for potential clients, partners con
 
 ## Table of Contents
 
-1. [Policies and Confidential Information Management](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/v2.2/ko/content/1_policies_and_confidential_information_management.md)  
+1. [Policies and Confidential Information Management](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/v2.2/en/content/1_policies_and_confidential_information_management.md)  
 2. [Compliance and Risk Management](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/v2.2/en/content/2_compliance_and_risk_management.md)  
 3. [System Normal and Adverse Situations](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/v2.2/en/content/3_system_normal_and_adverse_situations.md)  
 4. [Daily Education and Awareness](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/v2.2/en/content/4_daily_education_and_awareness.md)  
