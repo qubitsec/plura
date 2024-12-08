@@ -1,4 +1,4 @@
-The following is a reclassification of the **JAMA/JAPIA Cybersecurity Guidelines** (Ver. 2.2, August 1, 2024) into nine categories, along with detailed explanations for each:"
+#### The following is a reclassification of the **JAMA/JAPIA Cybersecurity Guidelines** (Ver. 2.2, August 1, 2024) into nine categories, along with detailed explanations for each:"
 
 1. **Policies and Confidential Information Management**  
    - Clearly defines the foundation for establishing security policies and managing sensitive information.
