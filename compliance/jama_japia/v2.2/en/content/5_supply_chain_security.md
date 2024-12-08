@@ -1,70 +1,88 @@
 ## **5. Supply Chain Security**
 
-### **(1) Corporate Support Perspective: Supporting Guideline Compliance and IT Asset Protection**
+### (1) Supporting Companies in Complying with Guidelines and Protecting IT Assets
 
-1. **Enhancing Collaborative Security with Partners**  
+1. **Strengthening Security Collaboration with Partners**  
    - **Secure Data Sharing Environment (Integration with External Systems)**:  
-     PLURA-XDR enables comprehensive visibility into the security status of the entire supply chain by analyzing logs and events associated with partners, suppliers, and sub-vendors. For example, it monitors specific partner account activities, network communication patterns, and access request logs.  
+     PLURA-XDR supports comprehensive monitoring of the security status across the entire supply chain by analyzing logs and events from partners, suppliers, and subcontractors. For example, it monitors specific partner account activities, network communication patterns, and access request records.  
 
      #### Benefits:
-     - ✅ **Holistic View of Supply Chain Security**: Facilitates partner evaluations and risk identification.  
+     - ✅ **Comprehensive Supply Chain Security Monitoring**: Facilitates partner evaluation and risk identification.  
      - ✅ **Building a Trust-Based Security Ecosystem**: Provides a secure collaboration environment.  
 
-   - **Integration and Review of Third-Party Security Assessments**:  
-     PLURA-XDR incorporates security assessment results from external auditors or third-party security evaluation tools into its dashboard, allowing organizations to compare and analyze the security levels of different partners.  
+   - **Integration and Review of Third-Party Security Assessment Results**:  
+     Security evaluation results obtained from external auditing organizations or third-party tools can be integrated into the PLURA-XDR dashboard to compare and analyze the security levels of partners.  
 
      #### Benefits:
-     - ✅ **Systematic Supply Chain Review**: Transparently manages partner security status.  
-     - ✅ **Early Identification of Potential Threats**: Detects supply chain risks proactively.  
+     - ✅ **Systematic Supply Chain Inspection**: Transparently manage partners' security conditions.  
+     - ✅ **Early Identification of Potential Risks**: Detect supply chain vulnerabilities in advance.  
 
-2. **Strengthening Access Control for Partners**  
-   - **Granular Permission Assignment and Access Management (Integration with IAM)**:  
-     PLURA-XDR integrates with enterprise Identity and Access Management (IAM) solutions or third-party authentication systems to enforce fine-grained access control and detect anomalies in partner accounts.  
-
-     #### Benefits:
-     - ✅ **Compliance with the Principle of Least Privilege**: Prevents unnecessary access to data.  
-     - ✅ **Reduced Risk of Confidential Information Leakage**: Quickly blocks abnormal access attempts.  
-
-   - **Audit Trails and Anomaly Detection for Access**:  
-     PLURA-XDR continuously reviews partner account access logs, automatically detecting and alerting on unusual access frequencies, off-hours activities, or unauthorized data requests.  
+2. **Enhanced Access Control for Partners**  
+   - **Granular Access Control and Monitoring (IAM Integration)**:  
+     PLURA-XDR integrates with the company’s Identity and Access Management (IAM) solution or third-party authentication systems to provide detailed access control and detect anomalies in partner accounts.  
 
      #### Benefits:
-     - ✅ **Early Detection of Partner Account Threats**: Prevents account compromise and insider threats.  
-     - ✅ **Strengthened Supply Chain Stability**: Reduces risks through continuous monitoring and rapid responses.  
+     - ✅ **Adherence to the Principle of Least Privilege**: Prevents unnecessary data access.  
+     - ✅ **Reduced Risk of Data Breaches**: Quickly blocks unauthorized access attempts.  
+
+   - **Audit of Access Logs and Anomaly Detection**:  
+     PLURA-XDR continuously audits access logs of partner accounts, identifying abnormal frequency, off-hours access attempts, or unauthorized data requests, and triggers alerts automatically.  
+
+     #### Benefits:
+     - ✅ **Early Detection of Partner-Related Threats**: Prevents account compromise and insider threats.  
+     - ✅ **Strengthened Supply Chain Stability**: Ensures ongoing monitoring and rapid response to risks.  
+
+3. **Cloud and Platform-Based Support for Supply Chain Security**  
+   - **Importance of Cloud-Based Management**:  
+     Effective supply chain security requires a cloud-based solution. Many partners lack the resources and personnel for significant security investments, making a low-maintenance, easily accessible cloud environment essential.  
+
+   - **Need for Integrated Platform Solutions**:  
+     PLURA-XDR provides various security functions through a single platform, allowing partners to maintain security without needing to learn or manage multiple tools.  
+
+     #### Benefits:
+     - ✅ **Efficient Security Operations for Partners**: Enables high security with minimal investment.  
+     - ✅ **Enhanced Manageability and Training**: Simplifies security management through a user-friendly interface.  
 
 ---
 
-### **(2) Solution Compliance Perspective: How PLURA-XDR Meets Guideline Requirements**
+### (2) PLURA-XDR’s Compliance with Guideline Requirements
 
-1. **Adhering to Supply Chain Security Management Principles**  
-   - **Vendor Verification During Solution Development and Service Delivery**:  
-     The PLURA-XDR team adheres to security verification procedures based on international standards when managing vendors and third-party suppliers.  
-
-     #### Benefits:
-     - ✅ **Embedded Culture of Exemplary Supply Chain Security Management**: Provides a trustworthy solution.  
-     - ✅ **Meeting Guideline Expectations**: Enables customers to adopt similar security principles.  
-
-2. **Strengthening Supply Chain Management Through Regular Audits and Improvements**  
-   - **Verification of Partner Management Systems Through Internal Audits and External Certifications**:  
-     The PLURA-XDR organization periodically reassesses vendor security levels through internal audits and external evaluations, undertaking improvement activities as needed.  
+1. **Adherence to Internal Supply Chain Security Management Principles**  
+   - **Verification of Partners in Solution Development and Service Delivery**:  
+     PLURA-XDR adheres to internationally recognized standards in managing its partners and third-party vendors, ensuring robust security verification procedures.  
 
      #### Benefits:
-     - ✅ **Implementation of the PDCA Cycle**: Strengthens supply chain reliability through continuous improvement.  
-     - ✅ **Enhanced Customer Security Strategies**: Enables customers to develop robust strategies using best practices.  
+     - ✅ **Embedding Exemplary Supply Chain Security Practices**: Provides a reliable solution.  
+     - ✅ **Meeting Guideline Expectations**: Allows customers to adopt similar security principles.  
+
+2. **Advantages of In-House Development and Management**  
+   - PLURA-XDR develops and manages all major components and functions in-house. This minimizes third-party dependency and strengthens the solution’s security and stability.  
+
+     #### Benefits:
+     - ✅ **Securing Control Over Supply Chain Security**: Enables self-verification and control without external reliance.  
+     - ✅ **Enhanced Customer Trust**: Ensures transparency and reliability through internal management.  
+
+3. **Regular Audits and Improvement Activities to Strengthen Supply Chain Management**  
+   - **Internal Audits and External Certifications**:  
+     PLURA-XDR conducts regular internal audits and external evaluations to reassess and improve partner security levels.  
+
+     #### Benefits:
+     - ✅ **Implementation of the PDCA Cycle**: Enhances supply chain reliability through continuous improvement.  
+     - ✅ **Strengthened Customer Security Strategy**: Provides best practices for strategic development.  
 
 ---
 
-### **Conclusion**
+### Conclusion
 
-PLURA-XDR supports **Supply Chain Security** by strengthening compliance and security capabilities through the following perspectives:
+PLURA-XDR supports **Supply Chain Security** by addressing guideline compliance and enhancing security capabilities in two key ways:
 
-1. **Corporate Support Perspective**:  
-   - **✅ Monitoring Partner and Vendor Security Status**: Provides a comprehensive view of supply chain security through log and event analysis.  
-   - **✅ Integration with IAM and Assessment Tools**: Supports partner access control, anomaly detection, and incorporation of third-party evaluation results.  
-   - **✅ Practical Implementation of Supply Chain Security Requirements**: Ensures stability through continuous monitoring and improvements.  
+1. **Support for Companies**:  
+   - **✅ Cloud and Platform-Based Supply Chain Management**: Allows partners to maintain a high level of security with minimal investment.  
+   - **✅ Integrated Security Management**: Reduces management and training burdens while maintaining security levels efficiently.  
+   - **✅ IAM and Assessment Tool Integration**: Effectively manages partner access and detects risks.  
 
-2. **Solution Compliance Perspective**:  
-   - **✅ Adherence to Vendor Verification and Audit Procedures**: Maintains supply chain management principles aligned with international standards.  
-   - **✅ PDCA Cycle Implementation**: Provides best practices to enable customers to systematically manage supply chain security.  
+2. **Solution Compliance**:  
+   - **✅ In-House Development for Supply Chain Leadership**: Minimizes third-party dependency, ensuring control and security.  
+   - **✅ Regular Audits and Verification**: Improves security systems continually through the PDCA cycle.  
 
-In conclusion, PLURA-XDR empowers organizations to effectively manage the security status of their entire supply chain while embodying an exemplary culture of supply chain security within the solution itself, making it a reliable tool for achieving guideline compliance.
+In conclusion, PLURA-XDR empowers companies to systematically manage supply chain security while providing a solution that maximizes security and reliability through exemplary practices.
