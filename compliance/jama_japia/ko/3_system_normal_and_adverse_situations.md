@@ -1,4 +1,4 @@
-## (3) System Normal and Adverse Situations
+## 3. System Normal and Adverse Situations
 
 ### A. 기업이 가이드라인을 준수하고 IT 자산을 보호하도록 지원하는 관점
 
