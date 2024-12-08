@@ -4,7 +4,7 @@
 
 1. **Supporting Legal and Industry Framework Compliance**  
    - **Analysis and Reporting Based on International Security Standards**:  
-     PLURA-XDR provides security event and log analysis capabilities to assess compliance with internationally recognized standards and regulations such as ISO 27001, GDPR, and the NIST Cybersecurity Framework. This allows organizations to monitor their adherence to established compliance requirements (e.g., data protection, information processing security) in real time.  
+     PLURA-XDR provides security event and log analysis capabilities to assess compliance with internationally recognized standards and regulations such as ISO 27001, GDPR, and the NIST Cybersecurity Framework, MITRE ATT&CK Framework. This allows organizations to monitor their adherence to established compliance requirements (e.g., data protection, information processing security) in real time.  
 
      #### Benefits:
      - ✅ **Real-Time Compliance Monitoring**: Quickly verify whether organizational policies and processes align with regulations and standards.  
