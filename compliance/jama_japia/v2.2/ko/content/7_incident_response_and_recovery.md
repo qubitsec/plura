@@ -84,7 +84,7 @@ PLURA-XDR은 **사고 대응 및 복구** 항목에서 다음과 같이 두 가�
 
 1. **기업 지원 측면**:  
    - **✅ 통합 SIEM 기능 제공**: 사고 감지, 보고, 대응, 사후 분석까지 전 과정에서 투명성과 효율성을 강화.  
-   - **✅ PLURA 솔루션 활용**: PLURA-WAF, PLURA-EDR, PLURA-SMS, PLURA-SOAR를 활용한 종합적인 사고 대응 체계 구축.  
+   - **✅ PLURA 솔루션 활용**: PLURA-SIEM, PLURA-Forensic, PLURA-WAF, PLURA-EDR, PLURA-SMS, PLURA-SOAR를 활용한 종합적인 사고 대응 체계 구축.  
    - **✅ 포렌식 분석 및 외부 툴 연계**: 전문적이고 체계적인 사고 대응 및 복구를 지원하여 PDCA 사이클 구현 가능.  
 
 2. **솔루션 자체 준수**:  
