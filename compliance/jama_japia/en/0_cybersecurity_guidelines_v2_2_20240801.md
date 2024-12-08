@@ -1,4 +1,4 @@
-The nine categories you outlined are well-structured and effectively capture the essential elements of the **JAMA/JAPIA Cybersecurity Guidelines (Ver. 2.2, August 1, 2024)**. Here's a review of each:
+The nine categories outlined are well-structured and effectively capture the essential elements of the **JAMA/JAPIA Cybersecurity Guidelines** (Ver. 2.2, August 1, 2024). Here's a review of each:
 
 1. **Policies and Confidential Information Management**  
    - Clearly defines the foundation for establishing security policies and managing sensitive information.
