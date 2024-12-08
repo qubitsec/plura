@@ -10,7 +10,7 @@ The table of contents below provides links to detailed documents organized by ke
 This document serves as a valuable reference for potential clients, partners considering the adoption of PLURA-XDR, and internal auditors or security managers who need to assess guideline compliance and enhance their security management systems.
 
 The reclassified content into 9 categories can be found here:  
-[Reclassification of the Cybersecurity Guidelines](cybersecurity_guidelines.md)
+  - [Reclassification of the Cybersecurity Guidelines](cybersecurity_guidelines.md)
 
 ---
 
