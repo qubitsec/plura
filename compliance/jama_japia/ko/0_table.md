@@ -1,6 +1,6 @@
 ## 목차
 
-1. [정책 및 기밀 정보 관리 (Policies and Confidential Information Management)](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/ko/1_policies_and_confidential_information_management.md)  
+1. 정책 및 기밀 정보 관리 [(Policies and Confidential Information Management)](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/ko/1_policies_and_confidential_information_management.md)  
 2. [컴플라이언스 및 위험 관리 (Compliance and Risk Management)](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/ko/2_compliance_and_risk_management.md)  
 3. [시스템 정상 및 비정상 상황 관리 (System Normal and Adverse Situations)](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/ko/3_system_normal_and_adverse_situations.md)  
 4. [일일 교육 및 인식 제고 (Daily Education and Awareness)](https://github.com/qubitsec/plura/blob/main/compliance/jama_japia/ko/4_daily_education_and_awareness.md)  
