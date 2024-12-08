@@ -33,16 +33,16 @@
      - ✅ **사후 개선 효과 극대화**: 지속적 개선을 통한 사고 재발 방지.  
 
 3. **PLURA-XDR 플랫폼을 활용한 종합적 사고 대응**  
-   - **PLURA-WAF로 실시간 해킹 공격 탐지 및 차단**:  
+   - **PLURA-WAF (Web Application Firewall)로 실시간 해킹 공격 탐지 및 차단**:  
      웹 기반 공격을 실시간으로 탐지하고 차단.  
 
-   - **PLURA-EDR로 APT 공격 탐지 및 차단**:  
+   - **PLURA-EDR (Endpoint Detection and Response)로 APT 공격 탐지 및 차단**:  
      MITRE ATT&CK 기반 실시간 탐지와 대응을 통해 고도화된 지속 공격(APT)에 대응.  
 
-   - **PLURA-SMS로 시스템 안정성 모니터링**:  
+   - **PLURA-SMS (System Monitoring Service)로 시스템 안정성 모니터링**:  
      시스템의 안정성을 모니터링하여 취약점을 사전에 식별.  
 
-   - **PLURA-SOAR로 사용자 대응 지원**:  
+   - **PLURA-SOAR (Security Orchestration, Automation, and Response)로 사용자 대응 지원**:  
      자동화된 사용자 대응 지원으로 효율적이고 빠른 사고 처리를 지원.  
 
      #### 효과:
