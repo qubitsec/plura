@@ -1,70 +1,80 @@
 ## **1. Policies and Confidential Information Management**
 
-### **(1) Corporate Support Perspective: Supporting Guideline Compliance and IT Asset Protection**
+### **(1) Supporting Organizations in Complying with Guidelines and Protecting IT Assets**
 
-1. **Centralized Policy Development and Documentation**  
+1. **Centralized Policy Management and Documentation**  
    - **Centralized Management Portal**:  
-     PLURA-XDR provides a dashboard that integrates established security policies, operational guidelines, procedures, and associated events, logs, alerts, and compliance statuses. This enables security managers to reference external policy documents while monitoring real-time security events and logs within PLURA-XDR.  
+     PLURA-XDR provides a dashboard where security policies, operational guidelines, and procedures can be linked with events, logs, alerts, and compliance statuses. Security administrators can monitor real-time security events and logs while referencing established policy documents.  
      - **Automated Evaluation and Alert System**:  
-       PLURA-XDR automatically evaluates policy compliance in real time and immediately alerts the security team when violations are detected.
+       Automatically evaluates compliance status in real time and notifies the security team immediately if violations are detected.
 
      #### Benefits:
-     - ✅ **Clear Policy Maintenance and Review**: Easily monitor policy updates, periodic reviews, and alignment with the latest standards.  
-     - ✅ **Early Problem Detection and Rapid Response**: Automated alerts help identify and address potential issues proactively.  
+     - ✅ **Clear Policy Maintenance and Review**: Easily identify policy updates, periodic reviews, and the reflection of the latest changes.  
+     - ✅ **Early Detection and Prompt Response**: Automated alerts enable early identification and resolution of potential issues.  
 
-   - **Version Management and Change Tracking**:  
-     Tracks policy changes and updates, notifies relevant stakeholders (IT security team, management), and facilitates approval processes.
+   - **Version Control and Change Tracking**:  
+     Tracks policy changes and updates, notifying relevant stakeholders (e.g., IT security team, management) and facilitating an approval process.
 
      #### Benefits:
-     - ✅ **Thorough Policy Documentation and Review**: Objectively demonstrate compliance with guidelines.  
-     - ✅ **Support for Internal Audits and External Evaluations**: Change history and approval records are valuable for audits and assessments.  
+     - ✅ **Thorough Policy Documentation and Review**: Objectively demonstrate compliance with guideline requirements.  
+     - ✅ **Support for Internal and External Audits**: Change history and approval records are valuable during audits and evaluations.  
+
+2. **Data Leak Detection and Confidential Information Protection**  
+   - **Anomaly Detection-Based Confidential Information Protection**:  
+     PLURA-XDR detects anomalies (e.g., unusual data transmissions, unauthorized access attempts) and provides real-time alerts to allow administrators to take preemptive action.  
+   - **Access Logs and Correlation Analysis**:  
+     Analyzes access logs to identify unauthorized access attempts and prevents data leaks through correlation analysis of abnormal events.
+
+     #### Benefits:
+     - ✅ **Prevention of Data Leaks**: Detects and blocks unauthorized access and abnormal behavior early.  
+     - ✅ **Real-Time Response**: Enables immediate security actions alongside alerts.  
 
 ---
 
-### **(2) Solution Compliance Perspective: How PLURA-XDR Meets Guideline Requirements**
+### **(2) PLURA-XDR’s Compliance with Guideline Requirements**
 
-1. **Enhanced Identification and Access Control for Confidential Information**  
-   - **Role-Based Access Control (RBAC) and Least Privilege Principle**:  
-     Assigns only the minimum necessary permissions based on user roles and provides multi-factor authentication (MFA) and real-time monitoring for access to confidential information.  
+1. **Strengthened Confidential Information Identification and Access Control**  
+   - **Role-Based Access Control (RBAC) and Principle of Least Privilege**:  
+     Assigns the minimum necessary access permissions based on user roles and provides multi-factor authentication (MFA) and real-time monitoring for access to confidential information.  
    - **Encryption and Secure Transmission of Sensitive Data**:  
-     All confidential data is encrypted with AES-256 during storage and TLS 1.3 during transmission. Logs and event data processed by PLURA-XDR are also securely handled.  
+     All confidential data is encrypted using AES-256 for storage and TLS 1.3 for transmission. Logs and event data within PLURA-XDR are also securely processed.
 
      #### Benefits:
-     - ✅ **Minimized Data Exposure Risk**: Complies with guidelines for managing confidential information.  
+     - ✅ **Minimized Risk of Data Exposure**: Meets confidentiality management requirements specified in guidelines.  
      - ✅ **Enhanced Security Levels**: Prevents unnecessary data exposure and security incidents.  
-     - ✅ **Maintains Data Integrity and Confidentiality**: Protects against data breaches through encryption.  
-     - ✅ **Reduced Risk of External Breaches**: Ensures secure handling of data.  
+     - ✅ **Maintained Data Integrity and Confidentiality**: Protects against information leaks through encryption.  
+     - ✅ **Reduced Risk of External Leaks**: Ensures secure data processing.  
 
 2. **Improved Policy Awareness and Communication**  
    - **Policy Awareness Verification for Employees**:  
-     PLURA-XDR provides procedures to verify employee understanding of policy updates through digital signatures or quizzes.  
-   - **Integration with Educational Modules and Information Sharing**:  
-     Offers integrated access to policy-related educational materials (videos, documents, FAQs) and regular notifications to keep employees updated.  
+     PLURA-XDR provides procedures to verify employee awareness of updated policies. This includes digital signatures or quizzes to confirm understanding.  
+   - **Integrated Educational Modules and Information Sharing**:  
+     Offers policy-related educational materials (videos, documents, FAQs) and regularly notifies employees about updates through integrated communication features.
 
      #### Benefits:
-     - ✅ **Visibility in Policy Communication and Understanding**: Enhances compliance with guidelines and strengthens employee training.  
-     - ✅ **Real-Time Education**: Quickly adapts to policy changes and emerging threats.  
-     - ✅ **Improved Security Awareness**: Promotes continuous learning and vigilance among employees.  
+     - ✅ **Visibility into Policy Delivery and Understanding**: Supports guideline compliance and strengthens employee training.  
+     - ✅ **Real-Time Education**: Facilitates immediate responses to policy changes and emerging threats.  
+     - ✅ **Enhanced Security Awareness**: Promotes continuous learning and vigilance among employees.  
 
-3. **Compliance with Internal Operating Policies and Guidelines**  
+3. **Compliance with Internal Operational Policies and Guidelines**  
    - **Designed Based on Global Security Standards**:  
-     PLURA-XDR is designed and operated in compliance with internationally recognized security standards such as ISO 27001 and NIST CSF, meeting Lv1~Lv3 requirements of the JAMA/JAPIA guidelines.  
+     PLURA-XDR is developed and operated in compliance with internationally recognized security standards, such as ISO 27001 and NIST CSF, meeting the Lv1~Lv3 requirements of JAMA/JAPIA guidelines.
 
      #### Benefits:
-     - ✅ **Exemplary Security Governance**: Provides a solution that demonstrates compliance with guidelines.  
+     - ✅ **Provision of Exemplary Security Governance**: Offers solutions that demonstrate compliance with guidelines.  
 
-4. **Internal Control and Monitoring of Confidential Information Handling**  
-   - **Access Log Tracking and Audit Trail Maintenance**:  
-     Minimizes access to confidential information during development and operation while maintaining a record of all access attempts.  
+4. **Internal Control and Monitoring for Confidential Information Handling**  
+   - **Access History Recording and Auditability**:  
+     Minimizes access to confidential information during development and operation while maintaining comprehensive access history records.
 
      #### Benefits:
-     - ✅ **Provides Evidence of Confidential Information Protection**: Clearly supports customers’ security requirements.  
+     - ✅ **Provides Examples of Confidential Information Protection**: Clearly establishes security evidence required by customers.  
 
-5. **Regular Policy Review and Certification Maintenance**  
+5. **Regular Policy Reviews and Certification Maintenance**  
    - **Internal Audits and Third-Party Certifications**:  
-     PLURA-XDR undergoes regular internal audits and external certifications to validate and improve security policies, access controls, and data protection processes.  
+     PLURA-XDR regularly undergoes internal audits and external certifications to validate and enhance its security policies, access controls, and data protection processes.
 
      #### Benefits:
-     - ✅ **Enhanced Solution Reliability and Stability**: Implements continuous improvement based on the PDCA cycle.  
+     - ✅ **Improved Solution Reliability and Stability**: Reflects PDCA cycles for continuous improvement.  
 
 ---
