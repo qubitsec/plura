@@ -10,12 +10,12 @@
      - ✅ **Comprehensive Supply Chain Security Monitoring**: Facilitates partner evaluation and risk identification.  
      - ✅ **Building a Trust-Based Security Ecosystem**: Provides a secure collaboration environment.  
 
-   - **Integration and Review of Third-Party Security Assessment Results**:  
-     Security evaluation results obtained from external auditing organizations or third-party tools can be integrated into the PLURA-XDR dashboard to compare and analyze the security levels of partners.  
+   - **(Planned) Integration and Review Support for Vulnerability Assessment System (VAS)**:  
+     PLURA-XDR plans to integrate with its upcoming proprietary Vulnerability Assessment System (VAS) to manage and analyze security assessment results for partners comprehensively. This will enable systematic evaluation of partner security levels and identification of vulnerabilities across the supply chain.  
 
      #### Benefits:
-     - ✅ **Systematic Supply Chain Inspection**: Transparently manage partners' security conditions.  
-     - ✅ **Early Identification of Potential Risks**: Detect supply chain vulnerabilities in advance.  
+     - ✅ **Systematic Supply Chain Assessment**: Transparent management and comprehensive evaluation of partner security practices.    
+     - ✅ **Early Threat Detection**: Identification of supply chain risks at an early stage and formulation of mitigation strategie.  
 
 2. **Enhanced Access Control for Partners**  
    - **Granular Access Control and Monitoring (IAM Integration)**:  
