@@ -18,8 +18,8 @@
      - ✅ **Minimized Impact**: Swift actions prevent incident escalation.  
 
 2. **Enhanced Forensic Capabilities**  
-   - **Support for Root Cause Analysis**:  
-     PLURA-XDR preserves detailed logs and event data, enabling comprehensive forensic analysis to determine root causes and attack vectors after an incident.  
+   - **Support for Root Cause Analysis After Incidents**:  
+     PLURA-XDR preserves detailed logs, event data, various configurations, and system information, supporting forensic analysis to identify root causes and trace intrusion paths after incidents.  
      
      #### Benefits:
      - ✅ **Supports Root Cause Identification and Policy Improvement**: Enhances security policies to prevent recurrence.  
