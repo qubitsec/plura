@@ -4,11 +4,18 @@
 
 1. **Supporting Legal and Industry Framework Compliance**  
    - **Analysis and Reporting Based on International Security Standards**:  
-     PLURA-XDR provides security event and log analysis capabilities to assess compliance with internationally recognized standards and regulations such as ISO 27001, GDPR, and the NIST Cybersecurity Framework, MITRE ATT&CK Framework. This allows organizations to monitor their adherence to established compliance requirements (e.g., data protection, information processing security) in real time.  
+     PLURA-XDR provides security event and log analysis capabilities to assess compliance with internationally recognized standards and regulations such as ISO 27001, GDPR, and the NIST Cybersecurity Framework. This allows organizations to monitor their adherence to established compliance requirements (e.g., data protection, information processing security) in real time.  
 
      #### Benefits:
      - ✅ **Real-Time Compliance Monitoring**: Quickly verify whether organizational policies and processes align with regulations and standards.  
      - ✅ **Enhanced Audit Readiness**: Generate reports and collect evidence to prepare for external regulatory audits.  
+
+   - **Analysis Based on the MITRE ATT&CK Framework**:  
+     In addition to `Analysis and Reporting Based on International Security Standards`, PLURA-XDR leverages the MITRE ATT&CK Framework to analyze and map the tactics and techniques of cyber attackers. This capability enables organizations to systematically identify security events and logs associated with the attacker’s infiltration process and to develop rapid response strategies for potential threats.  
+     
+     #### Benefits:
+     - ✅ **Enhanced Attack Analysis and Response**: Enables real-time identification of attacker tactics and techniques, leading to more accurate detection and response.  
+     - ✅ **Improved Security Posture**: Allows for swift threat identification and response through logging and analysis based on audit policies, as well as deep log collection for web request and response bodies.  
 
    - **Automated Compliance Reporting (Integration with External Reporting Tools)**:  
      PLURA-XDR supports dashboard views and report generation on compliance status for specific standards (e.g., fulfillment of ISO 27001 control requirements) based on event log analysis. It can integrate with external reporting tools to automatically generate periodic reports.  
