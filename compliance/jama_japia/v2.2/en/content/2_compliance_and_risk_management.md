@@ -74,11 +74,12 @@
 PLURA-XDR supports **Compliance and Risk Management** in two key perspectives, ensuring alignment with and strengthening of guidelines:
 
 1. **Corporate Support Perspective**  
-   - **✅ International Standards Compliance**: Assesses adherence to ISO 27001, GDPR, etc., and provides comprehensive reports.  
-   - **✅ Enhanced Risk Management and Correlation Analysis**: Identifies potential threats early and supports mitigation strategies.  
-   - **✅ Documentation and PDCA Support**: Streamlines documentation and facilitates continuous improvement.  
+   - ✅ **International Standards Compliance**: Assesses adherence to ISO 27001, GDPR, etc., and provides comprehensive reports.
+   - ✅ **Analysis Based on the MITRE ATT&CK Framework**: Supports threat identification and response strategies by mapping attack tactics and techniques.
+   - ✅ **Enhanced Risk Management and Correlation Analysis**: Identifies potential threats early and supports mitigation strategies.  
+   - ✅ **Documentation and PDCA Support**: Streamlines documentation and facilitates continuous improvement.  
 
 2. **Solution Compliance Perspective**  
-   - **✅ Designed Based on International Standards**: Operates as a model of exemplary compliance.  
-   - **✅ Internal Audits and External Validation**: Enhances solution reliability and trustworthiness.  
-   - **✅ Continuous Risk Evaluation**: Strengthens customer security posture with proven processes.  
+   - ✅ **Designed Based on International Standards**: Operates as a model of exemplary compliance.  
+   - ✅ **Internal Audits and External Validation**: Enhances solution reliability and trustworthiness.  
+   - ✅ **Continuous Risk Evaluation**: Strengthens customer security posture with proven processes.  
