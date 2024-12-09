@@ -35,7 +35,8 @@
 
 1. **Strengthened Confidential Information Identification and Access Control**  
    - **Role-Based Access Control (RBAC) and Principle of Least Privilege**:  
-     Assigns the minimum necessary access permissions based on user roles and provides multi-factor authentication (MFA) and real-time monitoring for access to confidential information.  
+     Minimum privileges are granted based on user roles, along with IP address restrictions for access, additional authentication via PIN (Personal Information Number) and email-based multi-factor authentication, and real-time monitoring.  
+     
    - **Encryption and Secure Transmission of Sensitive Data**:  
      All confidential data is encrypted using AES-256 for storage and TLS 1.3 for transmission. Logs and event data within PLURA-XDR are also securely processed.
 
