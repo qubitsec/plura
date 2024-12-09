@@ -48,7 +48,7 @@
 
 2. **Improved Policy Awareness and Communication**  
    - **Policy Awareness Verification for Employees**:  
-     PLURA-XDR provides procedures to verify employee awareness of updated policies. This includes digital signatures or quizzes to confirm understanding.  
+     PLURA-XDR provides a process to verify employees' awareness during policy updates. Additionally, it plans to implement digital signatures or quizzes to assess policy comprehension.  
    - **Integrated Educational Modules and Information Sharing**:  
      Offers policy-related educational materials (videos, documents, FAQs) and regularly notifies employees about updates through integrated communication features.
 
