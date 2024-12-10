@@ -25,7 +25,7 @@ graph LR
     스위치 -- 포트 미러링 --> PLURA
     스위치 --> WEB서버
 
-    subgraph 고객사 시스템
+    subgraph WEB SYSTEM
         WAF
         스위치
         WEB서버
