@@ -21,7 +21,7 @@ PLURA-XDR은 웹 방화벽(WAF)이 놓칠 수 있는 웹 요청 본문(Request B
 ```mermaid
 graph LR
     사용자 --> WAF
-    WAF --> 스위치
+    WAF --> Switch
     Switch --> WEB Server
     Switch -- 포트 미러링 --> PLURA
 
