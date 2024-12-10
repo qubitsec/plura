@@ -25,7 +25,7 @@ graph LR
     Switch --> WEB_Server
     Switch -- 포트 미러링 --> PLURA
 
-    subgraph WEB_SYSTEM
+    subgraph WEB SYSTEM
         WAF
         Switch
         WEB_Server
