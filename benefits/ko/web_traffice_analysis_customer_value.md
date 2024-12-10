@@ -22,13 +22,13 @@ PLURA-XDR은 웹 방화벽(WAF)이 놓칠 수 있는 웹 요청 본문(Request B
 graph LR
     사용자 --> WAF
     WAF --> Switch
-    Switch --> WEB Server
+    Switch --> WEB_Server
     Switch -- 포트 미러링 --> PLURA
 
-    subgraph WEB SYSTEM
+    subgraph WEB_SYSTEM
         WAF
         Switch
-        WEB Server
+        WEB_Server
     end
 ```
 
