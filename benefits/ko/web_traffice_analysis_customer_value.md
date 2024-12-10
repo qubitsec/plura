@@ -27,7 +27,7 @@ graph LR
 
     subgraph WEB SYSTEM
         WAF
-        Swwitch
+        Switch
         WEB Server
     end
 ```
