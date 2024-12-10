@@ -80,12 +80,12 @@ PLURA-XDR은 단순한 탐지와 차단을 넘어, 반복적이고 고도화된 
 #### **Mermaid 다이어그램**  
 ```mermaid
 graph TD
-    공격자 -->|Credential Stuffing 시도| PLURA-XDR
-    PLURA-XDR -->|로그인 실패 이벤트 분석| SIEM
-    SIEM -->|공격 탐지 보고| 관리자
-    PLURA-XDR -->|IP 차단| 방화벽
-    PLURA-XDR -->|탐지 룰 업데이트| WAF
-    PLURA-XDR -->|추가 학습| AI/ML 시스템
+    Attacker -->|Credential Stuffing Attempt| PLURA-XDR
+    PLURA-XDR -->|Login Failure Event Analysis| SIEM
+    SIEM -->|Attack Detection Report| Administrator
+    PLURA-XDR -->|IP Blocking| Firewall
+    PLURA-XDR -->|Detection Rule Update| WAF
+    PLURA-XDR -->|Additional Training| AI_ML_System
 ```
 
 ---
