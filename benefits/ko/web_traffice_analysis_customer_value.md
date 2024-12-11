@@ -40,6 +40,9 @@ graph LR
   - 크리덴셜 스터핑(Credential Stuffing)  
   - SQL 인젝션(SQL Injection)  
   - 데이터 유출 공격 등  
+
+- [자세히](https://github.com/qubitsec/plura/blob/main/benefits/ko/deep_analysis_of_web_request_body.md)
+
 ---
 
 ## **2. 실시간 상관 분석**
