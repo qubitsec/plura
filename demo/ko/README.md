@@ -8,3 +8,7 @@
 ## PLURA-XDR 대응
 
 1. [LoL 공격 대응 방법 소개](lol/plura_waf_xdr_detection.md)
+
+## PLURA-BLOG에 더 많은 정보를 확인해 보세요.
+
+👉 [PLURA-BLOG](https://blog.plura.io/ko)
