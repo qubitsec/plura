@@ -37,7 +37,7 @@ graph LR
 ---
 
 ## **1. 웹 요청 본문의 심층 분석**
-- PLURA-XDR은 요청 본문에 포함된 데이터(예: JSON, XML, POST 데이터 등)를 분석하여 웹 방화벽에서 탐지하지 못한 복잡한 공격 패턴을 식별합니다.  
+- PLURA-XDR은 요청 본문에 포함된 데이터(예: JSON, XML, POST 데이터 등)를 분석하여 웹방화벽에서 탐지하지 못한 복잡한 공격 패턴을 식별합니다.  
 - **탐지 가능한 공격 유형:**  
   - 크리덴셜 스터핑(Credential Stuffing)  
   - SQL 인젝션(SQL Injection)  
