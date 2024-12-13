@@ -138,7 +138,7 @@ mshta http://ethanlabs.shop/MALSCRIPT.hta
 
 ---
 
-# 공격 개요 (Mermaid Diagram)
+# 공격 개요 (Diagram)
 
 ```mermaid
 graph TD
