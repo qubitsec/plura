@@ -31,7 +31,7 @@
 
 ---
 
-**Key Benefits for Customers**  
+### **Key Benefits for Customers**  
 
 1. **Enhanced Management and Operational Efficiency**  
    A unified UI enables seamless management of multiple security solutions from a single dashboard, simplifying operations and saving time.  
