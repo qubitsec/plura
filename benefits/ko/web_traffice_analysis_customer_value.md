@@ -7,30 +7,20 @@ PLURA-XDR은 웹방화벽(WAF)이 놓칠 수 있는 웹 요청 본문(Request Bo
 ---
 
 ```html
-<div style="border: 2px solid #000; padding: 10px; margin: 10px 0;">
-  <strong>먼저 WAF가 놓칠 수 있는 상황에 대한 이해</strong><br><br>
-
+<div style="border: 2px solid black; padding: 15px; margin: 10px; background-color: #f9f9f9;">
+  <h3>먼저 WAF가 놓칠 수 있는 상황에 대한 이해</h3>
+  <p><strong>정규식 기반 시그니처 한계:</strong><br>
+  WAF는 대부분 정규식 기반의 시그니처로 동작하기 때문에, 해커는 이를 우회하기 위해 다양한 변형된 공격 코드를 시도합니다.</p>
   <ul>
-    <li><strong>정규식 기반 시그니처 한계:</strong><br>
-      WAF는 대부분 정규식 기반의 시그니처로 동작하기 때문에, 해커는 이를 우회하기 위해 다양한 변형된 공격 코드를 시도합니다.<br><br>
-
-      예를 들어:<br>
-      - SQL 인젝션 시 <strong>공백을 주석 처리 방식</strong>으로 대체 (<code>UNION SELECT</code> → <code>UNION/**/SELECT</code>)<br>
-      - 크로스 사이트 스크립팅(XSS)에서 <strong>인코딩된 페이로드</strong> 사용 (<code>&lt;script&gt;</code> → <code>%3Cscript%3E</code>)
-    </li>
-
-    <li><strong>새로운 공격 패턴의 탐지 어려움:</strong><br>
-      기존에 정의되지 않은 공격 패턴이나 시그니처를 활용한 <strong>제로데이 공격</strong>은 WAF 시그니처로 탐지되지 않을 가능성이 높습니다.
-    </li>
-
-    <li><strong>복잡한 요청 본문 처리 부족:</strong><br>
-      JSON, XML, 다중 파라미터, 또는 큰 데이터 페이로드처럼 복잡한 요청 본문을 정확히 분석하지 못해 탐지에 실패하는 경우가 있습니다.
-    </li>
+    <li>SQL 인젝션 시 <strong>공백을 주석 처리 방식</strong>으로 대체 (UNION SELECT → UNION/**/SELECT)</li>
+    <li>크로스 사이트 스크립팅(XSS)에서 <strong>인코딩된 페이로드</strong> 사용 (&lt;script&gt; → %3Cscript%3E)</li>
   </ul>
-
-  ✅ 결과적으로, 웹 방화벽(WAF)이 모든 공격을 차단하지 못할 가능성이 매우 높기 때문에, 이를 보완할 수 있는 추가적인 보안 솔루션이 필수적입니다. PLURA-XDR은 이러한 한계를 대비하여 안전하고 신뢰할 수 있는 시스템 구축을 가능하게 합니다.
+  <p><strong>새로운 공격 패턴의 탐지 어려움:</strong><br>
+  기존에 정의되지 않은 공격 패턴이나 시그니처를 활용한 <strong>제로데이 공격</strong>은 WAF 시그니처로 탐지되지 않을 가능성이 높습니다.</p>
+  <p><strong>복잡한 요청 본문 처리 부족:</strong><br>
+  JSON, XML, 다중 파라미터, 또는 큰 데이터 페이로드처럼 복잡한 요청 본문을 정확히 분석하지 못해 탐지에 실패하는 경우가 있습니다.</p>
+  <p>✅ 결과적으로, 웹 방화벽(WAF)이 모든 공격을 차단하지 못할 가능성이 매우 높기 때문에, 이를 보완할 수 있는 추가적인 보안 솔루션이 필수적입니다. PLURA-XDR은 이러한 한계를 대비하여 안전하고 신뢰할 수 있는 시스템 구축을 가능하게 합니다.</p>
 </div>
-
 ```
 
 ```mermaid
