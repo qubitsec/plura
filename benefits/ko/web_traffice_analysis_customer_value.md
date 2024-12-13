@@ -43,7 +43,7 @@ graph LR
   - SQL 인젝션(SQL Injection)  
   - 데이터 유출 공격 등  
 
-👉 [자세히](https://github.com/qubitsec/plura/blob/main/benefits/ko/deep_analysis_of_web_request_body.md)
+👉 [자세히](web_traffice/deep_analysis_of_web_request_body.md)
 
 ---
 
@@ -51,7 +51,7 @@ graph LR
 - PLURA-XDR은 SIEM 연동을 통해 발생한 이벤트를 종합적으로 분석하여 단일 패킷 기반 탐지가 어려운 **지속적이고 은밀한 공격**을 탐지합니다.  
 - 상관 분석 결과를 통해 추가적인 방어 전략을 실시간으로 적용할 수 있습니다.  
 
-👉 [자세히](https://github.com/qubitsec/plura/blob/main/benefits/ko/realtime_correlation.md)
+👉 [자세히](web_traffice/realtime_correlation.md)
 
 ---
 
@@ -59,7 +59,7 @@ graph LR
 - 공격이 탐지되면, PLURA-XDR은 자동으로 적절한 대응(예: IP 차단, 추가 탐지 룰 적용)을 수행합니다.  
 - 해킹 시도가 반복되더라도 **지능형 방어 시스템**이 동작하여 지속적인 보호를 제공합니다.  
 
-👉 [자세히](https://github.com/qubitsec/plura/blob/main/benefits/ko/automated_response.md)
+👉 [자세히](web_traffice/automated_response.md)
 
 ---
 
@@ -67,7 +67,7 @@ graph LR
 - PLURA-XDR의 로그와 분석 결과는 직관적으로 제공되어 **보안 관리자**가 빠르게 의사 결정을 내릴 수 있습니다.  
 - 이를 통해 불필요한 리소스 소모를 줄이고, 사이버 보안 운영의 생산성을 극대화합니다.  
 
-👉 [자세히](https://github.com/qubitsec/plura/blob/main/benefits/ko/security_operations_optimization.md)
+👉 [자세히](web_traffice/security_operations_optimization.md)
 
 ---
 
