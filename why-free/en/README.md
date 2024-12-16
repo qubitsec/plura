@@ -58,9 +58,9 @@ PLURA-XDR is committed to helping all companies build a secure business environm
 
 - **Eligibility Criteria for Free Service:**  
 
-  - **Annual sales of less than $1 million**  
-  - **Fewer than 10 employees**  
-  - **Established within the last 10 years**  
+  - [ ] **Annual sales of less than $1 million**  
+  - [ ] **Fewer than 10 employees**  
+  - [ ] **Established within the last 10 years**  
 
   SMEs and startups that meet all of the above conditions can use PLURA-XDR's free services.
 
