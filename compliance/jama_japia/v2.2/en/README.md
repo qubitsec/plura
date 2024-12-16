@@ -1,4 +1,4 @@
-# README
+# README 📜
 
 This document outlines how the **PLURA-XDR solution** supports and complies with the requirements of the **JAMA/JAPIA Cybersecurity Guidelines** (Ver. 2.2, August 1, 2024). It is structured around two perspectives:  
 
