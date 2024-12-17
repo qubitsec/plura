@@ -28,7 +28,7 @@ PLURA-XDR은 모든 기업이 규모와 관계없이 강력한 사이버 보안�
 
    사이버 보안은 단순히 사고 발생 후의 복구를 위한 보험이 아닙니다. 기업의 지속 가능한 성장을 위해 **사전 방어**는 필수적입니다. 해킹 공격은 언제든 발생할 수 있으며, 한 번의 사고가 기업에 큰 피해를 줄 수 있습니다. **사전에 철저히 대비하는 것이 가장 효과적이며 비용도 절감됩니다.**  
 
-👉 [보안은 보험이 아닙니다](https://blog.plura.io/ko/column/cybersecurity_vs_insurance/)  
+👉 [PLURA-Blog 보안은 보험이 아닙니다](https://blog.plura.io/ko/column/cybersecurity_vs_insurance/)  
 
 💻 **PC와 서버의 백신은 윈도우즈 디펜더로 충분합니다.**  
 
