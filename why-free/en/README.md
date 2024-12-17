@@ -30,7 +30,7 @@ Cybersecurity is not just insurance for recovering after an incident. **Proactiv
 
 💻 **Windows Defender is sufficient for PC and server antivirus.**  
 
-Many companies have traditionally purchased antivirus software such as **V3, ALYac, Trend Micro, and Kaspersky**. However, **Windows Defender alone is now sufficient.**  
+Many companies have traditionally purchased antivirus software. However, **Windows Defender alone is now sufficient.**  
 
 What’s more important is addressing **APT** (Advanced Persistent Threat) attacks, which are sophisticated cyber threats. Standard antivirus software is no longer capable of detecting or defending against such advanced attacks. This is why **strong host security (EDR)** is essential.  
 
