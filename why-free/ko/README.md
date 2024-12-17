@@ -36,6 +36,8 @@ PLURA-XDR은 모든 기업이 규모와 관계없이 강력한 사이버 보안�
 
    그러나 더 중요한 것은 **APT**(Advanced Persistent Threat) 공격과 같은 정교한 사이버 위협에 대한 대응입니다. 일반적인 백신만으로는 탐지하거나 방어하기 어렵기 때문에 **강력한 호스트 보안**(EDR)이 필수적입니다.  
 
+👉 [PLURA-Blog PC와 서버의 백신은 윈도우즈 디펜더만으로 충분하다](https://blog.plura.io/ko/column/why-edr-is-necessary/)  
+
 **PLURA-XDR**은 이러한 APT 공격에 대응하는 **최적의 호스트 보안**(EDR) 기능을 제공하며, 서버와 엔드포인트를 완벽하게 보호합니다. 
 
 ---
