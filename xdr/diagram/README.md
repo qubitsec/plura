@@ -1,4 +1,4 @@
-# PLURA-XDR Diagram
+# 🛡️ PLURA-XDR Diagram
 
 ## PLURA-WAF
 
@@ -47,7 +47,7 @@ flowchart LR
 ```
 ---
 
-# xWAF.io
+# 🧱 xWAF.io
 
 ## nCloud
 
