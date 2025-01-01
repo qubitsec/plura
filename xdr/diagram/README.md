@@ -71,17 +71,22 @@ flowchart LR
 flowchart LR
     subgraph nCloud
 		User --> DDoS
+    end
+
+    subgraph Pod
 		DDoS --> ALB1[ALB]
 		DDoS --> ALB2[ALB]
-		
-		ALB1 --> PLURA-WAF1[PLURA-WAF]
-		ALB2 --> PLURA-WAF2[PLURA-WAF]
-		
-	    PLURA-WAF1 --> ALB3[ALB]
-		PLURA-WAF2 --> ALB4[ALB]
+
+        ALB1 --> PLURA-WAF1
+        ALB2 --> PLURA-WAF2
+
+	    PLURA-WAF1 --> Gateway[Gateway]
+		PLURA-WAF2 --> Gateway[Gateway]
     end
 
     subgraph OutSide
+		Gateway --> ALB3[ALB]
+		Gateway --> ALB4[ALB]
 		ALB3 --> WebServer[Web Server]
 		ALB4 --> WebServer[Web Server]
     end 
