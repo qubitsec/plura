@@ -3,7 +3,7 @@
 ---
 
 ## 1️⃣ **Chrome拡張機能のインストールとテスト**
-1. PLURA拡張機能をダウンロード [👉](https://github.com/QubitSecurity/PLURA/tree/main/functions/browser-extention/chrome/web-search)
+1. PLURA拡張機能をダウンロード [👉](https://github.com/QubitSecurity/PLURA/tree/main/functions/browser-extention/chrome/virustotal-search)
 2. PLURAフォルダを作成し、そこに3つのファイルを移動
 
 3. **Chromeブラウザで `chrome://extensions/` にアクセス**
