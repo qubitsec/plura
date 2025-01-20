@@ -3,7 +3,7 @@
 ---
 
 ## 1️⃣ **Chrome 확장 프로그램 설치 및 테스트** 
-1. PLURA 확장 프로그램 다운로드 [👉](https://github.com/QubitSecurity/PLURA/tree/main/functions/browser-extention/chrome/virustotal-search)
+1. PLURA 확장 프로그램 다운로드 [👉](https://github.com/QubitSecurity/PLURA/tree/main/functions/browser-extention/chrome/virustotal-search/script)
 2. PLURA 폴더 생성 후 여기로 3가지 파일 이동
 
 3. **Chrome 브라우저에서 chrome://extensions/로 이동**
