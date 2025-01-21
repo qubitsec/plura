@@ -16,4 +16,4 @@
 
 ---
 
-![Chromeブラウザのコンテキストメニュー](image/menu.png)
+![Chromeブラウザのコンテキストメニュー](image/menu_ja.png)
