@@ -15,4 +15,4 @@ PLURA Release Notes
 
 ---
 
-_Last updated: October 16 2024_
+_Last updated: January 23 2025
