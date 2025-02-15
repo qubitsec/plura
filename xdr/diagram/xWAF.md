@@ -34,9 +34,9 @@ graph LR
 
 - **User**: 최종 사용자  
 - **Oracle-CDN**: 오라클의 CDN 서비스 (기존 AWS CloudFront 대체)  
-- **ALB**: 로드 밸런싱 (AWS ALB를 사용 중이라면, 점진적으로 오라클 LB로 이전도 가능)  
+- **ALB**: 로드 밸런싱  
 - **PLURA-WAF**: 웹 방화벽으로 평상시 트래픽 필터링 및 보안 제공  
-- **WebServer**: 실제 웹 서비스(EC2, 또는 오라클의 Compute 등)  
+- **WebServer**: 실제 웹 서비스(오라클의 Compute 등)  
 
 > **정상 상황**:  
 > - 사용자 요청이 오라클 CDN → ALB → PLURA-WAF 순으로 전달  
