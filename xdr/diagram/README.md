@@ -49,7 +49,7 @@ flowchart LR
 
 # 🛡️ xWAF.io
 
-## nCloud
+## Case with nCloud
 
 ```mermaid
 flowchart LR
