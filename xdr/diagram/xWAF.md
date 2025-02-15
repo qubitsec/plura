@@ -48,10 +48,9 @@ graph LR
 
 ```mermaid
 graph LR
-    User -->|Request| Oracle-CDN
+    User -->|Request| Oracle-DDoS
+    Oracle-DDoS -->|Mitigated Traffic| Oracle-CDN
     Oracle-CDN -->|Traffic| PLURA-WAF
-    PLURA-WAF -- DDoS Attack Detected --> Oracle-DDoS
-    Oracle-DDoS -->|Mitigated Traffic| PLURA-WAF
     PLURA-WAF -->|Forward| WebServer
 ```
 
