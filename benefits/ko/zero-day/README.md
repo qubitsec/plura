@@ -43,7 +43,7 @@ graph TD
 
 ---
 
-### **📌 사례 2: API 취약점 악용 (Zero-Day API Attack)**  
+### **사례 2: API 취약점 악용 (Zero-Day API Attack)**  
 
 #### **📌 API 공격 흐름 (Mermaid Flowchart)**  
 ```mermaid
