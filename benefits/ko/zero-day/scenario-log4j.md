@@ -1,4 +1,4 @@
-## **사례 1: Log4j(Log4Shell) 취약점 공격 탐지**
+## **[사례 1] Log4j(Log4Shell) 취약점 공격 탐지**
 
 ### **1️⃣ 기존 위협 헌팅(SIEM + EDR + NDR + TI)이 탐지하지 못하는 이유**
 | **비교 항목** | **기존 위협 헌팅 (SIEM + EDR + NDR + TI)** | **PLURA 웹 요청 본문 분석 + EDR** |
