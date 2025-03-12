@@ -1,4 +1,4 @@
-## **📌 사례 2: API 취약점 악용 (Zero-Day API Attack)**  
+## **사례 2: API 취약점 악용 (Zero-Day API Attack)**  
 
 ### **📌 1️⃣ 기존 위협 헌팅(SIEM + EDR + NDR + TI)이 탐지하지 못하는 이유**  
 
