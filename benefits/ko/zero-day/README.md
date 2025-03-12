@@ -17,7 +17,7 @@ PLURA의 **웹 요청 본문 로그 분석 + EDR**을 활용하면, 제로 데�
 - 공격자는 웹 애플리케이션의 **입력 필드**(검색창, 로그인 폼 등)에 **특정 문자열**(JNDI 요청 포함)을 삽입하여 원격 코드 실행(RCE, Remote Code Execution)을 수행할 수 있었습니다.  
 - WAF 및 기존 보안 솔루션이 이 패턴을 알기 전까지는, 탐지가 어려운 전형적인 제로 데이 공격이었습니다.  
 
-#### ** Log4j 공격 흐름 (Mermaid Flowchart)**  
+#### **Log4j 공격 흐름**   (Mermaid Flowchart)
 ```mermaid
 graph TD
     A[공격자] -->|JNDI Payload 포함 요청| B[취약한 웹 애플리케이션]
