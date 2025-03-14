@@ -1,81 +1,81 @@
-## `사례 3` 크리덴셜 스터핑(Credential Stuffing) 공격 탐지
+## `Case 3` Detecting Credential Stuffing Attacks
 
-### 1️⃣ 기존 위협 헌팅(SIEM + EDR + NDR + TI)이 탐지하지 못하는 이유
+### 1️⃣ Why Traditional Threat Hunting (SIEM + EDR + NDR + TI) Fails to Detect It
 
-| **비교 항목** | **기존 위협 헌팅 (SIEM + EDR + NDR + TI)** | **PLURA 웹 요청 본문 분석 + EDR** |
+| **Comparison Items** | **Traditional Threat Hunting (SIEM + EDR + NDR + TI)** | **PLURA Web Request Body Analysis + EDR** |
 |----------|-------------------------------|-------------------------------|
-| **탐지 방식** | 정적인 IP, User-Agent 기반 탐지 → 동일한 IP 또는 User-Agent를 차단하지만 변형된 공격을 탐지하기 어려움 | **웹 요청 본문 및 로그인 패턴 분석 → 반복적인 로그인 시도 및 계정 탈취 공격 실시간 탐지 가능** |
-| **웹 애플리케이션 공격 탐지** | 로그인 실패 횟수 증가를 탐지할 수 있지만, 공격 패턴을 분석하지 못함 | **요청 본문을 분석하여 자동화된 로그인 시도(봇 공격) 탐지 및 차단 가능** |
-| **네트워크 트래픽 분석** | NDR이 트래픽 이상 탐지는 가능하지만 로그인 요청의 세부 내용 분석 불가 | **로그인 요청 본문을 분석하여 크리덴셜 스터핑 공격을 탐지 가능** |
-| **엔드포인트 보안** | EDR이 엔드포인트 내 악성코드를 탐지 가능하지만 로그인 패턴과 연계 분석 어려움 | **로그인 후 계정 탈취 시도(비밀번호 변경, 대량 데이터 다운로드 등) 탐지 가능** |
+| **Detection Method** | Static IP and User-Agent-based detection → Blocks the same IP or User-Agent but struggles to detect modified attacks | **Analyzes web request body and login patterns → Can detect and respond to repeated login attempts and account takeover attacks in real-time** |
+| **Web Application Attack Detection** | Can detect an increase in failed login attempts but cannot analyze attack patterns | **Analyzes request body to detect and block automated login attempts (bot attacks)** |
+| **Network Traffic Analysis** | NDR can detect traffic anomalies but cannot analyze the details of login requests | **Analyzes login request bodies to detect credential stuffing attacks** |
+| **Endpoint Security** | EDR can detect malware on endpoints but struggles to correlate login patterns | **Detects account takeover attempts after login (password changes, mass data downloads, etc.)** |
 
 ---
 
-### **2️⃣ 기존 위협 헌팅이 탐지하지 못하는 이유 상세 설명**  
+### **2️⃣ Detailed Explanation of Why Traditional Threat Hunting Fails**  
 
-1. **SIEM + TI(Threat Intelligence) 한계**  
-   - 기존 SIEM 및 위협 인텔리전스(TI)는 **IOC(Indicator of Compromise) 기반 탐지**에 의존하므로,  
-   - **자동화된 로그인 시도(봇 공격)와 정상적인 로그인 요청을 구별하는 행위 기반 분석이 부족**.  
-   - **공격자가 다양한 IP, User-Agent를 사용하여 로그인 시도를 수행하면 기존 탐지 시스템을 우회 가능**.  
+1. **Limitations of SIEM + TI (Threat Intelligence)**  
+   - Traditional SIEM and Threat Intelligence (TI) rely on **IOC (Indicator of Compromise)-based detection**,  
+   - **Lacking behavior-based analysis to distinguish between automated login attempts (bot attacks) and legitimate login requests**.  
+   - **Attackers can bypass detection systems by using various IPs and User-Agents for login attempts**.  
 
-2. **NDR(네트워크 기반 탐지)의 한계**  
-   - NDR은 SSL 복호화를 통해 네트워크 트래픽을 분석할 수 있지만,  
-   - **로그인 요청 본문(payload)까지 분석하지 못하므로, 공격자의 로그인 자동화 시도를 탐지하는 데 한계가 있음**.  
-   - 네트워크 단에서 비정상적인 로그인 트래픽을 감지할 수 있지만, **정상 사용자의 로그인 시도와 공격자의 자동화 로그인 요청을 구별하지 못함**.  
+2. **Limitations of NDR (Network Detection & Response)**  
+   - NDR can analyze network traffic by decrypting SSL,  
+   - **But it cannot analyze login request bodies (payloads), making it difficult to detect automated login attempts by attackers**.  
+   - While NDR can detect abnormal login traffic, **it cannot differentiate between a legitimate user's login attempt and an attacker's automated login requests**.  
 
-3. **EDR(엔드포인트 보안)의 한계**  
-   - EDR은 엔드포인트에서 발생하는 악성코드 실행 및 파일 변조를 탐지할 수 있지만,  
-   - **웹 애플리케이션에서 발생하는 자동화된 로그인 공격을 탐지하는 기능이 부족함**.  
-   - 즉, **로그인 성공 후 공격자가 급격한 데이터 다운로드 또는 계정 설정 변경을 수행해도 탐지가 어려움**.  
-
----
-
-### 3️⃣ PLURA 계정탈취 + EDR을 통한 크리덴셜 스터핑 공격 탐지 방법
-
-✅ **1. 로그인 요청 분석을 통한 자동화 공격 탐지**
-- 로그인 요청(payload)을 정밀 분석하여 자동화된 로그인 시도를 탐지합니다.
-- 짧은 간격으로 반복되는 로그인 시도는 물론, 긴 간격으로 정상 사용자처럼 위장한 공격도 정확히 탐지합니다.
-
-✅ **2. 사용자 행동 분석을 통한 계정 탈취 탐지**
-- 정상 사용자는 로그인 후 짧은 시간 내에 비밀번호를 여러 번 변경하거나 대량의 데이터를 요청하지 않습니다.
-- 비밀번호 변경, 계정정보 수정, 대량 데이터 다운로드 등 비정상 행위를 식별하여 즉각 대응합니다.
-
-✅ **3. 이상 탐지 및 공격 사전 차단**
-- 기존 SIEM 시스템보다 높은 탐지 정확성을 제공합니다.
-- 공격자의 로그인 패턴과 행동을 지속적으로 분석하여 크리덴셜 스터핑과 같은 정교한 공격을 사전에 탐지하고 차단합니다.
-
-✅ **4. 공격 흐름 상관 분석 및 EDR 연계를 통한 추가 공격 대응**
-- 계정 탈취 이후 발생하는 연속된 공격 흐름을 분석하고, 연관된 추가 공격을 차단합니다.
-- 로그인 성공 후 발생하는 악성 프로세스 실행, 악성 파일 설치, 웹쉘 설치 등의 위협도 EDR 연계로 즉시 탐지하고 대응합니다.
+3. **Limitations of EDR (Endpoint Detection & Response)**  
+   - EDR can detect malware execution and file modifications on endpoints,  
+   - **But it lacks the capability to detect automated login attacks within web applications**.  
+   - **Even if an attacker successfully logs in and performs mass data downloads or account setting changes, it is difficult to detect**.  
 
 ---
 
-### 4️⃣ 크리덴셜 스터핑 공격 흐름
+### 3️⃣ Detecting Credential Stuffing Attacks with PLURA Account Takeover + EDR
+
+✅ **1. Detecting Automated Attacks via Login Request Analysis**  
+- Performs deep analysis of login request payloads to detect automated login attempts.  
+- Accurately detects both rapid repeated login attempts and slow, stealthy attacks mimicking legitimate users.  
+
+✅ **2. Detecting Account Takeover via User Behavior Analysis**  
+- A normal user does not change their password multiple times or request large amounts of data within a short period.  
+- Identifies abnormal actions such as password changes, account modifications, and mass data downloads for immediate response.  
+
+✅ **3. Anomaly Detection and Preemptive Attack Prevention**  
+- Provides higher detection accuracy compared to traditional SIEM systems.  
+- Continuously analyzes attackers' login patterns and behaviors to detect and block sophisticated attacks like credential stuffing.  
+
+✅ **4. Correlating Attack Flows and EDR Integration for Additional Threat Response**  
+- Analyzes the sequence of attacks following account takeover and blocks related additional threats.  
+- Detects and responds instantly to malicious process execution, malicious file installations, and web shell installations post-login through EDR integration.  
+
+---
+
+### 4️⃣ Credential Stuffing Attack Flow  
 
 ```mermaid
 graph TD
-    A[공격자] -->|유출된 계정 정보로 로그인 시도| B[로그인 서버]
-    B -->|반복적인 로그인 실패| C[Brute Force 공격 감지 안됨]
-    C -->|일부 계정 로그인 성공| D[계정 탈취]
-    D -->|비밀번호 변경, 데이터 탈취| E[공격 성공]
+    A[Attacker] -->|Attempts login using leaked credentials| B[Login Server]
+    B -->|Repeated login failures| C[Brute Force Attack Undetected]
+    C -->|Some accounts successfully logged in| D[Account Takeover]
+    D -->|Password change, data theft| E[Attack Success]
 
-    %% PLURA 탐지 및 대응
-    B -->|웹 요청 본문 분석| X[PLURA 탐지 시스템]
-    X -->|반복된 로그인 시도 탐지| Y[공격 차단]
-    D -->|계정 사용 행위 분석| Z[비정상적 활동 감지 및 추가 인증 요청]
+    %% PLURA Detection and Response
+    B -->|Web Request Body Analysis| X[PLURA Detection System]
+    X -->|Detects repeated login attempts| Y[Attack Blocked]
+    D -->|Analyzes account activity| Z[Detects abnormal behavior and requests additional authentication]
 ```
 
 ---
 
-### **5️⃣ 결론: PLURA 웹 요청 본문 분석 + EDR이 크리덴셜 스터핑 공격 탐지에서 뛰어난 이유**  
+### **5️⃣ Conclusion: Why PLURA Web Request Body Analysis + EDR Excels in Detecting Credential Stuffing Attacks**  
 
-✅ **기존 위협 헌팅(SIEM + EDR + NDR + TI)은 로그인 실패 횟수를 기반으로 탐지하지만, 자동화된 로그인 공격 패턴을 실시간으로 분석하지 못함**.  
-✅ **PLURA-XDR은 로그인 요청 본문을 분석하고 행위 기반 탐지를 수행하여, 자동화된 크리덴셜 스터핑 공격을 탐지 가능**.  
-✅ **AI 기반 이상 탐지를 적용하여, 정상 사용자의 로그인 패턴과 비교 후 비정상적인 로그인 시도를 차단 가능**.  
-✅ **로그인 성공 후 사용자의 행동을 분석하여, 비정상적인 계정 탈취 시도를 조기에 탐지 가능**.  
-✅ **PLURA는 EDR과 연계하여, 로그인 후 악성 프로세스 실행 및 웹쉘 설치 여부까지 탐지하여 추가 공격 차단 가능**.  
+✅ **Traditional threat hunting (SIEM + EDR + NDR + TI) relies on login failure counts but cannot analyze automated login attack patterns in real-time**.  
+✅ **PLURA-XDR analyzes login request bodies and performs behavior-based detection, enabling the detection of automated credential stuffing attacks**.  
+✅ **Applies AI-based anomaly detection to compare normal user login patterns and block abnormal login attempts**.  
+✅ **Analyzes user behavior after login to detect early signs of account takeover**.  
+✅ **Integrates with EDR to detect and prevent additional attacks such as malicious process execution and web shell installations post-login**.  
 
-🔹 **PLURA-XDR은 기존 보안 체계가 탐지하지 못하는 크리덴셜 스터핑 공격을 실시간으로 탐지하고 차단할 수 있는 차세대 보안 플랫폼입니다.** 🚀  
+🔹 **PLURA-XDR is a next-generation security platform capable of detecting and blocking credential stuffing attacks in real-time, where traditional security systems fail.** 🚀
 
 ---
  
