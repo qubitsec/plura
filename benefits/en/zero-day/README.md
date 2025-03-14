@@ -9,7 +9,7 @@ By utilizing PLURA’s **web request body log analysis + EDR**, zero-day attacks
 
 ---
 
-1. [Case 1: Detecting Log4j (Log4Shell) Vulnerability Attack](scenario-log4j.md)
+1. [Case 1: Detecting Log4j (Log4Shell) Vulnerability Attack](https://github.com/qubitsec/plura/blob/ea71f00f009a5368c1b127c2e9ff936c1bcfac3c/benefits/en/zero-day/scenario-log4j.md)
 
 2. [Case 2: Exploiting API Vulnerabilities (Zero-Day API Attack)](scenario-api-attack.md)
 
