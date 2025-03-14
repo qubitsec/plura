@@ -1,75 +1,75 @@
-## `사례 2` API 취약점 악용 (Zero-Day API Attack)   
+## `Case 2` Exploiting API Vulnerabilities (Zero-Day API Attack)   
 
-### **1️⃣ 기존 위협 헌팅(SIEM + EDR + NDR + TI)이 탐지하지 못하는 이유**  
+### **1️⃣ Why Traditional Threat Hunting (SIEM + EDR + NDR + TI) Fails to Detect It**  
 
-| **비교 항목** | **기존 위협 헌팅 (SIEM + EDR + NDR + TI)** | **PLURA 웹 요청 본문 분석 + EDR** |
+| **Comparison Items** | **Traditional Threat Hunting (SIEM + EDR + NDR + TI)** | **PLURA Web Request Body Analysis + EDR** |
 |----------|-------------------------------|-------------------------------|
-| **탐지 방식** | 룰 기반 탐지, 이상 트래픽 감지 가능하지만 세부적인 웹 요청 본문 분석 불가 | **웹 요청 본문 및 사용자 행동 분석 기반 탐지 가능** |
-| **웹 애플리케이션 공격 탐지** | API 요청 헤더, URL 분석 가능하지만 요청 본문 분석 불가 | **API 요청 본문을 분석하여 API Abuse 및 이상 요청 탐지 가능** |
-| **네트워크 트래픽 분석** | NDR이 SSL 복호화 후 트래픽을 분석할 수 있지만 API 호출의 내용까지 분석하지 못함 | **API 요청 본문을 정밀 분석하여 인증 우회 및 권한 상승 시도 탐지 가능** |
-| **엔드포인트 보안** | EDR이 엔드포인트 내 악성코드 및 프로세스 실행 탐지는 가능하지만 API 요청과 연계 분석 어려움 | **웹 서버의 API 호출 패턴을 감지하고, 데이터 유출 가능성을 분석하여 차단 가능** |
+| **Detection Method** | Rule-based detection, capable of detecting abnormal traffic but unable to analyze detailed web request bodies | **Capable of detecting based on web request body and user behavior analysis** |
+| **Web Application Attack Detection** | Able to analyze API request headers and URLs but not request bodies | **Can analyze API request bodies to detect API abuse and abnormal requests** |
+| **Network Traffic Analysis** | NDR can decrypt SSL and analyze traffic, but it cannot examine API call contents | **Can analyze API request bodies in detail to detect authentication bypass and privilege escalation attempts** |
+| **Endpoint Security** | EDR can detect malware and process execution on endpoints, but struggles to correlate with API requests | **Can detect API call patterns on web servers and analyze potential data exfiltration risks** |
 
-### **2️⃣ 기존 위협 헌팅이 탐지하지 못하는 이유 상세 설명**  
+### **2️⃣ Detailed Explanation of Why Traditional Threat Hunting Fails**  
 
-1. **SIEM + TI(Threat Intelligence) 한계**  
-   - 기존 SIEM 및 위협 인텔리전스(TI)는 **IOC(Indicator of Compromise) 기반 탐지**에 의존하므로,  
-   - 신규 API 취약점과 같은 **Zero-Day 공격을 탐지하기 어렵고, 정상적인 API 호출과 악성 API 요청을 구별하는 행위 기반 탐지가 부족함**.  
-   - 공격자가 **기존에 알려진 취약점이 아닌 새로운 API 엔드포인트를 악용할 경우 탐지가 어렵다**.  
+1. **Limitations of SIEM + TI (Threat Intelligence)**  
+   - Traditional SIEM and Threat Intelligence (TI) rely on **IOC (Indicator of Compromise)-based detection**,  
+   - Making it difficult to detect **Zero-Day attacks like new API vulnerabilities and differentiate normal API calls from malicious API requests**.  
+   - If an attacker exploits **a new API endpoint that has not been previously identified as vulnerable, detection becomes challenging**.  
 
-2. **NDR(네트워크 기반 탐지)의 한계**  
-   - NDR은 SSL 복호화를 통해 네트워크 트래픽을 분석할 수 있지만,  
-   - **API 요청 본문(payload)까지 분석하지 못하므로, 악성 API 호출을 탐지하는 데 한계가 있음**.  
-   - 네트워크 단에서 API 트래픽의 이상 여부를 탐지할 수 있지만, **API 내부 데이터 조작(예: User ID 변경, Role 변경, OAuth 토큰 남용 등)은 탐지할 수 없음**.  
+2. **Limitations of NDR (Network Detection & Response)**  
+   - NDR can analyze network traffic by decrypting SSL,  
+   - **But it cannot analyze API request bodies (payloads), making it difficult to detect malicious API calls**.  
+   - While NDR can detect anomalies in API traffic at the network level, **it cannot identify internal API data manipulations (e.g., modifying User IDs, changing roles, abusing OAuth tokens, etc.)**.  
 
-3. **EDR(엔드포인트 보안)의 한계**  
-   - EDR은 엔드포인트에서 발생하는 악성코드 실행 및 파일 변조를 탐지할 수 있지만,  
-   - **웹 애플리케이션에서 발생하는 API 남용 및 인증 우회 공격을 탐지하는 기능이 부족함**.  
-   - 즉, API 요청이 정상적으로 보이면, **공격자가 계정 탈취 또는 데이터 유출을 시도하더라도 탐지가 어려움**.  
-
----
-
-### **3️⃣ PLURA 웹 요청 본문 분석 + EDR을 통한 탐지 방법**  
-
-✅ **1) API 요청 본문을 분석하여 비정상적인 요청 패턴 탐지**  
-   - **PLURA는 API 요청의 본문(payload)을 정밀 분석**하여,  
-   - **공격자가 특정 User ID를 변경하면서 과도한 API 요청을 하는 패턴을 탐지 가능**.  
-   - 정상적인 API 호출과 비교하여, **비정상적인 파라미터 조작(예: 권한 상승 시도, 데이터 조회 범위 변경 등)을 탐지 가능**.  
-
-✅ **2) 웹 애플리케이션 로그와 사용자 행동 데이터를 상관 분석**  
-   - 정상 사용자는 `GET /api/getUserData?userId=1234` 요청을 한 번만 수행하지만,  
-     - 공격자는 여러 `userId`를 변경하여 반복 요청 (`GET /api/getUserData?userId=5678`, `userId=91011` 등).  
-   - **이러한 비정상적인 액세스 패턴을 분석하여 자동 탐지 및 차단 가능**.  
-
-✅ **3) EDR을 활용한 추가 보안 탐지**  
-   - API를 악용하여 웹 서버에 악성 페이로드가 업로드될 경우,  
-   - **파일 무결성(FIM, File Integrity Monitoring) 기능을 통해 웹 서버 파일이 변조되는 즉시 탐지 가능**.  
-
-✅ **4) 공격 흐름을 상관 분석하여 추가 공격 차단**  
-   - **로그 데이터, API 요청 패턴, 사용자 활동 데이터를 결합하여, 인증 우회 및 데이터 유출을 탐지하고 차단 가능**.  
+3. **Limitations of EDR (Endpoint Security)**  
+   - EDR can detect malware execution and file modifications on endpoints,  
+   - **But it lacks the capability to detect API abuse and authentication bypass attacks within web applications**.  
+   - If an API request appears normal, **an attacker attempting account takeover or data exfiltration may go undetected**.  
 
 ---
 
-### **4️⃣ API 취약점 악용 공격 흐름**  
+### **3️⃣ Detection Methods Using PLURA Web Request Body Analysis + EDR**  
+
+✅ **1) Detecting Abnormal Request Patterns via API Request Body Analysis**  
+   - **PLURA performs in-depth analysis of API request bodies (payloads)**,  
+   - **Detecting patterns where attackers modify specific User IDs and make excessive API requests**.  
+   - By comparing with normal API calls, **it can detect abnormal parameter manipulations (e.g., privilege escalation attempts, data scope modifications, etc.)**.  
+
+✅ **2) Correlating Web Application Logs with User Behavior Data**  
+   - A normal user executes a single `GET /api/getUserData?userId=1234` request,  
+     - While an attacker repeatedly changes `userId` (`GET /api/getUserData?userId=5678`, `userId=91011`, etc.).  
+   - **These abnormal access patterns can be analyzed for automatic detection and blocking**.  
+
+✅ **3) Additional Security Detection Using EDR**  
+   - If a malicious payload is uploaded to the web server through API exploitation,  
+   - **File Integrity Monitoring (FIM) detects and alerts on immediate file modifications on the web server**.  
+
+✅ **4) Correlating Attack Flows to Block Additional Attacks**  
+   - **By combining log data, API request patterns, and user activity, authentication bypass and data exfiltration can be detected and blocked**.  
+
+---
+
+### **4️⃣ Attack Flow of API Vulnerability Exploitation**  
 ```mermaid
 graph TD
-    A[공격자] -->|API Brute Force 공격| B[취약한 API 서버]
-    B -->|다른 사용자 계정으로 정보 요청| C[권한 검증 미흡]
-    C -->|계정 데이터 유출| D[공격 성공]
+    A[Attacker] -->|API Brute Force Attack| B[Vulnerable API Server]
+    B -->|Requesting data using other user accounts| C[Weak Authorization Check]
+    C -->|Account Data Exfiltration| D[Attack Success]
 
-    %% PLURA 탐지 및 대응
-    B -->|웹 요청 본문 분석| X[PLURA 탐지 시스템]
-    X -->|비정상적인 API 호출 패턴 탐지| Y[공격 차단]
-    B -->|API 호출 횟수 분석| Z[비정상적 호출 탐지 및 차단]
+    %% PLURA Detection and Response
+    B -->|Web Request Body Analysis| X[PLURA Detection System]
+    X -->|Detecting Abnormal API Call Patterns| Y[Attack Blocked]
+    B -->|Analyzing API Call Frequency| Z[Abnormal Request Detection & Blocking]
 ```
 
 ---
 
-### **5️⃣ 결론: PLURA 웹 요청 본문 분석 + EDR이 API 취약점 탐지에서 뛰어난 이유**  
-✅ **기존 위협 헌팅(SIEM + EDR + NDR + TI)은 API 요청의 헤더 및 URL만 분석하며, 본문 분석이 불가능하여 새로운 API 취약점(Zero-Day Attack) 탐지가 어려움**.  
-✅ **PLURA-XDR은 API 요청 본문을 분석하고 행위 기반 탐지를 수행하여, 인증 우회, 권한 상승, API Abuse 공격을 실시간 탐지 가능**.  
-✅ **네트워크 트래픽 분석(NDR)으로 탐지할 수 없는 API 내부 요청 패턴까지 분석 가능**.  
-✅ **공격자가 기존 룰을 우회하여 새로운 API 요청 변형을 시도하더라도, 이상 행위를 탐지하여 API 남용을 차단할 수 있음**.  
+### **5️⃣ Conclusion: Why PLURA Web Request Body Analysis + EDR Excels in API Vulnerability Detection**  
+✅ **Traditional threat hunting (SIEM + EDR + NDR + TI) only analyzes API request headers and URLs, making it difficult to detect new API vulnerabilities (Zero-Day Attacks) since request body analysis is unavailable**.  
+✅ **PLURA-XDR analyzes API request bodies and performs behavior-based detection, enabling real-time detection of authentication bypass, privilege escalation, and API abuse attacks**.  
+✅ **It can analyze internal API request patterns that cannot be detected through network traffic analysis (NDR)**.  
+✅ **Even if attackers attempt to bypass existing rules by modifying API request formats, abnormal behavior can still be detected to prevent API abuse**.  
 
-🔹 **PLURA-XDR은 기존 보안 체계가 탐지하지 못하는 API 취약점 공격을 실시간으로 탐지하고 차단할 수 있는 차세대 보안 플랫폼입니다.** 🚀  
+🔹 **PLURA-XDR is a next-generation security platform that detects and blocks API vulnerability attacks in real-time, where traditional security systems fail.** 🚀  
 
 ---
