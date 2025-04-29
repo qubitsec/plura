@@ -117,11 +117,3 @@ sudo python3 detect_bpfdoor.py
 4. Suricata 경고 발생 또는 eBPF 로그 확인 → 공격 탐지  
 
 ---
-
-이 구성을 통해, **실제 BPFDoor와 유사한 동작**을 재현하면서도  
-- 탐지 룰 검증  
-- eBPF 기반 포렌식  
-- 네트워크/프로세스 모니터링 기법  
-
-등을 **안전하게** 연습하실 수 있습니다.  
-必要に応じて Vagrantfile や Dockerfile、pcap 샘플などもご要望ください。
