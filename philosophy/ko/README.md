@@ -182,12 +182,17 @@ PLURA-XDR은 위 문제점들을 해결하기 위해 수직적으로 통합된 �
 
 ---
 
-### 참고 자료
+### 📖 함께 읽기
 
-1. [IPS와 NDR 차이와 한계 with ChatGPT](http://blog.plura.io/?p=18953)
-2. [웹 방화벽 우회 공격 대응](http://blog.plura.io/?p=19174)
-3. [크리덴셜 스터핑 공격 대응하기 with ChatGPT](http://blog.plura.io/?p=18955)
-4. [Splunk에서 요청 본문 로그 분석하기 with ChatGPT](http://blog.plura.io/?p=18910)
-5. [WAF vs IPS vs UTM 비교하여 웹 공격 최상의 제품 선택하기 with ChatGPT](http://blog.plura.io/?p=19190)
+* [다중∙계층 보안, 정말 필요한가?T](https://blog.plura.io/ko/column/overkill-multi-layer-security/)  
+* [전통적인 SOC vs PLURA-XDR 플랫폼T](https://blog.plura.io/ko/column/traditional_soc_vs_plura_xdr/)  
+* [PLURA-XDR을 활용한 공급망 보안 강화 방안T](https://blog.plura.io/ko/column/campaign_supplychain_security/)  
+* [보안은 보험일까?T](https://blog.plura.io/ko/column/cybersecurity_vs_insurance/)  
+* [해킹 사건에 대응하는 클라우드 보안 플랫폼의 중요성T](https://blog.plura.io/ko/column/importance_of_cloud_security_platform_in_hacking_incidents/)  
+* [우리는 왜 GET/POST 로그를 분석하는가?](https://blog.plura.io/ko/column/why_analyze_get_post_logs/)  
+* [웹의 전체 로그 분석은 왜 중요한가?](https://blog.plura.io/ko/respond/very_important_analyze_web_logs/)
+* [크리덴셜 스터핑 공격 대응하기](https://blog.plura.io/ko/respond/credential-stuffing-countermeasures/)   
+* [WAF vs IPS vs UTM: 웹 공격 최적의 방어 솔루션 선택하기](https://blog.plura.io/ko/column/waf_ips_utm_comparison/)  
+* [침입차단시스템(IPS) 이해하기](https://blog.plura.io/ko/column/ips_understanding/)  
 
 ---
