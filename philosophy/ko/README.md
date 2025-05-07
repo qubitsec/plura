@@ -24,7 +24,7 @@
 
 ---
 
-### 2000년대: 통합 보안 이벤트 관리와 자동화된 대응의 발전
+### 📅 2000년대: 통합 보안 이벤트 관리와 자동화된 대응의 발전
 
 2000년대에 들어서면서 단일 제품의 한계가 드러나기 시작했고, **로그 관리 시스템** (LMS, Log Management System)에서 **통합 보안 이벤트 관리** (SIEM, Security Information and Event Management) 시스템으로 발전하게 되었습니다. 여러 네트워크 장비의 로그를 통합 수집하여, **상관 분석**을 통해 이상 징후를 탐지하는 방식입니다.
 
@@ -62,7 +62,7 @@
 
 ## 2) 문제 인식과 해결: PLURA의 혁신적 접근
 
-### PLURA의 문제 의식 🌐
+### 💡 PLURA의 문제 의식  
 
 PLURA는 다음과 같은 문제 의식에서 출발했습니다:
 
@@ -98,7 +98,7 @@ PLURA는 다음과 같은 문제 의식에서 출발했습니다:
 
 ---
 
-### 웹 트래픽과 암호화의 영향
+### 🌐 웹 트래픽과 암호화의 영향
 
 인터넷 상의 TCP/IP 패킷 중 **웹 트래픽** (HTTP/HTTPS)은 대략 80~90%를 차지하며, 그중 HTTPS 비중은 83%에서 93%에 이르는 것으로 추정됩니다. 대부분이 **암호화된 웹 트래픽**으로 이루어져 있으며, 이는 네트워크 보안의 패러다임에 큰 영향을 미치고 있습니다.
 
@@ -136,7 +136,7 @@ PLURA는 다음과 같은 문제 의식에서 출발했습니다:
 
 ---
 
-### PLURA-XDR을 통한 문제 해결
+### ✅ PLURA-XDR을 통한 문제 해결
 
 PLURA-XDR은 위 문제점들을 해결하기 위해 수직적으로 통합된 보안 플랫폼을 제공합니다.
 
@@ -174,7 +174,7 @@ PLURA-XDR은 위 문제점들을 해결하기 위해 수직적으로 통합된 �
 
 ## 3) 강력한 보안에 대한 제안: PLURA-XDR의 미래와 우리의 제안
 
-정보보안 문제는 단순한 솔루션 선택을 넘어서 **보안 관제** (MSS, Managed Security Service)와의 유기적인 운영이 필요합니다. 그러나 현재의 보안 관제 서비스는 제한된 정보와 운영 시스템 접근의 제약으로 인해 충분한 보호를 제공하기 어려운 상황입니다. 이러한 한계는 PLURA가 인식한 문제의 핵심이기도 합니다.
+정보보안 문제는 단순한 솔루션 선택을 넘어서 **보안 관제** (SOC, Security Operation Center)와의 유기적인 운영이 필요합니다. 그러나 현재의 보안 관제 서비스는 제한된 정보와 운영 시스템 접근의 제약으로 인해 충분한 보호를 제공하기 어려운 상황입니다. 이러한 한계는 PLURA가 인식한 문제의 핵심이기도 합니다.
 
 **PLURA-XDR 플랫폼**은 상세한 탐지 설명과 원본 로그를 제공하여 보안 관리자가 **보다 정확하고 신속한 판단**을 할 수 있도록 돕고, 운영 시스템에 직접 접근하지 않고도 **침해 사고를 분석**할 수 있는 환경을 제공합니다. 또한, **실시간 대응**을 통해 진행 중인 공격을 즉시 차단하고, 위협에 대한 **가시성과 컨텍스트**를 제공하여 주도적인 대응이 가능하도록 합니다.
 
@@ -184,15 +184,16 @@ PLURA-XDR은 위 문제점들을 해결하기 위해 수직적으로 통합된 �
 
 ### 📖 함께 읽기
 
+* [우리는 왜 GET/POST 로그를 분석하는가?](https://blog.plura.io/ko/column/why_analyze_get_post_logs/)  
+* [웹의 전체 로그 분석은 왜 중요한가?](https://blog.plura.io/ko/respond/very_important_analyze_web_logs/)  
+
 * [다중∙계층 보안, 정말 필요한가?](https://blog.plura.io/ko/column/overkill-multi-layer-security/)  
 * [전통적인 SOC vs PLURA-XDR 플랫폼](https://blog.plura.io/ko/column/traditional_soc_vs_plura_xdr/)  
 * [PLURA-XDR을 활용한 공급망 보안 강화 방안](https://blog.plura.io/ko/column/campaign_supplychain_security/)  
-* [보안은 보험일까?](https://blog.plura.io/ko/column/cybersecurity_vs_insurance/)  
 * [해킹 사건에 대응하는 클라우드 보안 플랫폼의 중요성](https://blog.plura.io/ko/column/importance_of_cloud_security_platform_in_hacking_incidents/)  
-* [우리는 왜 GET/POST 로그를 분석하는가?](https://blog.plura.io/ko/column/why_analyze_get_post_logs/)  
-* [웹의 전체 로그 분석은 왜 중요한가?](https://blog.plura.io/ko/respond/very_important_analyze_web_logs/)
 * [크리덴셜 스터핑 공격 대응하기](https://blog.plura.io/ko/respond/credential-stuffing-countermeasures/)   
 * [WAF vs IPS vs UTM: 웹 공격 최적의 방어 솔루션 선택하기](https://blog.plura.io/ko/column/waf_ips_utm_comparison/)  
 * [침입차단시스템(IPS) 이해하기](https://blog.plura.io/ko/column/ips_understanding/)  
+* [보안은 보험일까?](https://blog.plura.io/ko/column/cybersecurity_vs_insurance/)  
 
 ---
