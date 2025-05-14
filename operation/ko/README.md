@@ -79,4 +79,33 @@
 
 ---
 
+```mermaid
+sequenceDiagram
+    participant 외부공격자 as 외부 공격자
+    participant 웹서버 as 웹 서버
+    participant XDR as PLURA-XDR
+    participant FW as 방화벽/WAF
+    participant 관리자 as 보안 관리자
+
+    %% ① 공격 시도
+    외부공격자->>웹서버: 반복적인 로그인 시도<br>SQL Injection 등 공격 수행
+
+    %% ② 이상 징후 탐지
+    웹서버-->>XDR: 로그 및 이벤트 전송
+    XDR->>XDR: 이상 탐지 및 분석<br>(크리덴셜 스터핑, 웹 공격 감지)
+    XDR->>XDR: 공격자 IP 및 위협 수준 분류
+
+    %% ③ 자동 차단 연동
+    XDR->>FW: Syslog 또는 REST API로<br>공격자 IP 전송 및 차단 명령
+    FW->>FW: 방화벽 룰 업데이트<br>또는 IP 블랙리스트 등록
+
+    %% ④ 관리자 대응
+    XDR-->>관리자: 실시간 알림 전송<br>(메일/슬랙 등)
+    관리자->>XDR: 대시보드 접속 및 상세 확인
+    관리자->>FW: 필요 시 추가 IP 수동 등록<br>정책 조정
+
+    %% ⑤ 리포트 및 대응 내역 기록
+    XDR->>관리자: 월간 리포트 자동 생성<br>보안 감사 대응 자료 활용
+```
+
 
