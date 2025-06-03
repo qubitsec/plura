@@ -1,4 +1,4 @@
-# PLURA-XDR の哲学
+# PLURA-XDR の哲学 🧠
 
 > 「るサイバーセキュリティは単一製品ではなく、プラットフォームであるべきだ。」  
 > – リー・クラリッチ（Lee Klarich）、Palo Alto Networks CPO
@@ -7,7 +7,7 @@
 
 ## 1) 情報セキュリティの歴史と発展
 
-### 1990年代：ネットワーク境界セキュリティの始まり
+### 📅 1990年代：ネットワーク境界セキュリティの始まり
 
 情報セキュリティシステムの基礎は、1990年代の**ネットワーク境界セキュリティ**（Network Perimeter Security Model）中心のアプローチから始まりました。これは、ネットワークの接続ポイントを一元化し、その地点で強力なセキュリティ制御を適用してセキュリティ目標を達成する構造です。そのために、単一の製品ではなく複数のセキュリティ製品を**多段階でネットワーク上に配置**し、さまざまな攻撃に対応するコンセプトが導入されました。
 
@@ -24,7 +24,7 @@
 
 ---
 
-### 2000年代：統合セキュリティイベント管理と自動化された対応の発展
+### 📅 2000年代：統合セキュリティイベント管理と自動化された対応の発展
 
 2000年代に入り、単一製品の限界が明らかになり始め、**ログ管理システム**（LMS、Log Management System）から**統合セキュリティイベント管理**（SIEM、Security Information and Event Management）システムへと進化しました。複数のネットワーク機器のログを統合収集し、**相関分析**を通じて異常兆候を検知する方式です。
 
@@ -40,7 +40,7 @@
 4. **運用自動化** (SOAR, Security Orchestration, Automation and Response)
 ---
 
-### 2020年代：ゼロトラストアーキテクチャの登場
+### 📅 2020年代：ゼロトラストアーキテクチャの登場
 
 2020年代に入り、セキュリティの核心パラダイムは「**全てを疑え**」という原則に基づく**ゼロトラストアーキテクチャ**（ZTA、Zero Trust Architecture）へと拡張しています。ゼロトラストは内部ネットワークをもはや信頼せず、ネットワーク内外のすべてのアクセスを継続的に検証し、認証と権限付与を通じて厳格に管理するセキュリティモデルです。
 
@@ -62,7 +62,7 @@ PLURA-XDRは、このゼロトラストの概念を垂直的に統合し、さ�
 
 ## 2) 問題認識と解決：PLURAの革新的アプローチ
 
-### PLURAの問題意識
+### 💡 PLURAの問題意識
 
 PLURAは次のような問題意識から出発しました：
 
@@ -98,7 +98,7 @@ PLURAは次のような問題意識から出発しました：
 
 ---
 
-### ウェブトラフィックと暗号化の影響
+### 🌐 ウェブトラフィックと暗号化の影響
 
 インターネット上のTCP/IPパケットのうち、**ウェブトラフィック**（HTTP/HTTPS）はおおよそ80～90%を占め、その中でHTTPSの比率は83%から93%に達すると推定されています。ほとんどが**暗号化されたウェブトラフィック**で構成されており、これはネットワークセキュリティのパラダイムに大きな影響を与えています。
 
@@ -136,7 +136,7 @@ PLURAは次のような問題意識から出発しました：
 
 ---
 
-### PLURA-XDRを通じた問題解決
+### ✅ PLURA-XDRを通じた問題解決
 
 PLURA-XDRは、これらの問題点を解決するために垂直的に統合されたセキュリティプラットフォームを提供します。
 
@@ -181,3 +181,20 @@ PLURA-XDRは、これらの問題点を解決するために垂直的に統合�
 このようなPLURA-XDRの差別化されたアプローチは、**完璧なハッキング対応体制**を実現し、最新のセキュリティ要件に合わせて絶えず進化しています。今こそ、**PLURA-XDR**を通じて強力で革新的な情報セキュリティの未来を築いてみませんか。PLURA-XDRは、組織の情報セキュリティを新たに定義する**最先端統合セキュリティプラットフォーム**です。
 
 ---
+
+### 📖 PLURA Blog
+
+* [なぜ私たちはGET/POSTログを分析するのか？](https://blog.plura.io/ja/column/why_analyze_get_post_logs/)
+* [Webの完全なログ分析はなぜ重要なのか?](https://blog.plura.io/ja/respond/very_important_analyze_web_logs/)
+* [多層・階層型セキュリティ、本当に必要か？](https://blog.plura.io/ja/column/overkill-multi-layer-security/)
+* [従来のSOC対PLURA-XDRプラットフォーム](https://blog.plura.io/ja/column/traditional_soc_vs_plura_xdr/)
+* [PLURA-XDRを活用したサプライチェーンセキュリティ強化策](https://blog.plura.io/ja/column/campaign_supplychain_security/)  
+* [ハッキング事件に対応するクラウドセキュリティプラットフォームの重要性](https://blog.plura.io/ja/column/importance_of_cloud_security_platform_in_hacking_incidents/)  
+* [クレデンシャルスタッフィング攻撃に対応する](https://blog.plura.io/ja/respond/credential-stuffing-countermeasures/)   
+* [WAF vs IPS vs UTM：Web攻撃に最適な防御ソリューションを選択する](https://blog.plura.io/ja/column/waf_ips_utm_comparison/)  
+* [侵入遮断システム（IPS）を理解する](https://blog.plura.io/ja/column/ips_understanding/)  
+* [セキュリティと保険の違い](https://blog.plura.io/ja/column/cybersecurity_vs_insurance/)  
+
+---
+
+
