@@ -188,5 +188,6 @@ This differentiated approach of PLURA-XDR realizes a **comprehensive hacking res
 * [Why Is Full Web Log Analysis Important?](https://blog.plura.io/en/respond/very_important_analyze_web_logs/)
 * [Why Do We Analyze GET/POST Logs?](https://blog.plura.io/en/column/why_analyze_get_post_logs/)  
 * [Strategies for Responding to Zero-Day Attacks](https://blog.plura.io/en/column/responding_to_zero_day_attacks/)
-* [Using the Advanced Audit Policy from a MITRE ATT&CK Perspective](https://blog.plura.io/en/threats/mitre-attack-advanced-audit-policy-with-chatgpt/)
+* [Using the Advanced Audit Policy from a MITRE ATTCK Perspective](https://blog.plura.io/en/threats/mitre-attack-advanced-audit-policy-with-chatgpt/)
+
 ---
