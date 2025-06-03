@@ -1,4 +1,4 @@
-# PLURA-XDR Philosophy
+# PLURA-XDR Philosophy 🧠
 
 > "Cybersecurity is delivered in natively integrated capabilities from platforms, not point products"  
 > – Lee Klarich, Palo Alto Networks CPO
@@ -7,7 +7,7 @@
 
 ## 1) The History and Evolution of Information Security
 
-### 1990s: The Beginning of Network Perimeter Security
+### 📅 1990s: The Beginning of Network Perimeter Security
 
 The foundation of information security systems began in the 1990s with an approach centered on **Network Perimeter Security**. This structure aims to achieve security objectives by centralizing network access points and applying strong security controls at those points. To this end, the concept of deploying multiple security products **in multiple layers across the network** was introduced to respond to various attacks, rather than relying on a single product.
 
@@ -24,7 +24,7 @@ Representative network perimeter security products include:
 
 ---
 
-### 2000s: The Development of Integrated Security Event Management and Automated Response
+### 📅 2000s: The Development of Integrated Security Event Management and Automated Response
 
 In the 2000s, the limitations of single products began to emerge, leading to the evolution from **Log Management Systems** (LMS) to **Security Information and Event Management** (SIEM) systems. SIEM systems collect logs from various network devices and detect anomalies through **correlation analysis**.
 
@@ -40,7 +40,7 @@ While the core goal of integrated security event management is to detect anomali
 4. **Security Orchestration, Automation and Response** (SOAR)
 ---
 
-### 2020s: The Emergence of Zero Trust Architecture
+### 📅 2020s: The Emergence of Zero Trust Architecture
 
 In the 2020s, the core paradigm of security is expanding to **Zero Trust Architecture** (ZTA), based on the principle of "**never trust, always verify**." Zero Trust is a security model that no longer trusts internal networks, continuously verifying all access within and outside the network, and strictly managing through authentication and authorization.
 
@@ -62,7 +62,7 @@ Through these features, PLURA-XDR continuously verifies all access within and ou
 
 ## 2) Problem Recognition and Solutions: PLURA's Innovative Approach
 
-### PLURA's Problem Recognition
+### 💡 PLURA's Problem Recognition
 
 PLURA started from the following problem recognition:
 
@@ -98,7 +98,7 @@ PLURA started from the following problem recognition:
 
 ---
 
-### Impact of Web Traffic and Encryption
+### 🌐 Impact of Web Traffic and Encryption
 
 Among TCP/IP packets on the internet, **web traffic** (HTTP/HTTPS) accounts for approximately 80–90%, and HTTPS is estimated to comprise between 83% and 93% of that. Most of it consists of **encrypted web traffic**, which significantly impacts the network security paradigm.
 
@@ -136,7 +136,7 @@ Due to the increase in encrypted traffic, existing network security devices are 
 
 ---
 
-### Problem Solving Through PLURA-XDR
+### ✅ Problem Solving Through PLURA-XDR
 
 PLURA-XDR provides a vertically integrated security platform to address these challenges:
 
@@ -180,4 +180,13 @@ The **PLURA-XDR platform** offers detailed detection descriptions and original l
 
 This differentiated approach of PLURA-XDR realizes a **comprehensive hacking response system** and is continuously evolving to meet the latest security demands. Now, build a strong and innovative future of information security with **PLURA-XDR**. It is a **state-of-the-art integrated security platform** that will redefine your organization's information security.
 
+---
+
+### 📖 함께 읽기
+
+* [Is Investigating Hacking Through Log Analysis Just a Myth?](https://blog.plura.io/en/column/myth/)  
+* [Why Is Full Web Log Analysis Important?](https://blog.plura.io/en/respond/very_important_analyze_web_logs/)
+* [Why Do We Analyze GET/POST Logs?](https://blog.plura.io/en/column/why_analyze_get_post_logs/)  
+* [Strategies for Responding to Zero-Day Attacks](https://blog.plura.io/en/column/responding_to_zero_day_attacks/)
+* [Using the Advanced Audit Policy from a MITRE ATT&CK Perspective](https://blog.plura.io/en/threats/mitre-attack-advanced-audit-policy-with-chatgpt/)
 ---
