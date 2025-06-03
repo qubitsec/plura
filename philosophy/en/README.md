@@ -182,7 +182,7 @@ This differentiated approach of PLURA-XDR realizes a **comprehensive hacking res
 
 ---
 
-### 📖 함께 읽기
+### 📖 PLUBA Blog
 
 * [Is Investigating Hacking Through Log Analysis Just a Myth?](https://blog.plura.io/en/column/myth/)  
 * [Why Is Full Web Log Analysis Important?](https://blog.plura.io/en/respond/very_important_analyze_web_logs/)
