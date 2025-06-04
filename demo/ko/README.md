@@ -5,7 +5,7 @@
 2. [웹쉘 공격](lol/webshell_attack_steps.md)  
 
 ## BPFDoor 악성코드 공격 분석  
-1. [SKT 유심 해킹 사건](casestudy/bpfdoor.md)  
+1. [SKT 유심 해킹 사건](casestudy/bpfdoor/bpfdoor_analysis.md)  
 
 
 ## PLURA-XDR 대응 😊  
@@ -13,3 +13,4 @@
 
 ## 더 많은 정보를 확인해 보세요  
 👉 [PLURA-BLOG](https://blog.plura.io/ko)  
+
