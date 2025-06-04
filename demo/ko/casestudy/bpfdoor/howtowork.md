@@ -35,7 +35,7 @@ sudo ./bpfdoor \
   --listen-port 9999      # 매직 패킷 포트
 ```
 
-> 이 상태로 대기하면, 지정한 UDP 포트로 “magic sequence”를 받았을 때 쉘(Back-Connect)을 열きます。
+> 이 상태로 대기하면, 지정한 UDP 포트로 “magic sequence”를 받았을 때 쉘(Back-Connect)을 엽니다.
 
 ---
 
