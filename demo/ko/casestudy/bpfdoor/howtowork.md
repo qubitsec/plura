@@ -11,7 +11,7 @@
   sudo apt-get update
   sudo apt-get install -y build-essential git python3 python3-pip bpfcc-tools
   ```
-- **네트워크**: VM은ホストオンリーまたは内部ブリッジで外部アクセスを遮断
+- **네트워크**: VM은 호스트 전용 또는 내부 브리지로 외부 접근을 차단
 
 ---
 
