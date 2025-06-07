@@ -35,6 +35,7 @@ reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v Update /t REG_SZ
 ```
 
 | 순서  | TID                                     | 행위                         |
+| --- | --------------------------------------- | -------------------------- |
 | 2-3   | T1053.005 – Scheduled Task              | SYSTEM 권한 확보 위한 예약 작업 생성      |
 
 ```cmd
