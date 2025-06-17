@@ -4,8 +4,10 @@ PLURA Release Notes
 
 ## Major Changes
 
-### 1. [Update 2024](https://github.com/qubitsec/plura/blob/main/update/v5.5/en/2024.md)
+### 1. [Update 2024](https://github.com/qubitsec/plura/blob/main/update/v5.5/en/2025.md)
+
+### 2. [Update 2024](https://github.com/qubitsec/plura/blob/main/update/v5.5/en/2024.md)
 
 ---
 
-_Last updated: October 16 2024_
+_Last updated: May 2 2025_
