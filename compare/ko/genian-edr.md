@@ -395,7 +395,7 @@
 
 ---
 
-## Radar Chart
+## 🕸️ Radar Chart
 
 ![PLURA-EDR vs Genian-EDR](img/PLURA-EDR_Genian-EDR.png)
 
