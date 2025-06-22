@@ -394,3 +394,24 @@
   단, 콘텐츠 기반의 정밀 탐지 및 시각화·포렌식 기능은 상대적으로 제한적입니다.
 
 ---
+
+## Radar Chart
+
+![PLURA-EDR vs Genian-EDR](img/PLURA-EDR_Genian-EDR.png)
+
+위 레이더 차트는 **PLURA-EDR**과 **Genian EDR**의 기능을 7개 항목별로 비교한 시각화입니다.
+각 항목은 영어로 표기되었으며, 점수는 1\~5의 상대 등급 기준으로 다음과 같이 적용되었습니다:
+
+### 📊 평가 기준 (Score 기준: 1 = 미지원 \~ 5 = 매우 우수)
+
+| 항목                              | PLURA‑EDR | Genian EDR |
+| ------------------------------- | --------- | ---------- |
+| **MITRE ATTCK Mapping**         | 5         | 2          |
+| **Log Collection & Analysis**   | 5         | 3          |
+| **Post-Incident Forensics**     | 5         | 3          |
+| **Real-Time Response**          | 5         | 3          |
+| **Agent Performance**           | 5         | 4          |
+| **Operator UX & Console**       | 5         | 3          |
+| **Extensibility & Integration** | 5         | 3          |
+
+
