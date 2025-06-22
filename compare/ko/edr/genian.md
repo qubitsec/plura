@@ -142,7 +142,6 @@ EDR(Endpoint Detection and Response) 솔루션을 비교함에 있어 아래의 
 * **PLURA‑EDR**
 
   * Windows·Linux 이벤트, Sysmon, PowerShell 등 **광범위한 로그**를 수집해 MITRE TTP 상관 분석과 **포렌식 재구성**에 강점을 보입니다.
-  * 다만 **고급 감사 정책을 에이전트가 자동으로 켜 준다**는 근거는 공개 문서에서 확인되지 않았으므로, 실제 PoC에서 정책 적용 방식을 확인하시기 바랍니다.
 
 * **Genian EDR**
 
