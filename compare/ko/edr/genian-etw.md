@@ -1,4 +1,4 @@
-# 📄 PLURA‑EDR vs. Genian EDR: 고급 행위 기반 탐지 기능 비교 (개정 2025‑06‑22 v3)
+# 📄 PLURA‑EDR vs. Genian EDR: 고급 행위 기반 탐지 기능 비교
 
 **Event Tracing for Windows** (ETW)는 Windows 커널/사용자 모드 이벤트를 실시간 제공하는 Microsoft 공식 로깅 메커니즘입니다. 두 제품 모두 ETW를 활용하지만, “**어떤 Provider를 얼마나, 어떤 방식으로 구독·분석하느냐**”가 차이를 만듭니다.
 
