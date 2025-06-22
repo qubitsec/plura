@@ -110,6 +110,8 @@ EDR(Endpoint Detection and Response) 솔루션을 비교함에 있어 아래의 
 | **포렌식 로그 추적 가능성**       | 모든 탐지 이벤트에 대해 원 로그 보존 → 시점별 상태 재구성 및 정밀 추적 가능                          | 포렌식 기능은 제공되나, 로그 기반으로 전체 흐름을 추적하기에는 수집 범위에 제한 있음          |
 | **Linux/Unix 로그 수집 지원** | Linux Audit, Syslog, Auth.log 등 다양한 Linux/Unix 로그 수집 가능                | 제한적 지원 (Windows 중심의 단말 탐지 기능에 집중됨)                        |
 
+🧷 [왜 ETW는 중요한가?](https://w.plura.io/compare/ko/edr/genian-etw.html)
+
 ---
 
 ### 🔍 주요 비교 요약
