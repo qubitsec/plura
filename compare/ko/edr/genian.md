@@ -251,23 +251,23 @@ EDR(Endpoint Detection and Response) 솔루션을 비교함에 있어 아래의 
 ## ⚙️ 5. 성능 및 에이전트 사양 비교
 
 본 표는 **2025‑06‑22 기준 공개 매뉴얼·FAQ**에서 확인된 **정량 데이터**만을 사용했습니다.
-PLURA‑EDR 수치는 FAQ 항목 “에이전트: 사용량(usage)”·“에이전트: 최소 및 권장 사양”에서,
+PLURA‑EDR 수치는 FAQ 항목 “[에이전트: 사용량](https://docs.plura.io/ko/faq/comm/usage)”·“[에이전트: 최소 및 권장 사양](https://docs.plura.io/ko/faq/comm/arecommend)”에서,
 Genian EDR 수치는 관리자 가이드(Insights E 2.0.138)에서 인용했습니다.
 
-| 항목                  | **PLURA‑EDR**                                                                                               | **Genian EDR (Insights E 2.0.138)**                 |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| **설치 파일 크기**        | 미공개(FAQ에 값 없음)                                                                                              | 미공개                                                 |
-| **설치 후 디스크 점유량**    | 미공개                                                                                                         | 미공개                                                 |
-| **CPU 사용률 (Idle)**  | **약 1 % 내외** (Windows·Linux 공통) ([docs.plura.io][1])                                                        | 공식 수치 미공개                                           |
-| **메모리 사용량 (Idle)**  | **Windows ≤ 100 MB**<br>**Linux ≤ 50 MB** ([docs.plura.io][1])                                              | **약 25 MB** (“Light Agent … about 25 MB resources”) |
-| **리소스 자동 제어**       | CPU ≥ 50 % 또는 Mem ≥ 512 MB 시 에이전트 자동 재시작 → 로그 유실 없음 ([docs.plura.io][1])                                    | “부하 최소화 설계” 문구만 명시(자동 재시작 수치 미공개)                   |
-| **로컬 로그 저장 구조**     | 실시간 전송 우선, 디스크 저장 최소화(제품 설명)                                                                                | 일부 로그를 로컬 캐시 후 전송                                   |
-| **저사양 단말 최소/권장 HW** | Win 최소 1 GHz CPU / 2 GB RAM, 권장 2 GHz / 4 GB<br>Linux 최소 1 GHz / 1 GB, 권장 2 GHz / 2 GB ([docs.plura.io][2]) | 공식 HW 스펙 문서 미공개                                     |
-| **중앙관리 확장성**        | SaaS 콘솔(멀티테넌트) – 클라우드 스케일링                                                                                  | 온‑프레미스 Policy Server + 로그 서버 스케일‑아웃                 |
-| **공격 탐지 기반**        | MITRE TTP 상관 분석 + Matrix UI                                                                                 | XBA(행위)·ML·IOC + MITRE 매핑 UI                        |
-| **운영 자동화 수준**       | 탐지 → 정책 → 포렌식 워크플로우(Forensic 모듈)                                                                            | Threat ResponsePolicy로 Kill/삭제·알림 (Shutdown 미지원)    |
-| **공급망 보안 이력**       | 공개 CVE 이력 없음                                                                                                | NAC 계열 2023‑24 CVE 다수 → 패치·전자서명 강화                  |
-| **지원 플랫폼**          | Windows Server/Workstation, Linux 서버                                                                        | Windows 7/10 (32·64‑bit), Linux/Unix 미지원            |
+| 항목                  | **PLURA‑EDR**                                                                                                                                             | **Genian EDR (Insights E 2.0.138)**                 |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **설치 파일 크기**        | 미공개(FAQ에 값 없음)                                                                                                                                            | 미공개                                                 |
+| **설치 후 디스크 점유량**    | 미공개                                                                                                                                                       | 미공개                                                 |
+| **CPU 사용률 (Idle)**  | **약 1 % 내외** (Windows·Linux 공통) ([에이전트: 사용량](https://docs.plura.io/ko/faq/comm/usage))                                                                    | 공식 수치 미공개                                           |
+| **메모리 사용량 (Idle)**  | **Windows ≤ 100 MB**<br>**Linux ≤ 50 MB** ([에이전트: 사용량](https://docs.plura.io/ko/faq/comm/usage))                                                          | **약 25 MB** (“Light Agent … about 25 MB resources”) |
+| **리소스 자동 제어**       | CPU ≥ 50 % 또는 Mem ≥ 512 MB 시 에이전트 자동 재시작 → 로그 유실 없음 ([에이전트: 사용량](https://docs.plura.io/ko/faq/comm/usage))                                                | “부하 최소화 설계” 문구만 명시(자동 재시작 수치 미공개)                   |
+| **로컬 로그 저장 구조**     | 실시간 전송 우선, 디스크 저장 최소화(제품 설명)                                                                                                                              | 일부 로그를 로컬 캐시 후 전송                                   |
+| **저사양 단말 최소/권장 HW** | Win 최소 1 GHz CPU / 2 GB RAM, 권장 2 GHz / 4 GB<br>Linux 최소 1 GHz / 1 GB, 권장 2 GHz / 2 GB ([에이전트: 최소 및 권장 사양](https://docs.plura.io/ko/faq/comm/arecommend)) | 공식 HW 스펙 문서 미공개                                     |
+| **중앙관리 확장성**        | SaaS 콘솔(멀티테넌트) – 클라우드 스케일링                                                                                                                                | 온‑프레미스 Policy Server + 로그 서버 스케일‑아웃                 |
+| **공격 탐지 기반**        | MITRE TTP 상관 분석 + Matrix UI                                                                                                                               | XBA(행위)·ML·IOC + MITRE 매핑 UI                        |
+| **운영 자동화 수준**       | 탐지 → 정책 → 포렌식 워크플로우(Forensic 모듈)                                                                                                                          | Threat ResponsePolicy로 Kill/삭제·알림 (Shutdown 미지원)    |
+| **공급망 보안 이력**       | 공개 CVE 이력 없음                                                                                                                                              | NAC 계열 2023‑24 CVE 다수 → 패치·전자서명 강화                  |
+| **지원 플랫폼**          | Windows Server/Workstation, Linux 서버                                                                                                                      | Windows 7/10 (32·64‑bit), Linux/Unix 미지원            |
 
 ---
 
@@ -285,12 +285,10 @@ Genian EDR 수치는 관리자 가이드(Insights E 2.0.138)에서 인용�
 
 ### ✅ 결론
 
-* **PLURA‑EDR**는 공식 FAQ에 **CPU 약 1 % / 메모리 100 MB 이하(Windows), 50 MB 이하(Linux)** 라는 경량 수치를 명시하고 있습니다. 또한 **CPU 50 %·메모리 512 MB**를 넘기면 에이전트가 자동 재시작하여 안정적으로 자원을 회수하도록 설계되어 있습니다.
+* **PLURA‑EDR**는 공식 FAQ에 **CPU 약 1 % / 메모리 100 MB 이하(Windows), 50 MB 이하(Linux)** 라는 경량 수치를 명시하고 있습니다.
+  또한 **CPU 50 %·메모리 512 MB**를 넘기면 에이전트가 자동 재시작하여 안정적으로 자원을 회수하도록 설계되어 있습니다.
 * **Genian EDR**는 메모리 약 25 MB 사용이라는 경량 지표를 문서에 밝히고 있으나, CPU·디스크·자동 재시작 임계값은 공개돼 있지 않습니다.
 * 설치 크기·디스크 점유량 등은 양사 모두 공식 수치가 없으므로, **PoC에서 직접 측정**해야 합니다.
-
-[1]: https://docs.plura.io/ko/faq/comm/usage "에이전트: 사용량 | Korean"
-[2]: https://docs.plura.io/ko/faq/comm/arecommend "에이전트: 최소 및 권장 사양 | Korean"
 
 ---
 
