@@ -42,7 +42,7 @@ EDR(Endpoint Detection and Response) 솔루션을 비교함에 있어 아래의 
 
 ## 🧠 1. MITRE ATT\&CK 자동 탐지 및 매핑 기능 비교
 
-모든 탐지 이벤트에 대해 MITRE ATT\&CK의 TTP(Tactics, Techniques, and Procedures)를 자동 식별하고 시각화할 수 있는 기능을 기준으로 **PLURA-EDR**과 **Genian EDR**을 비교합니다.
+모든 탐지 이벤트에 대해 MITRE ATT\&CK의 TTP(Tactics, Techniques, and Procedures)를 자동 식별하고 시각화할 수 있는 기능을 기준으로 비교합니다.
 
 | 항목                   | **PLURA-EDR**                                                             | **Genian EDR**                                                             |
 | -------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
