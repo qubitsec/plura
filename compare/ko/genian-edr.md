@@ -397,7 +397,7 @@
 
 ## 🕸️ Radar Chart
 
-![PLURA-EDR vs Genian-EDR](https://w.plura.io/img/PLURA-EDR_Genian-EDR.png)
+![PLURA-EDR vs Genian-EDR](https://w.plura.io/img/PLURA-EDR_Genian-EDR.png){ width=600 }
 
 위 레이더 차트는 **PLURA-EDR**과 **Genian EDR**의 기능을 7개 항목별로 비교한 시각화입니다.
 각 항목은 영어로 표기되었으며, 점수는 1\~5의 상대 등급 기준으로 다음과 같이 적용되었습니다:
