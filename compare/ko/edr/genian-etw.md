@@ -60,8 +60,8 @@
 | **리소스/노이즈 제어**           | 기본 Provider 전체 수집 → 폭넓은 가시성        | 필요한 Provider만 선택 → 노이즈·리소스 절감 가능    |
 
 > **결론**
-> *PLURA‑EDR은 **ETW Provider를 자동 구독**해 즉시 폭넓은 행위 데이터를 확보하고, 추가로 Sysmon까지 병행해 “데이터 다양성·이중화”가 강점입니다.
-> Genian EDR은 **관리자 정의 Provider/ID**를 선택적으로 수집해 “노이즈 절감·리소스 최적화”를 꾀할 수 있으나, 초기 설정이 필수입니다.*
+> *PLURA‑EDR은 **ETW Provider를 자동 구독**해 즉시 폭넓은 행위 데이터를 확보하고, 추가로 Sysmon까지 병행해 “데이터 다양성·이중화”가 강점입니다.  
+> Genian EDR은 **관리자 정의 Provider/ID**를 선택적으로 수집해 “노이즈 절감·리소스 최적화”를 꾀할 수 있으나, 초기 설정이 필수입니다.*  
 > 두 제품 모두 고급 메모리 기반 공격을 탐지하지만, 실제 운영환경에 투입하기 전 **동일 PoC 시나리오**(Reflective DLL Injection, PowerShell LOLBins, Fileless Malware 등)로 탐지 품질·리소스 사용·TCO를 비교하시길 권장합니다.
 
 ---
