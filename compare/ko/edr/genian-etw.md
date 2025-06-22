@@ -15,7 +15,7 @@
 
 ## 1 | ETW 지원 방식 비교 <a name="1-etw-지원-방식-비교"></a>
 
-| 항목                   | **PLURA‑EDR (PLURA‑XDR)**                                                            | **Genian EDR**                                                   |
+| 항목                   | **PLURA‑EDR **                                                            | **Genian EDR**                                                   |
 | -------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | **ETW 지원 여부**        | ✅ **ETW Provider 직접 구독 + 필요 시 Sysmon 경유**<br>(Windows EDR Agent 4.x ↑)               | ✅ **ETW Provider 직접 구독** (관리자 정책 기반)                             |
 | **기본 활성 Provider 수** | **다수의 보안 Provider가 “자동” 활성화**<br>‣ Threat‑Intelligence, Kernel‑Process, PowerShell 등 | **0 개 (기본값 “빈 리스트”)**<br>관리자가 원하는 Provider/ID를 **수동 등록**해야 수집 시작 |
