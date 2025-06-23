@@ -41,7 +41,7 @@ EDR(Endpoint Detection and Response) 솔루션을 비교함에 있어 아래의 
 
 ## 🧠 1. MITRE ATT\&CK 자동 탐지 및 매핑 기능 비교
 
-수백 개에 이르는 MITRE Technique ID(TID)를 **에이전트가 탐지·분석 단계에서 자동 식별해 주는지**를 핵심 기준으로 다시 검증‑정리했습니다.
+수백 개에 이르는 MITRE Technique ID(TID)를 **에이전트가 탐지·분석 단계에서 자동 식별해 주는지**를 핵심 기준으로 검증‑정리했습니다.
 근거는 다음 공식 문서에서 확인했습니다.
 
 * **PLURA‑EDR**
