@@ -4,7 +4,7 @@
 
 ---
 
-## 1. 로그 분석으로 해킹 조사하기는 신화(Myth)? <span style="font-size: smaller;">[↗️](https://blog.plura.io/ko/column/myth/)</span>
+## 1. 로그 분석으로 해킹 조사하기는 신화(Myth)? [<img src="↗️_small.png" width="12"/>](https://blog.plura.io/ko/column/myth/)
 
 - **주제**: 정보보안의 제1원칙은 로그 분석입니다. 하지만 많은 시스템에서 **애초에 로그가 존재하지 않는** 것이 현실입니다.  
 - **내용**: “로그 분석해 주세요.” “로그가 없는데요.”  
