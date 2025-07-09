@@ -49,7 +49,7 @@ flowchart LR
     end
 
     subgraph Monitoring
-        PLURA-SIEM[PLURA-SIEM] --> CERT-MSS[CERT-MSS]
+        PLURA-SIEM[PLURA-SIEM] --> SOC[SOC]
     end 
 
     PLURA-WAF1 --> PLURA-SIEM
