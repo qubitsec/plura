@@ -53,7 +53,7 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    subgraph nCloud
+    subgraph Oracle OCI
 		User --> DDoS
     end
 
