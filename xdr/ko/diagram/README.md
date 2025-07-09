@@ -4,29 +4,30 @@
 
 ---
 
-## 🔰 1. PLURA-WAF 구성
+## 🔰 1. PLURA-WAF 구성 (일반 환경)
 
 ```mermaid
 flowchart LR
-    User --> CloudFront
-    CloudFront --> ALB1[ALB]
-    CloudFront --> ALB2[ALB]
+    User --> FW[Firewall]
+    FW --> LB1[Load Balancer]
+    FW --> LB2[Load Balancer]
     
-    ALB1 --> PLURA-WAF1[PLURA-WAF]
-    ALB2 --> PLURA-WAF2[PLURA-WAF]
+    LB1 --> PLURA-WAF1[PLURA-WAF]
+    LB2 --> PLURA-WAF2[PLURA-WAF]
     
-    PLURA-WAF1 --> ALB3[ALB]
-    PLURA-WAF2 --> ALB4[ALB]
+    PLURA-WAF1 --> LB3[Load Balancer]
+    PLURA-WAF2 --> LB4[Load Balancer]
 
-    ALB3 --> WebServer[Web Server]
-    ALB4 --> WebServer[Web Server]
+    LB3 --> WebServer[Web Server]
+    LB4 --> WebServer[Web Server]
 ````
 
 ### ✔️ 설명
 
-* AWS CloudFront와 ALB(Application Load Balancer)를 통해 **고가용성 구조**를 구성합니다.
-* **PLURA-WAF**는 리버스 프록시 방식으로 배치되며, 웹 트래픽을 실시간 분석 및 차단합니다.
-* 이중화된 구조를 통해 장애 시 자동 우회가 가능하며, 웹서버에는 최종적으로 클린 트래픽만 전달됩니다.
+* 방화벽(Firewall) 이후 다중 로드밸런서를 구성하여 **고가용성 및 이중화**를 확보합니다.
+* **PLURA-WAF**는 리버스 프록시 방식으로 중간 경유 지점에 위치하며, 웹 트래픽을 실시간 분석하고 공격을 차단합니다.
+* WAF 이후 또 다른 로드밸런서를 통해 트래픽을 최종 웹 서버로 분산하며, 이중화된 전체 구조는 **장애 시 무중단 우회**를 지원합니다.
+* 해당 구성은 AWS, Azure, Oracle 등의 클라우드 환경뿐 아니라 온프레미스 환경에서도 동일하게 적용 가능합니다.
 
 ---
 
@@ -105,10 +106,10 @@ flowchart LR
 | 항목    | PLURA-WAF       | PLURA-XDR        | xWAF.io (OCI)              |
 | ----- | --------------- | ---------------- | -------------------------- |
 | 방식    | 리버스 프록시         | 통합 보안 플랫폼        | 미러 기반 또는 경량 에이전트           |
-| 구성    | ALB → WAF → Web | WAF + EDR + SIEM | DDoS → WAF → Gateway → Web |
+| 구성    | LB → WAF → Web  | WAF + EDR + SIEM | DDoS → WAF → Gateway → Web |
 | 로그 연동 | X               | O (SIEM 연동)      | O (클라우드 로그 분석 기반)          |
-| 배포 환경 | AWS             | AWS 또는 온프레미스     | Oracle OCI                 |
-| 특징    | WAF 단독 운용       | WAF + EDR + 분석   | 경량 구성 + 고성능                |
+| 배포 환경 | 온프레미스 또는 클라우드   | 범용 (클라우드/온프레미스)  | Oracle OCI                 |
+| 특징    | 구조 단순, 독립 운용 가능 | 실시간 탐지 + 상관분석    | 경량 구성 + 고성능                |
 
 ---
 
