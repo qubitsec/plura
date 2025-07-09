@@ -36,8 +36,8 @@ flowchart LR
 ```mermaid
 flowchart LR
     subgraph Network
-        User --> CloudFront
-        CloudFront --> ALB1[ALB]
+        User --> FW[Firewall]
+        FW --> ALB1[ALB]
         
         ALB1 --> PLURA-WAF1[PLURA-WAF]
         ALB1 --> PLURA-WAF2[PLURA-WAF]
