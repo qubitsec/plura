@@ -49,7 +49,7 @@ flowchart LR
 
 # 🛡️ xWAF.io
 
-## Case with nCloud
+## Oracle OCI
 
 ```mermaid
 flowchart LR
