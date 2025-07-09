@@ -1,6 +1,6 @@
 # 🧱 PLURA-XDR Architecture Overview
 
-본 문서는 PLURA-XDR의 주요 구성 요소인 **PLURA-WAF**, **PLURA-XDR 통합 보안 플랫폼**, 그리고 **xWAF.io (Oracle OCI 기반)**의 네트워크 아키텍처를 시각화하고 설명합니다. 각 구성은 보안성, 확장성, 그리고 실시간 탐지/대응 기능을 중심으로 설계되어 있습니다.
+본 문서는 PLURA-XDR의 주요 구성 요소인 **PLURA-WAF**, **PLURA-XDR 통합 보안 플랫폼**, 그리고 **xWAF.io** (Oracle OCI 기반)의 네트워크 아키텍처를 시각화하고 설명합니다. 각 구성은 보안성, 확장성, 그리고 실시간 탐지/대응 기능을 중심으로 설계되어 있습니다.
 
 ---
 
