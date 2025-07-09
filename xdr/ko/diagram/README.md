@@ -78,8 +78,8 @@ flowchart LR
 		DDoS --> ALB1[ALB]
 		DDoS --> ALB2[ALB]
 
-        ALB1 --> PLURA-WAF1
-        ALB2 --> PLURA-WAF2
+        ALB1 --> PLURA-WAF1[PLURA-WAF]
+        ALB2 --> PLURA-WAF2[PLURA-WAF]
 
 	    PLURA-WAF1 --> Gateway[Gateway]
 		PLURA-WAF2 --> Gateway[Gateway]
