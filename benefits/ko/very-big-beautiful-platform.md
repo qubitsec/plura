@@ -13,7 +13,7 @@
 
 최근 보안 침해 사례는 대부분 웹을 통한 초기 침투 → 권한 상승 → 내부 확산 → 데이터 유출 또는 랜섬웨어 공격과 같은 다단계 과정을 거치며, MITRE ATT&CK 프레임워크는 이러한 실제 공격 흐름을 매우 정확하게 반영하고 있습니다.
 
-🔗[MITRE ATT&CK 관점에서 본 SKT 웹 기반 침해 사례](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)
+🔗 [MITRE ATT&CK 관점에서 본 SKT 웹 기반 침해 사례](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)
 
 하지만 이번 질의에서는 MITRE ATT&CK 기반 탐지·대응 체계에 대한 질문이 포함되지 않았으며, 이는 공격자의 침투 방식과 보안 제품의 대응 구조를 충분히 반영하지 못한 접근 방식으로 보입니다. 결과적으로 **공격자의 침투 후 조치에 집중하는 제한적 평가**가 될 수 있다는 점을 유의해야 합니다.
 
@@ -31,7 +31,7 @@
 
 이와 관련해 SentinelOne의 자율형 AI가 이미 완성 단계에 이르렀다면, 글로벌 EDR 시장 점유율에서 1위 제품 대비 큰 격차가 존재하는 이유는 무엇인지 객관적으로 검토해볼 필요가 있습니다.
 
-🔗[SentinelOne의 자율형 AI 보안은 정말 AI인가?](https://blog.plura.io/ko/column/is-sentinelone-really-ai/)
+🔗 [SentinelOne의 자율형 AI 보안은 정말 AI인가?](https://blog.plura.io/ko/column/is-sentinelone-really-ai/)
 
 ---
 
@@ -39,7 +39,7 @@
 **실제 공격자의 침입 전개 방식 + 전사적 위협 탐지 범위 + 프레임워크 기반 대응 구조**를 함께 갖춘 플랫폼이어야 합니다.  
 PLURA-XDR은 이러한 조건을 충족하며, 실제 공격 흐름을 전 단계에 걸쳐 탐지하고 대응할 수 있는 **기술적 완성도와 독자성**을 갖춘 **유일한 국산 통합 보안 플랫폼**입니다.
 
-🔗[왜 지금 당장 '소버린 사이버보안'을 준비해야 하는가?](https://blog.plura.io/ko/column/sovereign-cybersecurity/)  
+🔗 [왜 지금 당장 '소버린 사이버보안'을 준비해야 하는가?](https://blog.plura.io/ko/column/sovereign-cybersecurity/)  
 
 다음에서는 앞서 설명드린 관점을 바탕으로 PLURA-XDR의 구체적인 기술적 우위와 실전 대응 능력을 설명드리겠습니다.
 
@@ -155,6 +155,16 @@ PLURA는 **MITRE ATT&CK 프레임워크 기반의 위협 분석 체계**를 제�
 
 > 해당 흐름은 MITRE 기준의 `Execution`, `Defense Evasion`, `Impact` 단계에 해당하며,
 > **탐지부터 대응, 복구까지 모두 자동화된 실전 사례**입니다.
+
+---
+
+🔎 **관련 실전 사례 더 보기**
+
+* 🔗 [DragonForce 랜섬웨어 실전 탐지: PLURA-XDR로 막아낸 위협](https://blog.plura.io/ko/respond/dragonforce/)
+  → 신종 랜섬웨어의 탐지 및 자동 차단 사례
+
+* 🔗 [PLURA를 활용한 BPFDoor 탐지: Audit 로그와 포렌식 기반 대응](https://blog.plura.io/ko/respond/bpfdoor_with_plura/)
+  → 리눅스 백도어 탐지 사례, 커널 감사 로그 기반 분석
 
 ---
 
