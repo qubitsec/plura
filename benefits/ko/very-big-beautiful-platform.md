@@ -160,10 +160,10 @@ PLURA는 **MITRE ATT&CK 프레임워크 기반의 위협 분석 체계**를 제�
 
 🔎 **관련 실전 사례 더 보기**
 
-* 🔗 [DragonForce 랜섬웨어 실전 탐지: PLURA-XDR로 막아낸 위협](https://blog.plura.io/ko/respond/dragonforce/)
+* 🔗 [DragonForce 랜섬웨어 실전 탐지: PLURA-XDR로 막아낸 위협](https://blog.plura.io/ko/respond/dragonforce/)  
   → 신종 랜섬웨어의 탐지 및 자동 차단 사례
 
-* 🔗 [PLURA를 활용한 BPFDoor 탐지: Audit 로그와 포렌식 기반 대응](https://blog.plura.io/ko/respond/bpfdoor_with_plura/)
+* 🔗 [PLURA를 활용한 BPFDoor 탐지: Audit 로그와 포렌식 기반 대응](https://blog.plura.io/ko/respond/bpfdoor_with_plura/)  
   → 리눅스 백도어 탐지 사례, 커널 감사 로그 기반 분석
 
 ---
