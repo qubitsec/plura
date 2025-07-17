@@ -108,7 +108,7 @@ PLURA-XDR의 핵심 구성 요소는 다음의 3종 AI 에이전트입니다.
 > 이를 통해 **시장 확장성과 반복 수익 구조를 동시에 확보**할 수 있습니다.
 
 
-🔗 [PLURA-XDR vs SentinelOne 비교](plura-xdr-vs-sentinelone-comparison.md)
+🔗 [PLURA-XDR vs SentinelOne 비교](./comparison/sentinelone.md)
 
 ---
 
@@ -188,6 +188,8 @@ PLURA-XDR은 이러한 환경에 대응하기 위해 **폐쇄망 전용 에이�
 > 📣 **PLURA-XDR은 탐지, 대응, 증적까지 아우르는 ‘통합 보안 플랫폼’으로, 산업군별 맞춤 전략이 가능한 구조적 확장성을 갖추고 있습니다.**  
 > **모듈화된 설계와 유연한 배포 방식**을 통해, **시장 지배력 확대와 채널 전략 최적화**라는 두 가지 목표를 동시에 충족할 수 있습니다.
 
+
+🔗 [국내 기반 확대 전략 경쟁 비교](./comparison/domestic-strategy.md)
 ---
 
 ## 🤝 3. 채널 및 파트너 확대 – 퍼블릭 클라우드 MSP 중심 전략
