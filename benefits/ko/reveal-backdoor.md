@@ -58,3 +58,12 @@ PLURA-XDR의 EDR은 MITRE ATT\&CK 기반 행위 분석 체계와 결합하여,
 > PLURA-XDR의 본질적인 차별성입니다.
 
 ---
+
+## 🌟 PLURA-Blog
+- [지금 해킹 공격이 진행 중인지 확인하려면?](https://blog.plura.io/ko/column/why-plura-xdr-merit/)  
+- [PLURA를 활용한 BPFDoor 탐지: Audit 로그와 포렌식 기반 대응](https://blog.plura.io/ko/respond/bpfdoor_with_plura/)  
+- [SKT 해킹 가설: 유심 데이터 탈취와 BPFDoor 설치, 어떻게 이뤄졌나?](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)  
+- [DragonForce 랜섬웨어 실전 탐지: PLURA-XDR로 막아낸 위협](https://blog.plura.io/ko/respond/dragonforce/)  
+- [파일리스(Fileless) 공격 대응 필수 체크리스트](https://blog.plura.io/ko/column/fileless_checklist/)  
+- [웹 서비스 공격에 대응하기 against 샤오치잉(Xiaoqiying)](https://blog.plura.io/ko/respond/web-service-attack-response-against-xiaoqiying/)  
+
