@@ -30,7 +30,7 @@
 
 통합 보안 이벤트 관리의 핵심 목표는 상관 분석을 통해 이상 징후를 탐지하는 것이지만, 더 나아가 **보안 운영 자동화** (SOAR, Security Orchestration, Automation and Response) 시스템을 통해 자동화된 대응을 제안하게 되었습니다.
 
-![PLURA-XDR Lineup](https://w.plura.io/img/plura_support.jpg)
+![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
 
 용어 설명:
 
@@ -46,7 +46,7 @@
 
 기존 경계 보안 방식과 달리, ZTA는 **데이터 보호의 중심**을 네트워크 경계가 아닌 자산(데이터 및 애플리케이션)으로 이동시켜, 권한이 없는 모든 접근을 차단하고, 모든 사용자를 의심하는 방식을 취합니다. 이러한 접근 방식은 특히 원격 근무 환경, 클라우드 기반 인프라, 그리고 다양한 디바이스의 접속이 일반화된 현대 환경에서 의미있는 보안 전략으로 자리 잡고 있습니다.
 
-![Zero Trust Architecture](https://w.plura.io/img/zta_architecture.jpg)
+![Zero Trust Architecture](https://purplecow.plura.io/web/index_v6.0/assets/images/zta.png)
 
 **PLURA-XDR**은 이러한 제로 트러스트 개념을 수직적으로 통합하여 더욱 발전시킨 플랫폼입니다. 특히, PLURA-XDR은 ZTA의 핵심 요소 중 다음을 제공합니다:
 
