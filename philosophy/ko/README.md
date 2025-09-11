@@ -20,7 +20,35 @@
 5. **침입 탐지 시스템** (IDS, Intrusion Detection System)
 6. **네트워크 탐지 및 대응** (NDR, Network Detection and Response)
 
-![PLURA-XDR](https://w.plura.io/img/plura_xdr.jpg)
+```mermaid
+flowchart TB
+  %% 상단 3개 그룹
+  subgraph NIPS
+    direction TB
+    FW[Firewall]
+    WAF[WAF]
+  end
+
+  subgraph LMS
+    direction TB
+    SIEM[SIEM]
+  end
+
+  subgraph HIPS
+    direction TB
+    AV[MS Defender AV]
+    EDR[EDR]
+    Forensic[Forensic]
+  end
+
+  %% SOAR 중앙 배치
+  SOAR([SOAR])
+
+  %% 연결 관계
+  SOAR --> WAF
+  SIEM --> SOAR
+  SOAR --> Forensic
+```
 
 ---
 
