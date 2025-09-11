@@ -20,7 +20,37 @@
 5. **侵入検知システム**（IDS、Intrusion Detection System）
 6. **ネットワーク検知と対応**（NDR、Network Detection and Response）
 
-![PLURA-XDR](https://w.plura.io/img/plura_xdr.jpg)
+### 🛡️ PLURA-XDR 対応システム構成図
+
+```mermaid
+flowchart TB
+  %% 상단 3개 그룹
+  subgraph NIPS
+    direction TB
+    FW[Firewall]
+    WAF[WAF]
+  end
+
+  subgraph LMS
+    direction TB
+    SIEM[SIEM]
+  end
+
+  subgraph HIPS
+    direction TB
+    AV[MS Defender AV]
+    EDR[EDR]
+    Forensic[Forensic]
+  end
+
+  %% SOAR 중앙 배치
+  SOAR([SOAR])
+
+  %% 연결 관계
+  SOAR --> WAF
+  SIEM --> SOAR
+  SOAR --> Forensic
+```
 
 ---
 
@@ -30,7 +60,7 @@
 
 統合セキュリティイベント管理の核心目標は、相関分析を通じて異常兆候を検知することですが、さらに進んで**セキュリティ運用自動化**（SOAR、Security Orchestration, Automation and Response）システムを通じて自動化された対応を提案するようになりました。
 
-![PLURA-XDR Lineup](https://w.plura.io/img/plura_support.jpg)
+![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
 
 用語説明：
 
@@ -46,7 +76,7 @@
 
 従来の境界セキュリティ方式と異なり、ZTAは**データ保護の中心**をネットワーク境界ではなく資産（データおよびアプリケーション）に移し、権限のないすべてのアクセスを遮断し、すべてのユーザーを疑う方式を取ります。このようなアプローチは、特にリモートワーク環境、クラウドベースのインフラ、そして多様なデバイスの接続が一般化した現代環境で必須のセキュリティ戦略として位置づけられています。
 
-![Zero Trust Architecture](https://w.plura.io/img/zta_architecture.jpg)
+![Zero Trust Architecture](https://purplecow.plura.io/web/index_v6.0/assets/images/zta.png)
 
 PLURA-XDRは、このゼロトラストの概念を垂直的に統合し、さらに発展させたプラットフォームです。特に、PLURA-XDRはZTAの核心要素として以下を提供します：
 
