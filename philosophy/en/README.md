@@ -20,7 +20,37 @@ Representative network perimeter security products include:
 5. **Intrusion Detection System** (IDS)
 6. **Network Detection and Response** (NDR)
 
-![PLURA-XDR](https://w.plura.io/img/plura_xdr.jpg)
+### 🛡️ PLURA-XDR Response System Architecture
+
+```mermaid
+flowchart TB
+  %% 상단 3개 그룹
+  subgraph NIPS
+    direction TB
+    FW[Firewall]
+    WAF[WAF]
+  end
+
+  subgraph LMS
+    direction TB
+    SIEM[SIEM]
+  end
+
+  subgraph HIPS
+    direction TB
+    AV[MS Defender AV]
+    EDR[EDR]
+    Forensic[Forensic]
+  end
+
+  %% SOAR 중앙 배치
+  SOAR([SOAR])
+
+  %% 연결 관계
+  SOAR --> WAF
+  SIEM --> SOAR
+  SOAR --> Forensic
+```
 
 ---
 
@@ -30,7 +60,7 @@ In the 2000s, the limitations of single products began to emerge, leading to the
 
 While the core goal of integrated security event management is to detect anomalies through correlation analysis, it further proposes automated responses through **Security Orchestration, Automation, and Response** (SOAR) systems.
 
-![PLURA-XDR Lineup](https://w.plura.io/img/plura_support.jpg)
+![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
 
 **Terminology Explanation:**
 
@@ -46,7 +76,7 @@ In the 2020s, the core paradigm of security is expanding to **Zero Trust Archite
 
 Unlike traditional perimeter security methods, ZTA shifts the **focus of data protection** from the network perimeter to assets (data and applications), blocking all unauthorized access and suspecting all users. This approach has become an essential security strategy in modern environments where remote work, cloud-based infrastructure, and diverse device connections are commonplace.
 
-![Zero Trust Architecture](https://w.plura.io/img/zta_architecture.jpg)
+![Zero Trust Architecture](https://purplecow.plura.io/web/index_v6.0/assets/images/zta.png)
 
 PLURA-XDR is a platform that vertically integrates and further develops the Zero Trust concept. Specifically, PLURA-XDR provides the following core elements of ZTA:
 
