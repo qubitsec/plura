@@ -20,6 +20,8 @@
 5. **침입 탐지 시스템** (IDS, Intrusion Detection System)
 6. **네트워크 탐지 및 대응** (NDR, Network Detection and Response)
 
+**PLURA-XDR 대응 시스템 구성도**
+
 ```mermaid
 flowchart TB
   %% 상단 3개 그룹
