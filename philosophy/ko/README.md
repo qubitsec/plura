@@ -60,7 +60,7 @@ flowchart TB
 
 통합 보안 이벤트 관리의 핵심 목표는 상관 분석을 통해 이상 징후를 탐지하는 것이지만, 더 나아가 **보안 운영 자동화** (SOAR, Security Orchestration, Automation and Response) 시스템을 통해 자동화된 대응을 제안하게 되었습니다.
 
-![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
+![PLURA-XDR System Diagram](https://xwaf.io/res/images/feature-1.png)
 
 용어 설명:
 
