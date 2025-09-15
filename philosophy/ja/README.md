@@ -60,7 +60,7 @@ flowchart TB
 
 統合セキュリティイベント管理の核心目標は、相関分析を通じて異常兆候を検知することですが、さらに進んで**セキュリティ運用自動化**（SOAR、Security Orchestration, Automation and Response）システムを通じて自動化された対応を提案するようになりました。
 
-![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
+![PLURA-XDR System Diagram](https://xwaf.io/res/images/feature-1.png)
 
 用語説明：
 
