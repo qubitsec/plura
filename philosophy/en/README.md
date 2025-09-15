@@ -60,7 +60,7 @@ In the 2000s, the limitations of single products began to emerge, leading to the
 
 While the core goal of integrated security event management is to detect anomalies through correlation analysis, it further proposes automated responses through **Security Orchestration, Automation, and Response** (SOAR) systems.
 
-![PLURA-XDR Lineup](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
+![PLURA-XDR System Diagram](https://xwaf.io/res/images/feature-1.png)
 
 **Terminology Explanation:**
 
