@@ -21,7 +21,7 @@
 ### A. 모듈 구성
 
 * **PLURA-WAF**(웹방화벽) · **PLURA-EDR**(호스트보안) · **PLURA-Forensic** · **PLURA-SMS**(리소스 모니터링) · **PLURA-SIEM** · **PLURA-CERT-MSS**(원격 관제) = **PLURA-XDR**. 
-* 제품 소개 ([↗️][3])  
+* 제품 소개 [↗️][3]  
 
 ### B. 대표 기능
 
