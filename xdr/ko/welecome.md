@@ -126,16 +126,16 @@ flowchart TB
 flowchart LR
   %% Onboarding Flow to PLURA-XDR (SaaS)
   subgraph LOCAL["귀사 환경"]
-    EP[Endpoints<br/>Windows / Linux (Sysmon)]
-    WEB[Apps & Web<br/>WAF / Web / App]
-    NET[Network Devices<br/>FW / IDS / PLC / Syslog]
+    EP["Endpoints<br/>Windows / Linux (Sysmon)"]
+    WEB["Apps & Web<br/>WAF / Web / App"]
+    NET["Network Devices<br/>FW / IDS / PLC / Syslog"]
   end
 
   subgraph CLOUD["PLURA-XDR Cloud (SaaS)"]
-    S1[1) 가입·로그인·에이전트 설치]
-    S2[2) 로그 연동<br/>WAF/Web/Net/App 수집]
-    S3[3) 정책 활성화<br/>탐지·상관·ML · 대시보드/리포트]
-    S4[4) 대응·튜닝<br/>즉시차단·차단IP·알림 · Replay]
+    S1["1) 가입·로그인·에이전트 설치"]
+    S2["2) 로그 연동<br/>WAF/Web/Net/App 수집"]
+    S3["3) 정책 활성화<br/>탐지·상관·ML · 대시보드/리포트"]
+    S4["4) 대응·튜닝<br/>즉시차단·차단IP·알림 · Replay"]
   end
 
   EP --> S1
