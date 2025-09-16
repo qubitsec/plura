@@ -72,6 +72,7 @@ flowchart TB
   SOAR --> Forensic
 ```
 
+> 💡 이렇게 이해하면 가장 쉽습니다:
 > “**WAF**는 막고, **EDR**은 지키고, **SIEM**은 보고, **SOAR**는 움직이고, **Forensic**은 밝히고, **SMS**는 미리 알려준다.”
 
 * PLURA-XDR 플랫폼 소개 바로 가기 [↗️][3]  
@@ -111,21 +112,6 @@ flowchart TB
 * **엔드-투-엔드 흐름**: 수집→정규화→상관/ML→대응→보고까지 한 화면에서 추적·조치. ([Plura][3])
 * **검증된 스토리**: 다양한 웹·시스템 공격 **데모/사례 영상** 제공으로 도입 전 이해·검증 용이. ([Plura][1])
 * **기업 홈페이지**에 요약된 플랫폼 가치와 특허 보유 현황 참고. ([qubitsec.com][4])
-
----
-
-## 4) 아키텍처 개요 (개념도)
-
-```mermaid
-flowchart LR
-  A[Agent & Log Sources<br/>WAF · EDR · Sys/Net/App Logs] --> B[Cloud Ingestion<br/>SIEM/XDR Data Lake]
-  B --> C[Detection Engines<br/>MITRE · Correlation · ML]
-  C --> D[SOAR Auto-Response<br/>Block/Isolate/Notify]
-  B --> E[Dashboards & Reports<br/>ATT&CK · Credential · DLP]
-  C --> F[Forensic & Replay<br/>Evidence · Reproduce]
-```
-
-> 실제 서비스 화면·상세 도식은 **문서/다이어그램 리포지토리**를 참고하세요. (GitHub: `/xdr/ko/diagram`)
 
 ---
 
