@@ -124,8 +124,8 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-  A[1) 회원가입] --> B[2) 에이전트 설치 (Windows / Linux)]
-  B --> C[3) 대시보드에서 탐지 확인]
+  A["1. 회원가입"] --> B["2. 에이전트 설치<br/>(Windows / Linux)"]
+  B --> C["3. 대시보드에서 탐지 확인"]
 ```
 
 1. **회원가입** — 계정 생성 후 로그인.  
