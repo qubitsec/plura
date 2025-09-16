@@ -148,26 +148,23 @@ flowchart LR
 
 ---
 
-## 7) 참고 링크
+## 6) 더 많은 자료
 
+* **플랫폼 소개**: www.plura.io ([PLURA-XDR][1])
+* **제품 매뉴얼**: *사용자 안내서*. ([PLURA-DOC][2])
 * **제품 소개(문서/영상)**: docs.plura.io – *제품 > 『PLURA-XDR』 Cloud SECaaS Platform*, *해킹탐지 시연/고객 사례* 섹션. ([Plura][1])
-* **제품 매뉴얼 홈**: *PLURA-XDR 사용법(모듈 구성/철학)*. ([Plura][3])
 * **기업/플랫폼 개요**: qubitsec.com *(AI · PLURA-XDR 개요/특허/파트너)*, w\.qubitsec.com *(SaaS 서비스 설명)*. ([qubitsec.com][4])
 * **다이어그램 리포지토리**: GitHub `/xdr/ko/diagram` *(구성도 자료 모음).* (사용자 제공 링크)
 
 ---
 
-### 부록: 데모 주제(발췌)
+### 부록: 데모 주제
 
-* **Web**: 크리덴셜 스터핑, SQL 삽입 기반 데이터 유출, 웹쉘, XSS 등
-* **System**: Emotet, Log4Shell, WannaCry, APT29 등
-  → 각 데모는 제품 문서의 *해킹탐지 시연* 섹션에서 확인 가능합니다. ([Plura][1])
 
 ---
 
-필요하시면 이 문서를 **회사 홈페이지/제안서/IR 자료** 형식에 맞춰 **영문/일문** 버전으로도 바로 변환해 드릴게요.
-
-[1]: https://docs.plura.io/ko/video/company/product "제품 | Korean"
-[2]: https://w.qubitsec.com/en/service.html?utm_source=chatgpt.com "SERVICE"
-[3]: https://docs.plura.io/ko "PLURA-XDR 제품 소개"
-[4]: https://www.qubitsec.com/?utm_source=chatgpt.com "PLURA-XDR Cloud SaaS Cybersecurity Platform"
+[1]: https://www.plura.io/ "PLURA-XDR 플랫폼 소개"
+[2]: https://docs.plura.io/ko/ "PLURA-XDR 플랫폼 사용자 매뉴얼"
+[3]: https://blog.qubitsec.com/ko/ "PLURA-BLOG"
+[4]: https://docs.plura.io/ko "PLURA-XDR 제품 소개"
+[5]: https://www.qubitsec.com/service "[회사홈페이지] PLURA-XDR Cloud SaaS Cybersecurity Platform"
