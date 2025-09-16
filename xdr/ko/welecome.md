@@ -12,15 +12,18 @@
 * **클라우드 도입 용이성**: 장비 없이 에이전트만 설치하면 실시간 분석·알림, 운영부하 최소화의 SaaS 모델. ([QubitSec][2])
 * **실전 데모/사례 제공**: 크리덴셜 스터핑, SQLi 데이터유출, 웹쉘, XSS, Emotet/Log4Shell/WannaCry, APT29 등 다수의 시연·사례. ([Plura][1])
 
+[PLURA-XDR Diagram](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
+
 ---
 
 ## 2) 구성 요소 & 주요 기능
 
 ### A. 모듈 구성
 
-* **PLURA-WAF**(웹방화벽) · **PLURA-EDR**(호스트보안) · **PLURA-Forensic** · **PLURA-SMS**(리소스 모니터링) · **PLURA-SIEM** · **PLURA-CERT-MSS**(원격 관제) = **PLURA-XDR**. ([Plura][3])
+* **PLURA-WAF**(웹방화벽) · **PLURA-EDR**(호스트보안) · **PLURA-Forensic** · **PLURA-SMS**(리소스 모니터링) · **PLURA-SIEM** · **PLURA-CERT-MSS**(원격 관제) = **PLURA-XDR**. 
+* 제품 소개 (↗️][3])  
 
-### B. 대표 기능(발췌)
+### B. 대표 기능
 
 * **대시보드/리포트/통계**: 운영/보안 현황 시각화, 마이터 어택/계정탈취/데이터유출 분석 리포트. ([Plura][1])
 * **보안탐지 팩**:
@@ -102,5 +105,5 @@ flowchart LR
 
 [1]: https://docs.plura.io/ko/video/company/product "제품 | Korean"
 [2]: https://w.qubitsec.com/en/service.html?utm_source=chatgpt.com "SERVICE"
-[3]: https://docs.plura.io/ko?utm_source=chatgpt.com "PLURA 사용법 | Korean"
+[3]: https://docs.plura.io/ko "PLURA-XDR 제품 소개"
 [4]: https://www.qubitsec.com/?utm_source=chatgpt.com "PLURA-XDR Cloud SaaS Cybersecurity Platform"
