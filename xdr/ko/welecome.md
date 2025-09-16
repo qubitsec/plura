@@ -120,38 +120,19 @@ flowchart TB
 
 ---
 
-### 4) 도입 & 시작 방법 — 한눈에 보는 흐름도 (Mermaid)
+## 4) 도입 & 시작 방법 — **3단계, 3분이면 충분**
 
 ```mermaid
 flowchart LR
-  %% Onboarding Flow to PLURA-XDR (SaaS)
-  subgraph LOCAL["귀사 환경"]
-    EP["Endpoints<br/>Windows / Linux (Sysmon)"]
-    WEB["Apps & Web<br/>WAF / Web / App"]
-    NET["Network Devices<br/>FW / IDS / PLC / Syslog"]
-  end
-
-  subgraph CLOUD["PLURA-XDR Cloud (SaaS)"]
-    S1["1) 가입·로그인·에이전트 설치"]
-    S2["2) 로그 연동<br/>WAF/Web/Net/App 수집"]
-    S3["3) 정책 활성화<br/>탐지·상관·ML · 대시보드/리포트"]
-    S4["4) 대응·튜닝<br/>즉시차단·차단IP·알림 · Replay"]
-  end
-
-  EP --> S1
-  WEB --> S2
-  NET --> S2
-  S1 --> S2 --> S3 --> S4
+  A[1) 회원가입] --> B[2) 에이전트 설치 (Windows / Linux)]
+  B --> C[3) 대시보드에서 탐지 확인]
 ```
 
-#### 단계별 간략 설명
+1. **회원가입** — 계정 생성 후 로그인.  
+2. **에이전트 설치(Windows/Linux)** — 가이드대로 명령 1–2줄로 설치.  
+3. **대시보드에서 탐지 확인** — 기본 정책 활성화 상태에서 실시간 이벤트·경보 확인.  
 
-1. **가입/로그인 & 에이전트 설치** — Windows·Linux 지원, **Sysmon 가이드** 포함.
-2. **로그 연동** — **WAF/Web/네트워크/응용**(Syslog·PLC 등) 범용 수집으로 데이터 통합.
-3. **정책 활성화 & 가시화** — **탐지·상관·ML** 기본 정책을 켜고 **대시보드/리포트**로 상태 확인.
-4. **대응 & 튜닝** — **즉시 차단/차단 IP/알림**을 적용하고 \*\*재전송(Replay)\*\*로 탐지 기준을 검증·미세조정.
-   *세부 가이드는 제품 문서의 “시작하기/에이전트 설치/연동/모의해킹”을 참고하세요.* (\[Plura]\[1])
-
+👉 **3분 퀵스타트 바로가기**: [https://docs.plura.io/ko/quickstart](https://docs.plura.io/ko/quickstart)
 
 ---
 
