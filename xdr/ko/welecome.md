@@ -12,7 +12,7 @@
 * **클라우드 도입 용이성**: 장비 없이 에이전트만 설치하면 실시간 분석·알림, 운영부하 최소화의 SaaS 모델. ([QubitSec][2])
 * **실전 데모/사례 제공**: 크리덴셜 스터핑, SQLi 데이터유출, 웹쉘, XSS, Emotet/Log4Shell/WannaCry, APT29 등 다수의 시연·사례. ([Plura][1])
 
-![PLURA-XDR Diagram](https://purplecow.plura.io/web/index_v6.0/assets/images/xdr_01.png)
+![PLURA-XDR Diagram](https://xwaf.io/res/images/feature-1.png)
 
 ---
 
