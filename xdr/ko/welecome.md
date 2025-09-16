@@ -18,9 +18,44 @@
 
 ## 2) 구성 요소 & 주요 기능
 
-### A. 모듈 구성
+### A. 모듈 구성 — 한 팀처럼 움직이는 6개 포지션
 
-* **PLURA-WAF**(웹방화벽) · **PLURA-EDR**(호스트보안) · **PLURA-Forensic** · **PLURA-SMS**(리소스 모니터링) · **PLURA-SIEM** · **PLURA-CERT-MSS**(원격 관제) = **PLURA-XDR**. 
+* 🧱 **WAF** — *문 앞을 지키는 문지기*
+  공격 패턴·봇·대량 시도를 입구에서 걸러내고, 필요하면 **본문까지** 정밀 점검해 선제 차단합니다.
+
+* 🛡️ **EDR** — *단말을 지키는 보안요원*
+  행위 기반 위협을 즉시 포착하고 격리/치료합니다. (Microsoft Defender 연동으로 운영 부담 ↓)
+
+* 🔎 **Forensic** — *사건을 복원하는 CSI*
+  증거를 보존하고 타임라인을 복원합니다. **Replay(재현) 테스트**로 탐지를 검증/튜닝합니다.
+
+* 📊 **SIEM** — *모든 것을 보는 상황실*
+  전 로그를 한곳에 모아 상관분석·MITRE 매핑·위험점수로 “무엇이 중요한가”를 드러냅니다.
+
+* 🤖 **SOAR / CERT-MSS** — *자동 대응 + 24/7 지원팀*
+  플레이북으로 **IP 차단·계정 잠금·티켓 발행**을 자동화하고, 원격 관제로 공백을 줄입니다.
+
+* ⏱️ **SMS** — *인프라 주치의*
+  CPU/메모리/디스크/서비스·NTP 시각을 수시로 점검해, 이상 징후를 먼저 알려줍니다.
+
+> 이 여섯 역할이 합쳐져 **PLURA-XDR**입니다.
+
+```mermaid
+flowchart LR
+  subgraph PLURA-XDR
+    WAF[WAF] --> SIEM[SIEM]
+    EDR[EDR] --> SIEM
+    SIEM --> SOAR[SOAR/CERT-MSS]
+    SOAR --> WAF
+    SOAR --> EDR
+    SIEM --> Forensic[Forensic]
+    SIEM --> SMS[SMS]
+  end
+```
+
+> “**WAF**는 막고, **EDR**은 지키고, **SIEM**은 보고, **SOAR**는 움직이고, **Forensic**은 밝히고, **SMS**는 미리 알려준다.”
+
+
 * 제품 소개 [↗️][3]  
 
 ### B. 대표 기능
