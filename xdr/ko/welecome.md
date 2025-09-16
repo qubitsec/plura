@@ -1,6 +1,6 @@
 # 클라우드 SaaS **PLURA-XDR** 소개 자료
 
-> **PLURA-XDR**는 WAF·EDR·Forensic·SMS·SOAR·SIEM을 하나의 **클라우드 SECaaS**로 수직 통합하여, **MITRE ATT\&CK** 기반의 실시간 탐지/자동대응과 **Zero Trust** 구현을 돕는 통합 보안 플랫폼입니다. 또한 \*\*웹 요청/응답 본문(Post/Resp-Body)\*\*까지 로깅·분석해 자격증명 오용·데이터유출 등 웹 공격에 강력히 대응합니다. ([Plura][1])
+> **PLURA-XDR**는 WAF·EDR·Forensic·SMS·SOAR·SIEM을 하나의 **클라우드 SECaaS**로 수직 통합하여, **MITRE ATT\&CK** 기반의 실시간 탐지/자동대응과 **Zero Trust** 구현을 돕는 통합 보안 플랫폼입니다. 또한 웹 요청/응답 본문(Post/Resp-Body)까지 로깅·분석해 자격증명 오용·데이터유출 등 웹 공격에 강력히 대응합니다. ([Plura][1])
 
 ---
 
