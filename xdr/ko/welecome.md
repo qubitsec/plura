@@ -40,7 +40,7 @@
 
 > 이 여섯 역할이 합쳐져 **PLURA-XDR**입니다.  
 > **SaaS 특성상 항상 최신**을 유지하며 지속적으로 확장됩니다.  
-> 🛠️2026 예정: 브루트포스 대응, 제로데이 고도화, Mermaid 랙/네트워크 관리, Microsoft Defender 운영, NTP 동기화 등
+> 🛠️2026 예정: AI에이전트, 브루트포스 대응, 제로데이 고도화, Mermaid 랙/네트워크 관리, Microsoft Defender 운영, NTP 동기화 등
 
 ```mermaid
 flowchart TB
