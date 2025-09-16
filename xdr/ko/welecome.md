@@ -41,16 +41,33 @@
 > 이 여섯 역할이 합쳐져 **PLURA-XDR**입니다.
 
 ```mermaid
-flowchart LR
-  subgraph PLURA-XDR
-    WAF[WAF] --> SIEM[SIEM]
-    EDR[EDR] --> SIEM
-    SIEM --> SOAR[SOAR/CERT-MSS]
-    SOAR --> WAF
-    SOAR --> EDR
-    SIEM --> Forensic[Forensic]
-    SIEM --> SMS[SMS]
+flowchart TB
+  %% 상단 3개 그룹
+  subgraph NIPS
+    direction TB
+    FW[Firewall]
+    WAF[WAF]
   end
+
+  subgraph LMS
+    direction TB
+    SIEM[SIEM]
+  end
+
+  subgraph HIPS
+    direction TB
+    AV[MS Defender AV]
+    EDR[EDR]
+    Forensic[Forensic]
+  end
+
+  %% SOAR 중앙 배치
+  SOAR([SOAR])
+
+  %% 연결 관계
+  SOAR --> WAF
+  SIEM --> SOAR
+  SOAR --> Forensic
 ```
 
 > “**WAF**는 막고, **EDR**은 지키고, **SIEM**은 보고, **SOAR**는 움직이고, **Forensic**은 밝히고, **SMS**는 미리 알려준다.”
