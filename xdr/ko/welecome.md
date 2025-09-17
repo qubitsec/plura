@@ -166,6 +166,6 @@ flowchart LR
 
 [1]: https://www.plura.io/ "PLURA-XDR 플랫폼 소개"
 [2]: https://docs.plura.io/ko/ "PLURA-XDR 플랫폼 사용자 매뉴얼"
-[3]: https://blog.qubitsec.com/ko/ "PLURA-BLOG"
+[3]: https://blog.plura.io/ko/ "PLURA-BLOG"
 [4]: https://docs.plura.io/ko/quickstart "PLURA-XDR 빠르게 시작하기"
 [5]: https://www.qubitsec.com/service "[회사홈페이지] PLURA-XDR Cloud SaaS Cybersecurity Platform"
