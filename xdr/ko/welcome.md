@@ -160,8 +160,6 @@ flowchart LR
 
 ### 부록: 데모 주제
 
-### 부록: 데모 주제 (정돈본)
-
 * 💡 **PLURA-XDR 철학** — 왜 “본문까지” 보며 통합(XDR)로 가는가를 설명합니다. [↗️](https://w.plura.io/index.html?doc=/philosophy/ko/README.md)
 
 * 📈 **도입 효과** — TCO 절감, 운영 간소화, 탐지 정확도 향상 포인트를 정리했습니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/xdr_custom_value-added_service.md)
