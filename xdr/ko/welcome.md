@@ -158,15 +158,15 @@ flowchart LR
 
 ---
 
-### 부록: 데모 주제
+### 함께 읽기
 
-💡 **PLURA-XDR 철학** — 왜 “본문까지” 보며 통합(XDR)로 가는가를 설명합니다. [↗️](https://w.plura.io/index.html?doc=/philosophy/ko/README.md)
+💡 **PLURA-XDR 철학** — 왜 “본문까지” 보며 통합(XDR)으로 가는가를 설명합니다.[↗️](https://w.plura.io/index.html?doc=/philosophy/ko/README.md)
 
 📈 **도입 효과** — TCO 절감, 운영 간소화, 탐지 정확도 향상 포인트를 정리했습니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/xdr_custom_value-added_service.md)
 
-🧭 **솔루션 선택 가이드** *(오탈자 수정: ‘플랫’ → ‘솔루션/플랫폼’)* — 조달·기능·운영 편의 체크리스트로 비교 기준을 제시합니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/cybersecurity-solution-selection-guide.md)
+🧭 **플랫폼 선택 가이드** — 조달·기능·운영 편의 체크리스트로 비교 기준을 제시합니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/cybersecurity-solution-selection-guide.md)
 
-🔎 **APT·랜섬웨어: 숨겨진 백도어 탐지** — 행위 흐름·MITRE 매핑·웹쉘 단서로 은닉 위협을 드러냅니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/reveal-backdoor.md)
+🔎 **APT·랜섬웨어: 숨겨진 백도어 탐지** — 행위 흐름·MITRE ATT&CK 매핑·웹쉘 단서로 은닉 위협을 드러냅니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/reveal-backdoor.md)
 
 🧪 **사례: SKT BPFDoor 해킹 분석** — 침투 가설과 방어 인사이트를 요약한 케이스 스터디.[↗️](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)
 
