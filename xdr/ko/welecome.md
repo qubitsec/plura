@@ -150,15 +150,16 @@ flowchart LR
 
 ## 6) 더 많은 자료
 
-* **플랫폼 소개**: www.plura.io ([PLURA-XDR][1])
-* **제품 매뉴얼**: *사용자 안내서*. ([PLURA-DOC][2])
-* **제품 소개(문서/영상)**: docs.plura.io – *제품 > 『PLURA-XDR』 Cloud SECaaS Platform*, *해킹탐지 시연/고객 사례* 섹션. ([Plura][1])
-* **기업/플랫폼 개요**: qubitsec.com *(AI · PLURA-XDR 개요/특허/파트너)*, w\.qubitsec.com *(SaaS 서비스 설명)*. ([qubitsec.com][4])
-* **다이어그램 리포지토리**: GitHub `/xdr/ko/diagram` *(구성도 자료 모음).* (사용자 제공 링크)
+* **플랫폼 소개**: *Cloud SaaS Platform*. ([PLURA-XDR][1])
+* **플래폼 매뉴얼**: *사용자 안내서*. ([PLURA-DOC][2])
+* **블로그**: *플랫폼 철학과 최신 공격 및 대응 소개*. ([PLURA-BLOG][3])
+* **빠르게 시작하기**: *3분내로 해킹 공격 대응하기*. ([PLURA-DOC][4])
+* **회사 소개**: *차세대 서비스를 개발합니다*. ([Qubit Security][5])
 
 ---
 
 ### 부록: 데모 주제
+
 
 
 ---
@@ -166,5 +167,5 @@ flowchart LR
 [1]: https://www.plura.io/ "PLURA-XDR 플랫폼 소개"
 [2]: https://docs.plura.io/ko/ "PLURA-XDR 플랫폼 사용자 매뉴얼"
 [3]: https://blog.qubitsec.com/ko/ "PLURA-BLOG"
-[4]: https://docs.plura.io/ko "PLURA-XDR 제품 소개"
+[4]: https://docs.plura.io/ko/quickstart "PLURA-XDR 빠르게 시작하기"
 [5]: https://www.qubitsec.com/service "[회사홈페이지] PLURA-XDR Cloud SaaS Cybersecurity Platform"
