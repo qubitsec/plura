@@ -160,7 +160,11 @@ flowchart LR
 
 ### 부록: 데모 주제
 
-
+* [PLURA-XDR 철학](https://w.plura.io/index.html?doc=/philosophy/ko/README.md)
+* [도입 효과](https://w.plura.io/index.html?doc=/benefits/ko/xdr_custom_value-added_service.md)
+* [플랫 선택 가이드](https://w.plura.io/index.html?doc=/benefits/ko/cybersecurity-solution-selection-guide.md)
+* [APT·랜섬웨어 공격에서 숨겨진 백도어 탐지](https://w.plura.io/index.html?doc=/benefits/ko/reveal-backdoor.md)
+* [SKT, BPFDoor 해킹 분석](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)
 
 ---
 
