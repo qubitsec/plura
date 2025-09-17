@@ -7,7 +7,7 @@
 ## 1) 한눈에 보는 PLURA-XDR
 
 * **수직 통합 보안**: WAF, EDR, Forensic, SMS, SOAR, SIEM 모듈이 클라우드에서 유기적으로 연동되어 탐지→분석→대응→보고까지 단일 흐름으로 처리. ([Plura][1])
-* **MITRE ATT\&CK & ZTA 지향**: 크리덴셜 스터핑·APT 등 전술/기술 기반 탐지와 Zero Trust 구성요소 제공. ([Plura][1])
+* **MITRE ATT&CK & ZTA 지향**: 크리덴셜 스터핑·APT 등 전술/기술 기반 탐지와 Zero Trust 구성요소 제공. ([Plura][1])
 * **본문까지 보는 로깅**: 서버/PC 감사(event)와 더불어 **웹 요청/응답 본문** 로깅·분석을 지원해 난해한 공격도 정밀 대응. ([Plura][1])
 * **클라우드 도입 용이성**: 장비 없이 에이전트만 설치하면 실시간 분석·알림, 운영부하 최소화의 SaaS 모델. ([QubitSec][2])
 * **실전 데모/사례 제공**: 크리덴셜 스터핑, SQLi 데이터유출, 웹쉘, XSS, Emotet/Log4Shell/WannaCry, APT29 등 다수의 시연·사례. ([Plura][1])
