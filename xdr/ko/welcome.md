@@ -175,6 +175,10 @@ flowchart LR
 
 🔎 **APT·랜섬웨어: 숨겨진 백도어 탐지** — 행위 흐름·MITRE ATT&CK 매핑·웹쉘 단서로 은닉 위협을 드러냅니다.[↗️](https://w.plura.io/index.html?doc=/benefits/ko/reveal-backdoor.md)
 
+
+* 🔎 **제로데이 공격 대응 전략** — 새로 발견된 취약점과 알려지지 않은 공격 기법을 **탐지·차단·완화**하는 실무 방법. [↗️](https://blog.plura.io/ko/column/responding_to_zero_day_attacks/)
+
+
 🧪 **사례: SKT BPFDoor 해킹 분석** — 침투 가설과 방어 인사이트를 요약한 케이스 스터디.[↗️](https://blog.plura.io/ko/column/skt-hacking-hypothesis/)
 
 ---
