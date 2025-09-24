@@ -5,6 +5,9 @@
 **연계 플랫폼:** PLURA-XDR, 유해사이트 차단 솔루션(DNS/Proxy/SWG), 내부 정보 유출 솔루션  
 **1차 서비스 구성(요약):** *온프레미스 방화벽 하드웨어 포함*, **월 50만원** 관리 서비스, **초기 3개월 선납**  
 
+
+![xFirewall](https://w.plura.io/img/xFirewall.png)
+
 ---
 
 ## 1) Executive Summary
