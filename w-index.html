@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PLURA-XDR Knowledge Hub</title>
+
+  <link rel="icon" href="https://w.plura.io/favicon.ico" sizes="any">
+  <meta name="color-scheme" content="dark">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@5.8.1/github-markdown.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark-dimmed.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+  <style>
+    :root { color-scheme: dark; }
+    body{ margin:0; background:#0b0c0f; color:#e5e7eb; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+    .card { background: transparent; border: 1px solid #000; border-radius:12px; padding:24px; }
+
+    /* ── 상단 툴바 ───────────────────────── */
+    .toolbar{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .btn{
+      padding:10px 14px; border-radius:8px; border:1px solid #374151;
+      background:#111827; color:#e5e7eb; cursor:pointer; white-space:nowrap;
+    }
+    /* 인쇄 버튼 오른쪽에 붙는 경로 배지 */
+    .badge{
+      font-size:12px; line-height:1; padding:8px 10px; border-radius:8px;
+      background:#0f172a; color:#cbd5e1; border:1px solid #374151;
+      max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+      flex: 1 1 auto; min-width: 180px;
+    }
+
+    /* 경로 입력칸(기본 숨김, ui=full에서 보여줌) */
+    #docInput{ flex:1 1 420px; min-width:260px; background:#0f172a; color:#e5e7eb; border:1px solid #374151; border-radius:8px; padding:10px 12px; display:none; }
+    #btnLoad{ display:none; }
+
+    /* Markdown 본문 */
+    .markdown-body { box-sizing:border-box; min-width:200px; max-width:100%; background:transparent; color:inherit; margin-top:16px; }
+    .markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{ color:#fff; }
+    .markdown-body a{ color:#93c5ff; }
+    .markdown-body hr{ background-color:#374151; }
+    .markdown-body blockquote{ color:#d1d5db; border-left-color:#374151; }
+
+    /* 표: 검정 배경 + 흰 라인 */
+    .markdown-body table{ width:100%; display:table !important; border-collapse:collapse !important; border-spacing:0 !important; table-layout:auto; background:#0b0c0f !important; border:1px solid #ffffff !important; }
+    .markdown-body thead,.markdown-body tbody,.markdown-body tr,.markdown-body th,.markdown-body td{ background:#0b0c0f !important; color:#e5e7eb !important; border:1px solid #ffffff !important; }
+    .markdown-body tbody tr:nth-child(odd), .markdown-body tbody tr:hover{ background:#0b0c0f !important; }
+    .markdown-body th{ font-weight:700; }
+
+    .markdown-body code{ background:#111827; color:#e5e7eb; }
+    .markdown-body pre{ background:#0f172a; border:1px solid #374151; color:#e5e7eb; }
+    .markdown-body pre code{ background:transparent; }
+
+    /* sub/sup 가독성 */
+    .markdown-body sub, .markdown-body sup { font-size:.8em; line-height:0; }
+    .markdown-body sub { vertical-align: sub; }
+    .markdown-body sup { vertical-align: super; }
+
+    /* ── PDF 전용 타이틀 스타일(다운로드) ── */
+    .pdf-title{ font-size:28px; font-weight:800; margin:0 0 12px 0; color:#000; }
+    .pdf-sub{ font-size:12px; color:#555; margin:0 0 10px 0; }
+
+    /* ── 인쇄 최적화 ─────────────────────── */
+    @page { size: A4; margin: 12mm; }
+    @media print{
+      body{ background:#fff; color:#000; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+      .wrap{ max-width:100%; padding:0; }
+      .card{ border:0; border-radius:0; padding:0; }
+      .toolbar, .badge, #docInput, #btnLoad{ display:none !important; } /* 상단 UI/경로 숨김 */
+      .markdown-body{ margin:0 !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="toolbar">
+        <button id="btnDownload" class="btn">PDF 다운로드</button>
+        <button id="btnPrint" class="btn">인쇄(PDF 저장)</button>
+        <div id="badge" class="badge" title=""></div>
+        <input id="docInput" type="text" placeholder="문서 경로 또는 URL (예: /benefits/ko/xdr_custom_value-added_service.md)" />
+        <button id="btnLoad" class="btn">불러오기</button>
+      </div>
+      <article id="app" class="markdown-body">불러오는 중…</article>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it-emoji@3.0.0/dist/markdown-it-emoji.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it-footnote@4.0.0/dist/markdown-it-footnote.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <!-- html2pdf: 브라우저 머리말/꼬리말 없이 PDF 생성 -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+
+  <script>
+    // Mermaid
+    mermaid.initialize({ startOnLoad: false, theme: "dark" });
+
+    // Markdown-it (HTML 허용: <sub>/<sup> 렌더)
+    const md = window.markdownit({
+      html: true,
+      linkify: true,
+      typographer: true,
+      highlight: (str, lang) => {
+        const has = typeof window.hljs !== 'undefined' && hljs && typeof hljs.highlight === 'function';
+        if (has && lang && typeof hljs.getLanguage==='function' && hljs.getLanguage(lang)) { try { return hljs.highlight(str,{language:lang}).value; } catch{} }
+        if (has && typeof hljs.highlightAuto==='function') { try { return hljs.highlightAuto(str).value; } catch{} }
+        return '';
+      }
+    }).use(window.markdownitEmoji).use(window.markdownitFootnote);
+
+    const $app   = document.getElementById('app');
+    const $badge = document.getElementById('badge');
+    const $doc   = document.getElementById('docInput');
+
+    // ── Query → 경로
+    function getDocFromQuery(){
+      const u = new URL(location.href);
+      return u.searchParams.get('doc') || 'README.md';
+    }
+
+    // ── 경로 해석: 절대/루트/상대
+    function resolveDocUrl(pathLike){
+      if (!pathLike) return null;
+      if (/^https?:\/\//i.test(pathLike)) return pathLike;      // absolute
+      if (pathLike.startsWith('/')) return location.origin + pathLike; // root-relative
+      const baseDir = location.origin + location.pathname.replace(/[^/]*$/, '');
+      return new URL(pathLike, baseDir).href;                   // relative
+    }
+
+    // ── 전처리: YAML 프론트매터 & more 마커 제거
+    function stripFrontMatter(src){
+      const s = src.replace(/^\uFEFF/, ''); // BOM 허용
+      const m = s.match(/^---\s*[\s\S]*?\r?\n---\s*(?:\r?\n)?/);
+      return m ? s.slice(m[0].length) : s;
+    }
+    function stripMoreMarkers(src){
+      const re = /<\!\s*[-\u2013\u2014]{2}\s*more\s*[-\u2013\u2014]{2}\s*>/gi;
+      return src.replace(re, '');
+    }
+
+    // ── Mermaid 렌더
+    async function renderMermaidIn(container){
+      const blocks = container.querySelectorAll('pre code.language-mermaid');
+      for (const code of blocks){
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = code.textContent;
+        code.closest('pre').replaceWith(div);
+      }
+      if (container.querySelector('.mermaid')){
+        try { await mermaid.run({ nodes: container.querySelectorAll('.mermaid') }); } catch {}
+      }
+    }
+
+    // ── 표 꼬리 빈 열 제거
+    function stripEmptyTrailingColumns(container){
+      container.querySelectorAll('table').forEach(table=>{
+        const rows = Array.from(table.rows);
+        if (!rows.length) return;
+        while (rows[0].cells.length > 0){
+          const last = rows[0].cells.length - 1;
+          const allEmpty = rows.every(r => { const c = r.cells[last]; return !c || c.textContent.trim()===''; });
+          if (allEmpty) rows.forEach(r=>r.deleteCell(last)); else break;
+        }
+      });
+    }
+
+    // ── 본문 렌더 (동일 오리진은 쿠키 포함)
+    async function renderDoc(pathLike){
+      const finalUrl = resolveDocUrl(pathLike);
+      if (!finalUrl) return;
+
+      // 배지 업데이트
+      $badge.textContent = pathLike;
+      $badge.title = finalUrl;
+
+      const sameOrigin = new URL(finalUrl).origin === location.origin;
+
+      try{
+        const res = await fetch(finalUrl, { cache:'no-store', credentials: sameOrigin ? 'same-origin' : 'omit' });
+        if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
+        const raw = await res.text();
+
+        // YAML/More 제거
+        const mdText = stripMoreMarkers(stripFrontMatter(raw));
+
+        // HTML이면 그대로, 아니면 Markdown 렌더
+        if (/^\s*<!doctype html>/i.test(mdText) || /^\s*<html\b/i.test(mdText)){
+          $app.innerHTML = mdText;
+        } else {
+          const unsafe = md.render(mdText);
+          const safe = DOMPurify.sanitize(unsafe, {
+            USE_PROFILES: { html: true },
+            ADD_TAGS: ['sub','sup']   // 확실히 허용
+          });
+          $app.innerHTML = safe;
+
+          stripEmptyTrailingColumns($app);
+
+          try{
+            renderMathInElement($app,{
+              delimiters:[
+                {left:"$$",right:"$$",display:true},
+                {left:"$",right:"$",display:false},
+                {left:"\\(",right:"\\)",display:false},
+                {left:"\\[",right:"\\]",display:true}
+              ],
+              throwOnError:false
+            });
+          }catch{}
+          await renderMermaidIn($app);
+        }
+
+        const h1 = $app.querySelector('h1');
+        if (h1 && h1.textContent.trim()) document.title = h1.textContent.trim();
+
+      }catch(e){
+        console.error(e);
+        $app.innerHTML = '<p>문서를 불러오지 못했습니다. 경로를 확인하세요.</p>';
+      }
+    }
+
+    // ── 파일명 도우미
+    function slugify(s){
+      return (s||'document').trim().toLowerCase()
+        .replace(/[^\w\-가-힣]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+    }
+
+    // ── 인쇄 & PDF 다운로드
+    function doPrint(){ window.print(); }
+
+    async function doDownload(){
+      // 1) 제목 확보 (h1 → document.title 순)
+      const h1Text = ($app.querySelector('h1')?.textContent || '').trim();
+      const title  = h1Text || (document.title || 'document');
+      const file   = slugify(title) + '.pdf';
+
+      // 2) 내보낼 전용 컨테이너 구성: "제목 + 본문"만 포함
+      const container = document.createElement('div');
+      container.style.background = '#fff';
+      container.style.color = '#000';
+      container.style.padding = '0';
+
+      // 제목 (항상 출력)
+      const h = document.createElement('h1');
+      h.className = 'pdf-title';
+      h.textContent = title;
+      container.appendChild(h);
+
+      // 본문 복제
+      const bodyClone = $app.cloneNode(true);
+      // 다운로드용에서는 본문 텍스트 색을 보장
+      bodyClone.style.color = '#000';
+      container.appendChild(bodyClone);
+
+      // 3) DOM에 붙여 렌더링 안정화 후 PDF 생성
+      document.body.appendChild(container);
+
+      const opt = {
+        margin: [10,12,14,12],
+        filename: file,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, allowTaint: false, backgroundColor: '#ffffff' },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css','legacy'] }
+      };
+
+      await html2pdf().set(opt).from(container).save();
+
+      // 4) 정리
+      document.body.removeChild(container);
+    }
+
+    // ── 초기화
+    function initUI(){
+      const url = new URL(location.href);
+      const initialDoc = getDocFromQuery();
+      const ui = url.searchParams.get('ui');
+
+      if (ui === 'full'){
+        document.getElementById('docInput').style.display = '';
+        document.getElementById('btnLoad').style.display = '';
+      }
+      document.getElementById('btnLoad').addEventListener('click', ()=>{
+        const p = ($doc.value || '').trim();
+        if (p) renderDoc(p);
+      });
+      document.getElementById('btnPrint').addEventListener('click', doPrint);
+      document.getElementById('btnDownload').addEventListener('click', doDownload);
+
+      $doc.value = initialDoc;
+      renderDoc(initialDoc);
+    }
+    initUI();
+  </script>
+</body>
+</html>
