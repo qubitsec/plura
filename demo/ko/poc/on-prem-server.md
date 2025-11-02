@@ -44,7 +44,7 @@
   - 예) unix-log-01 (AIX 7.1, 192.168.10.31) — 전송: syslog TCP/UDP
   - 작성 팁: 에이전트 설치 불가 호스트에 대해 syslog 포워딩 설정(UDP/TCP/CEF/JSON) 정보 기입.
 
-# 관련 매뉴얼
+# 📖 매뉴얼
 - 윈도우 / 리눅스 (에이전트 설치/설정): https://docs.plura.io/ko/agents/edr  
 - 유닉스 (syslog 설정 안내): https://docs.plura.io/ko/agents/siem/cplc
 
@@ -56,14 +56,14 @@
 
 * CPU: 40 vCPU (20코어 x2 하이퍼스레드 허용)
 * 메모리: 512 GB RAM
-* 디스크: 10 TB SSD (최소, 로그 보관량 작을 때)
+* 디스크: 5 TB SSD (최소, 로그 보관량 작을 때)
 * 네트워크: 1 Gbps NIC (관리/수집 전용 VLAN 권장)
 * OS: Rocky Linux 8
 
 **디스크 산정 예시**
 
-* 예상 일일 로그 생성량 = 100 GB/day
-* 보관기간 7일 => 최소 700 GB + 여유 30% = 910 GB → **1 TB 이상 권장**
+* 예상 일일 로그 생성량 = 10 GB/day
+* 보관기간 7일 => 최소 70 GB + 여유 30% = 100 GB → **1 TB 이상 권장**
   (실제 로그량은 POST body 포함 여부, 트래픽, 샘플링 정책에 따라 달라짐)
 
 ---
@@ -123,7 +123,7 @@ flowchart TD
 
 ### 필수 포트(예시)
 
-* **Agent ↔ Collector:** TCP **1514 / 514** (syslog) 또는 제품 문서에서 지정한 포트
+* **Agent ↔ Collector:** TCP **514** (syslog)
 
   * 에이전트가 직접 Collector로 로그/이벤트 전송
 * **Collector UI / API:** TCP **443** (HTTPS)
@@ -134,15 +134,6 @@ flowchart TD
   * WAF가 파일 전송 또는 syslog로 로그를 푸시할 경우
 * **네트워크 미러링:** SPAN/TAP → Collector NIC (미러 포트로 패킷 수집)
 * **내부 테스트용 접속:** RDP **3389** / SSH **22** — **테스트 기간에만 열기 권장**
-
-
-
-**필수 포트(예시)**
-
-* Agent ↔ Collector: TCP 1514 / 514 (syslog), 혹은 제품 문서 지정 포트
-* Collector UI/API: TCP 443 (HTTPS)
-* WAF → Collector(로그 전송): TCP 514 / HTTPS (설정에 따름)
-* 내부 테스트용 RDP/SSH: RDP(3389)/SSH(22) — 테스트 중만 오픈
 
 ---
 
@@ -168,7 +159,7 @@ flowchart TD
 * Unix (에이전트 미설치): syslog(UDP/TCP)로 PLURA Collector에 포워딩 — 포맷(CEF/JSON/etc) 확인
 * 시간 동기화(NTP), 로컬 디스크 퍼미션(로그 접근), SELinux/AppArmor 정책 검토
 
-(참고 매뉴얼: [https://docs.plura.io/ko/agents/siem/cplc](https://docs.plura.io/ko/agents/siem/cplc) )
+(📖 매뉴얼: [https://docs.plura.io/ko/agents/siem/cplc](https://docs.plura.io/ko/agents/siem/cplc) )
 
 ---
 
