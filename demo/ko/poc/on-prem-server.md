@@ -52,7 +52,7 @@
 
 # 3) 서버 제원 (권장 / 최소)
 
-**(PoC 단기간/경량)**
+**PoC 단기간/경량**
 
 * CPU: 40 vCPU (20코어 x2 하이퍼스레드 허용)
 * 메모리: 512 GB RAM
@@ -70,23 +70,72 @@
 
 # 4) 네트워크 구성 (권장 토폴로지 / 포트)
 
+
+
+```mermaid
+flowchart TD
+  subgraph EXT[Internet]
+    Internet[Internet]
+  end
+
+  subgraph DMZ[Perimeter / DMZ]
+    PerimeterFW["Perimeter FW / LB"]
+    WAF["WAF / Reverse Proxy"]
+  end
+
+  subgraph CORE[Internal Network]
+    WebServers["Web Servers (Linux)"]
+    DBAPI["Internal DB / API"]
+    LAN["LAN VLANs / Switch"]
+    Windows["Windows Servers / AD"]
+    Endpoints["Endpoint PCs"]
+  end
+
+  subgraph COLLECT[PLURA-XDR Collector]
+    PLURA_NIC["PLURA Collector\n(NIC / Ingest)"]
+    PLURA_APP["PLURA Collector\nApp / UI / API"]
+  end
+
+  %% Connections
+  Internet --> PerimeterFW
+  PerimeterFW --> WAF
+
+  WAF -- "SPAN / Mirror" --> PLURA_NIC
+  WAF -->|HTTP/HTTPS → Web Servers| WebServers
+
+  WebServers --> DBAPI
+  DBAPI --> LAN
+  LAN --> Windows
+  LAN --> Endpoints
+
+  Windows --|Agent|--> PLURA_NIC
+  Endpoints --|Agent|--> PLURA_NIC
+
+  PLURA_NIC --> PLURA_APP
+
+  %% Annotations (ports)
+  click PLURA_APP "https://example.local" "Collector UI/API (예시 링크)"
+  classDef note fill:#f9f,stroke:#333,stroke-width:1px;
+  class PLURA_APP note
 ```
-[Internet] 
-   ↓
-[Perimeter FW / LB] 
-   ↓
-[WAF / Reverse Proxy] --- (SPAN / Mirror) ---> [PLURA Collector NIC]
-   ↓
-[Web Servers (Linux)]
-   ↕
-[Internal DB / API]
-   ↕
-[LAN VLANs]
-   ↔
-[Windows Servers / AD] ---[Agent]---> [PLURA Collector]
-   ↕
-[Endpoint PCs] ---[Agent]---> [PLURA Collector]
-```
+
+---
+
+### 필수 포트(예시)
+
+* **Agent ↔ Collector:** TCP **1514 / 514** (syslog) 또는 제품 문서에서 지정한 포트
+
+  * 에이전트가 직접 Collector로 로그/이벤트 전송
+* **Collector UI / API:** TCP **443** (HTTPS)
+
+  * 운영자 접속, API 호출
+* **WAF → Collector (로그 전송):** TCP **514** (syslog) / **HTTPS** (설정에 따름)
+
+  * WAF가 파일 전송 또는 syslog로 로그를 푸시할 경우
+* **네트워크 미러링:** SPAN/TAP → Collector NIC (미러 포트로 패킷 수집)
+* **내부 테스트용 접속:** RDP **3389** / SSH **22** — **테스트 기간에만 열기 권장**
+
+
 
 **필수 포트(예시)**
 
@@ -101,11 +150,10 @@
 
 * **포트 미러링(SPAN) 지원 여부**: [ ] 지원  [ ] 미지원
 
-  * 지원 시: 네트워크 TAP 또는 스위치 SPAN 포트 → PLURA 수집 NIC로 미러링
+  * 지원 시: 웹방화벽 미러 포트 → PLURA 수집 NIC로 미러링
 * **포트 미러 미지원 시 웹 로그 수집 방안**:
 
-  * WAF/로드밸런서에서 파일 로그 전송(SFTP/HTTPS)
-  * 웹서버(또는 리버스 프록시)에서 POST-body 포함 로깅 설정 후 수집
+  * PLURA를 웹방화벽과 웹서버 사이에 위치하도록 구성함
   * 프록시(리버스) 레벨에서 액세스 로그 포워딩
 * **리버스 프록시로 운영**: 가능 — 리버스 프록시의 요청 본문(POST) 수집 및 PLURA로 전송
 
