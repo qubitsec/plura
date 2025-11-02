@@ -1,0 +1,224 @@
+# PLURA-XDR 온프레미스 PoC — 목표 및 제원
+
+아래 문서는 PoC(Proof-of-Concept) 목적, 범위, 요구 제원(하드웨어/네트워크/소프트웨어), 테스트 시나리오 및 성공 기준을 한 장으로 정리한 문서입니다.
+
+---
+
+# 1) PoC 개요
+
+**목표**
+
+* 단일 온프레미스 서버에서 PLURA-XDR의 로그 수집·분석·탐지·자동대응 기능을 검증한다.
+* 웹 POST-body 탐지, 엔드포인트 탐지(EDR), 포렌식 증적 수집, 자동격리/차단을 시나리오로 재현하여 기능·성능·운영성을 확인한다.
+
+**기간**
+
+* 준비: 5 영업일
+* 설치·초기 구성: 1~2일
+* 테스트·시나리오 실행: 3~5일
+* 결과 검증·보고서: 1~2일
+
+**범위**
+
+* 로그 수집 및 분석 서버: 1대(온프레미스)
+* 대상 시스템: Windows, Linux, 단말(Windows PC), Unix(syslog 수집)
+* 네트워크: 내부망(관리망) 연결, 웹서버 및 WAF(또는 리버스 프록시) 연동
+
+---
+
+# 2) PoC 대상 시스템 (사용자 입력칸)
+
+* **윈도우 (서버/AD 등)** :
+* **리눅스 (웹, API, DB 등)** :
+* **단말 PC (엔드포인트 테스트용)** :
+* **유닉스 (syslog 수집, 에이전트 미설치)** :
+
+> 에이전트 설치/설정 매뉴얼: [https://docs.plura.io/ko/agents/siem/cplc](https://docs.plura.io/ko/agents/siem/cplc)
+
+---
+
+# 3) PoC 필수 정보 (수집 항목)
+
+* 네트워크 구성도 (VLAN, 서브넷, 라우터/방화벽 위치)
+* 대상 시스템 IP / 호스트명 / 운영체제 버전
+* 인증서(HTTPS) 및 키 관리 정보(테스트용)
+* 포트 미러링(스패닝) 사용 가능 여부 및 SPAN 포트 정보
+* WAF/리버스 프록시 엔드포인트 및 접근 경로
+* 관리자 계정(설치·검증용) 및 접속 방법(SSH/WinRM/RDP)
+
+---
+
+# 4) 서버 제원 (권장 / 최소)
+
+**(PoC 단기간/경량)**
+
+* CPU: 40 vCPU (20코어 x2 하이퍼스레드 허용)
+* 메모리: 512 GB RAM
+* 디스크: 10 TB SSD (최소, 로그 보관량 작을 때)
+* 네트워크: 1 Gbps NIC (관리/수집 전용 VLAN 권장)
+* OS: Rocky Linux 8
+
+**디스크 산정 예시**
+
+* 예상 일일 로그 생성량 = 100 GB/day
+* 보관기간 7일 => 최소 700 GB + 여유 30% = 910 GB → **1 TB 이상 권장**
+  (실제 로그량은 POST body 포함 여부, 트래픽, 샘플링 정책에 따라 달라짐)
+
+---
+
+# 5) 네트워크 구성 (권장 토폴로지 / 포트)
+
+```
+[Internet] 
+   ↓
+[Perimeter FW / LB] 
+   ↓
+[WAF / Reverse Proxy] --- (SPAN / Mirror) ---> [PLURA Collector NIC]
+   ↓
+[Web Servers (Linux)]
+   ↕
+[Internal DB / API]
+   ↕
+[LAN VLANs]
+   ↔
+[Windows Servers / AD] ---[Agent]---> [PLURA Collector]
+   ↕
+[Endpoint PCs] ---[Agent]---> [PLURA Collector]
+```
+
+**필수 포트(예시)**
+
+* Agent ↔ Collector: TCP 1514 / 514 (syslog), 혹은 제품 문서 지정 포트
+* Collector UI/API: TCP 443 (HTTPS)
+* WAF → Collector(로그 전송): TCP 514 / HTTPS (설정에 따름)
+* 내부 테스트용 RDP/SSH: RDP(3389)/SSH(22) — 테스트 중만 오픈
+
+---
+
+# 6) 웹방화벽 운영 관련 (요구/검증 항목)
+
+* **포트 미러링(SPAN) 지원 여부**: [ ] 지원  [ ] 미지원
+
+  * 지원 시: 네트워크 TAP 또는 스위치 SPAN 포트 → PLURA 수집 NIC로 미러링
+* **포트 미러 미지원 시 웹 로그 수집 방안**:
+
+  * WAF/로드밸런서에서 파일 로그 전송(SFTP/HTTPS)
+  * 웹서버(또는 리버스 프록시)에서 POST-body 포함 로깅 설정 후 수집
+  * 프록시(리버스) 레벨에서 액세스 로그 포워딩
+* **리버스 프록시로 운영**: 가능 — 리버스 프록시의 요청 본문(POST) 수집 및 PLURA로 전송
+
+  * 리버스 프록시 방화벽 구성 매뉴얼: [https://docs.plura.io/ko/iaas/ncloud/plurawaf](https://docs.plura.io/ko/iaas/ncloud/plurawaf)
+
+---
+
+# 7) Agent / Syslog 설정 (핵심 체크포인트)
+
+* Windows: 에이전트 설치(EDR + SIEM 에이전트), Windows Event Log 수집 설정, Sysmon 설치 권장
+* Linux: 에이전트 설치(파일/프로세스/네트워크), /var/log/secure, /var/log/messages, nginx/apache access+error + POST body 로그 설정
+* Unix (에이전트 미설치): syslog(UDP/TCP)로 PLURA Collector에 포워딩 — 포맷(CEF/JSON/etc) 확인
+* 시간 동기화(NTP), 로컬 디스크 퍼미션(로그 접근), SELinux/AppArmor 정책 검토
+
+(참고 매뉴얼: [https://docs.plura.io/ko/agents/siem/cplc](https://docs.plura.io/ko/agents/siem/cplc) )
+
+---
+
+# 8) 테스트 시나리오 (우선순위 포함)
+
+1. **웹 POST 공격 시나리오 (최우선)**
+
+   * SQLi 페이로드 포함 POST 요청 전송 → PLURA 탐지 및 WAF/프록시 차단 여부 확인
+   * WebShell 업로드 시도 → 파일 업로드 탐지 → 자동격리/프로세스 차단
+
+2. **인증 관련 공격**
+
+   * Credential stuffing (동시/연속 로그인 실패) → 탐지/계정 차단/경보 생성
+
+3. **엔드포인트 악성행위**
+
+   * 랜섬웨어 샘플 실행(테스트 샘플) → 프로세스 종료, 파일 격리, 호스트 종료(자동) 검증
+
+4. **수집·상관 분석 검증**
+
+   * 동일 공격의 웹 로그 + EDR 이벤트 상관 → 타임라인 및 공격 전파 경로 시각화
+
+5. **포렌식 검증**
+
+   * 특정 시점의 메모리·파일·레지스트리 스냅샷 요청 → 증적 추출·다운로드
+
+6. **성능/부하 테스트**
+
+   * 동시 로그 입력(예: 초당 N건) → 수집 지연/분석 지연 측정
+
+---
+
+# 9) 성공 기준 (Acceptance Criteria)
+
+* 웹 POST-body 기반 공격(예: SQLi, WebShell 업로드) **탐지율 ≥ 90%** 및 탐지 시 알림 생성
+* EDR로부터의 실행 프로세스(악성행위)에 대해 **자동 차단(Kill) 또는 네트워크 격리**가 정상 동작
+* 공격 시점으로부터 **타임라인 생성 ≤ 5분** (로그 수집→상관분석→대시보드 반영)
+* 증적(포렌식) 수집이 가능하고, **증적 추출 기능 정상 동작** (파일/메모리/레지스트리)
+* 단일 서버 환경에서 **평상시 로그처리 지연 < 10초**, 부하 시 허용범위 내 성능 유지
+* 테스트 완료 후 **보고서(탐지 이력, 미탐 사례, 개선 권고)** 제공
+
+---
+
+# 10) 산출물 (PoC 종료 시 제공)
+
+* 설치·구성 문서 (설치 스크립트, 설정값)
+* 네트워크 구성도(최종) 및 포트/방화벽 규칙 목록
+* 테스트 케이스별 결과표(탐지·대응·로그샘플 포함)
+* 포렌식 증적 파일(요청 시) 및 타임라인 리포트
+* 성능측정 결과 및 권장 운영 제원(정식 도입 제안 포함)
+
+---
+
+# 11) 위험요소 및 대응 방안
+
+* **로그 과다(디스크 부족)** → 초기 샘플링/압축·회전 정책 적용, 보관기간 조정
+* **네트워크 미러링 불가** → 리버스 프록시/웹서버 로그 포워딩으로 대체
+* **에이전트 설치 불가 호스트** → syslog/Netflow 또는 네트워크 기반 탐지로 보완
+* **시계 불일치(NTP 미설정)** → 타임라인/포렌식 무결성 문제 — NTP 필수 적용
+
+---
+
+# 12) 권장 체크리스트 매핑 (귀하가 제공한 체크리스트와 연결)
+
+* 위협 탐지: 웹 POST본분·Sysmon·기본 악성코드 탐지 항목 포함 → **시나리오 1,2,3**으로 검증
+* 대응: 네트워크 격리, 프로세스/파일 차단, 호스트 종료 → **시나리오 3**로 검증
+* 분석·포렌식: 타임라인, 명령어 히스토리, 포렌식 수집 → **시나리오 4,5**로 검증
+* 에이전트 관리: 에이전트 설치·그룹관리·미동작 추적 → 설치 단계 검증
+* 안정성: 리소스/성능 테스트 → **시나리오 6**로 검증
+
+---
+
+# 13) 예시 명령/설정 스니펫 (복사 가능)
+
+**Ubuntu / rsyslog → 원격 전송 예시 (Unix syslog 포워딩)**
+
+```bash
+# /etc/rsyslog.d/99-plura.conf
+*.* @@plura-collector.example.local:514    # TCP 전송; 단 @ = UDP, @@ = TCP
+```
+
+**nginx (POST body 로깅 예시, 테스트용)**
+
+```nginx
+# nginx.conf server block
+log_format postbody '$remote_addr - $remote_user [$time_local] '
+                    '"$request" $status $body_bytes_sent '
+                    '"$http_referer" "$http_user_agent" "$request_body"';
+access_log /var/log/nginx/access_postbody.log postbody;
+```
+
+---
+
+# 14) 권장 체크포인트(사전 준비 목록) — 빠르게 복사해서 붙여 쓰기
+
+* [ ] PoC 대상 서버·IP 목록 제출
+* [ ] SPAN/미러 포트 여부 확인 (네트워크 담당자 확인)
+* [ ] 관리자 계정(SSH/RDP) 제공(제한적 시간)
+* [ ] 테스트용 랜섬웨어/악성 샘플 제공(격리된 테스트 환경에서만)
+* [ ] 로그 보관 정책(기간) 및 샘플 로그 제공
+* [ ] 방화벽 규칙(PLURA Collector 접근 허용) 적용
+
+---
