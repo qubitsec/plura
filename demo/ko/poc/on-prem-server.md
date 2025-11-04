@@ -68,76 +68,7 @@
 
 ---
 
-# 4) 네트워크 구성 (권장 토폴로지 / 포트)
-
-
-
-```mermaid
-flowchart TD
-  subgraph EXT[Internet]
-    Internet[Internet]
-  end
-
-  subgraph DMZ[Perimeter / DMZ]
-    PerimeterFW["Perimeter FW / LB"]
-    WAF["WAF / Reverse Proxy"]
-  end
-
-  subgraph CORE[Internal Network]
-    WebServers["Web Servers (Linux)"]
-    DBAPI["Internal DB / API"]
-    LAN["LAN VLANs / Switch"]
-    Windows["Windows Servers / AD"]
-    Endpoints["Endpoint PCs"]
-  end
-
-  subgraph COLLECT[PLURA-XDR Collector]
-    PLURA_NIC["PLURA Collector\n(NIC / Ingest)"]
-    PLURA_APP["PLURA Collector\nApp / UI / API"]
-  end
-
-  %% Connections
-  Internet --> PerimeterFW
-  PerimeterFW --> WAF
-
-  WAF -- "SPAN / Mirror" --> PLURA_NIC
-  WAF -->|HTTP/HTTPS → Web Servers| WebServers
-
-  WebServers --> DBAPI
-  DBAPI --> LAN
-  LAN --> Windows
-  LAN --> Endpoints
-
-  Windows --|Agent|--> PLURA_NIC
-  Endpoints --|Agent|--> PLURA_NIC
-
-  PLURA_NIC --> PLURA_APP
-
-  %% Annotations (ports)
-  click PLURA_APP "https://example.local" "Collector UI/API (예시 링크)"
-  classDef note fill:#f9f,stroke:#333,stroke-width:1px;
-  class PLURA_APP note
-```
-
----
-
-### 필수 포트(예시)
-
-* **Agent ↔ Collector:** TCP **514** (syslog)
-
-  * 에이전트가 직접 Collector로 로그/이벤트 전송
-* **Collector UI / API:** TCP **443** (HTTPS)
-
-  * 운영자 접속, API 호출
-* **WAF → Collector (로그 전송):** TCP **514** (syslog) / **HTTPS** (설정에 따름)
-
-  * WAF가 파일 전송 또는 syslog로 로그를 푸시할 경우
-* **네트워크 미러링:** SPAN/TAP → Collector NIC (미러 포트로 패킷 수집)
-* **내부 테스트용 접속:** RDP **3389** / SSH **22** — **테스트 기간에만 열기 권장**
-
----
-
-# 5) 웹방화벽 운영 관련 (요구/검증 항목)
+# 4) 웹방화벽 운영 관련 (요구/검증 항목)
 
 * **포트 미러링(SPAN) 지원 여부**: [ ] 지원  [ ] 미지원
 
@@ -152,7 +83,7 @@ flowchart TD
 
 ---
 
-# 6) Agent / Syslog 설정 (핵심 체크포인트)
+# 5) Agent / Syslog 설정 (핵심 체크포인트)
 
 * Windows: 에이전트 설치(EDR + SIEM 에이전트), Windows Event Log 수집 설정, Sysmon 설치 권장
 * Linux: 에이전트 설치(파일/프로세스/네트워크), /var/log/secure, /var/log/messages, nginx/apache access+error + POST body 로그 설정
@@ -163,7 +94,7 @@ flowchart TD
 
 ---
 
-# 7) 테스트 시나리오 (우선순위 포함)
+# 6) 테스트 시나리오 (우선순위 포함)
 
 1. **웹 POST 공격 시나리오 (최우선)**
 
@@ -192,18 +123,18 @@ flowchart TD
 
 ---
 
-# 8) 성공 기준 (Acceptance Criteria)
+# 7) 성공 기준 (Acceptance Criteria)
 
-* 웹 POST-body 기반 공격(예: SQLi, WebShell 업로드) **탐지율 ≥ 90%** 및 탐지 시 알림 생성
-* EDR로부터의 실행 프로세스(악성행위)에 대해 **자동 차단(Kill) 또는 네트워크 격리**가 정상 동작
-* 공격 시점으로부터 **타임라인 생성 ≤ 5분** (로그 수집→상관분석→대시보드 반영)
-* 증적(포렌식) 수집이 가능하고, **증적 추출 기능 정상 동작** (파일/메모리/레지스트리)
-* 단일 서버 환경에서 **평상시 로그처리 지연 < 10초**, 부하 시 허용범위 내 성능 유지
-* 테스트 완료 후 **보고서(탐지 이력, 미탐 사례, 개선 권고)** 제공
+* 웹 POST-body 기반 공격(예: SQLi, WebShell 업로드) **탐지율 ≥ 90%** 및 탐지 시 알림 생성  
+* EDR로부터의 실행 프로세스(악성행위)에 대해 **자동 차단(Kill) 또는 네트워크 격리**가 정상 동작  
+* 공격 시점으로부터 **타임라인 생성 ≤ 5분** (로그 수집→상관분석→대시보드 반영)  
+* 증적(포렌식) 수집이 가능하고, **증적 추출 기능 정상 동작** (파일/메모리/레지스트리)  
+* 단일 서버 환경에서 **평상시 로그처리 지연 < 10초**, 부하 시 허용범위 내 성능 유지  
+* 테스트 완료 후 **보고서(탐지 이력, 미탐 사례, 개선 권고)** 제공  
 
 ---
 
-# 9) 산출물 (PoC 종료 시 제공)
+# 8) 산출물 (PoC 종료 시 제공)
 
 * 설치·구성 문서 (설치 스크립트, 설정값)
 * 네트워크 구성도(최종) 및 포트/방화벽 규칙 목록
@@ -213,7 +144,7 @@ flowchart TD
 
 ---
 
-# 10) 위험요소 및 대응 방안
+# 9) 위험요소 및 대응 방안
 
 * **로그 과다(디스크 부족)** → 초기 샘플링/압축·회전 정책 적용, 보관기간 조정
 * **네트워크 미러링 불가** → 리버스 프록시/웹서버 로그 포워딩으로 대체
@@ -222,9 +153,9 @@ flowchart TD
 
 ---
 
-# 11) 권장 체크리스트 매핑
+# 10) 권장 체크리스트 매핑
 
-* 위협 탐지: 웹 POST본분·Sysmon·기본 악성코드 탐지 항목 포함 → **시나리오 1,2,3**으로 검증
+* 위협 탐지: 웹 POST본문·Sysmon·기본 악성코드 탐지 항목 포함 → **시나리오 1,2,3**으로 검증
 * 대응: 네트워크 격리, 프로세스/파일 차단, 호스트 종료 → **시나리오 3**로 검증
 * 분석·포렌식: 타임라인, 명령어 히스토리, 포렌식 수집 → **시나리오 4,5**로 검증
 * 에이전트 관리: 에이전트 설치·그룹관리·미동작 추적 → 설치 단계 검증
@@ -232,28 +163,7 @@ flowchart TD
 
 ---
 
-# 13) 예시 명령/설정 스니펫 (복사 가능)
-
-**Ubuntu / rsyslog → 원격 전송 예시 (Unix syslog 포워딩)**
-
-```bash
-# /etc/rsyslog.d/99-plura.conf
-*.* @@plura-collector.example.local:514    # TCP 전송; 단 @ = UDP, @@ = TCP
-```
-
-**nginx (POST body 로깅 예시, 테스트용)**
-
-```nginx
-# nginx.conf server block
-log_format postbody '$remote_addr - $remote_user [$time_local] '
-                    '"$request" $status $body_bytes_sent '
-                    '"$http_referer" "$http_user_agent" "$request_body"';
-access_log /var/log/nginx/access_postbody.log postbody;
-```
-
----
-
-# 14) 권장 체크포인트(사전 준비 목록)
+# 11) 권장 체크포인트(사전 준비 목록)
 
 * [ ] PoC 대상 서버·IP 목록 제출
 * [ ] SPAN/미러 포트 여부 확인 (네트워크 담당자 확인)
