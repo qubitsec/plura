@@ -13,13 +13,13 @@ SK텔레콤 HSS 웹셸 공격의 이해
 ```mermaid
 flowchart LR
   subgraph M["관리 영역 (Web/UI & API)"]
-    EMS["EMS/ENM Web Portal (HTTPS)\n웹서버"]
-    NBI["NBI Gateway (REST/SOAP/LDAP over HTTPS)\nAPI 서버"]
+    EMS["EMS/ENM Web Portal (HTTPS)<br>웹서버"]
+    NBI["NBI Gateway (REST/SOAP/LDAP over HTTPS)<br>API 서버"]
   end
 
   subgraph C["HSS 내부 영역 (API)"]
-    HSS_OAM["HSS OAM Interface (벤더 OAM API/HTTPS)\nAPI 서버"]
-    HSS_FE["HSS Front-End (Provisioning Service)\nAPI 서버"]
+    HSS_OAM["HSS OAM Interface (벤더 OAM API/HTTPS)<br>API 서버"]
+    HSS_FE["HSS Front-End (Provisioning Service)<br>API 서버"]
     HSS_DB["HSS DB"]
   end
 
