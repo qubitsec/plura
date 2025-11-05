@@ -46,13 +46,13 @@ flowchart LR
 ```mermaid
 flowchart LR
   subgraph W["웹·API 영역 (Web/UI & API)"]
-    ADMIN["관리 포털(Admin Web)\nHTTPS — 웹서버"]
-    APIGW["API Gateway\n모바일/외부 연동 — API 서버"]
+    ADMIN["관리 포털(Admin Web)<br>HTTPS — 웹서버"]
+    APIGW["API Gateway<br>모바일/외부 연동 — API 서버"]
   end
 
   subgraph C["카드 내부 업무 영역 (Core)"]
-    CORE_OPS["Core Ops Interface\n내부 운영 API — API 서버"]
-    APP_SVC["업무 애플리케이션 서비스\n계정/카드/정책 — API 서버"]
+    CORE_OPS["Core Ops Interface<br>내부 운영 API — API 서버"]
+    APP_SVC["업무 애플리케이션 서비스<br>계정/카드/정책 — API 서버"]
     PII_DB["고객/PII DB"]
     TX_DB["거래/정산 DB"]
   end
