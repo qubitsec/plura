@@ -1,60 +1,201 @@
-좋습니다. “관리 경로(운영·프로비저닝 경로)” 기준으로 HSS에 접근하는 **전형적 방식**을 한눈에 정리해 드릴게요.
+# HSS 관리 경로 운영 방법 (howtowork)
 
-# 1) 전형적 접근 흐름(운영자 콘솔 → HSS OAM)
-
-```
-운영자(사내/원격)
-   ↳ 기업 VPN(MFA) / 점프서버(Bastion)
-      ↳ EMS/ENM(웹 포털, HTTPS)
-         ↳ HSS OAM/Prov. 인터페이스(벤더 전용 채널)
-```
-
-* 대부분의 HSS는 **웹 기반 EMS/관리 콘솔(HTTPS)** 로 설정/감시/가입자 작업을 수행하고, 여기서 HSS 내부 OAM/프로비저닝 인터페이스로 전달합니다. 벤더 문서/제품에서도 **HSS Web GUI** 로 운영·가입자 프로비저닝을 명시합니다. ([iplook.com][1])
-
-# 2) 프로비저닝/NBI(OSS·BSS ↔ HSS)
-
-```
-OSS/BSS
-   ↳ NBI(REST/SOAP, 일부 LDAP, HTTPS·mTLS)
-      ↳ HSS-FE/DB 계층(내부 변환: LDAP/XML/벤더 API 등)
-```
-
-* 현장에서는 **REST(SBI 시대 제품)**, **SOAP(레거시/벤더 NBI)**, **LDAP 스키마 기반** 방식이 혼재합니다. HSS-FE가 바깥쪽(OSS/BSS)의 **SOAP/LDAP 호출**을 **내부 Diameter/DB 연산으로 변환**하는 구조가 널리 쓰입니다. ([realtimecommunication.wordpress.com][2])
-* 특히 최근 벤더들은 **REST형 북향 API(NBI)** 를 공식 제공(HTTPS)해 외부 시스템 연동을 단순화합니다. ([support.huawei.com][3])
-
-# 3) 기타 관리형 인터페이스(알람/백업 등)
-
-* **SNMP(알람)·SFTP/FTP(백업·파일 연동)** 같은 북향 인터페이스도 일반적입니다. 운영 포털에서 “Northbound Interface”로 SNMP/SFTP를 설정하는 절차가 벤더 O&M 가이드에 제시됩니다. ([support.huawei.cn][4])
-* 신호망 장비(예: DRA/DSR)도 **외부 관리망(XMI)·내부 관리망(IMI)** 를 분리해 운영합니다(운영자는 외부 관리망만 사용). ([Oracle Documentation][5])
-
-# 4) 인증·접근통제(관리 경로의 보안 전형)
-
-* **사내 VPN + MFA + 점프호스트**를 필수화하고, EMS 로그인은 **사내 디렉터리(AD/LDAP) 연계 + LDAPS** 로 중앙 통제하는 구성이 보편적입니다. (LDAPS 운영 예시는 노키아 운영 가이드에 상세.) ([infocenter.nokia.com][6])
-
-# 5) SKT 사례와의 연결고리(공개 결과 기준)
-
-* 정부 조사 결과에 따르면, SKT 사건에서는 **BPFDoor·웹셸 등 멀웨어**가 다수 서버에서 발견되었습니다. 이는 **인터넷→관리망 피벗**을 통해 내부 자산으로 확장됐음을 시사하지만, “HSS 앞단이 웹/REST였다”는 뜻은 아닙니다(운영·프로비 구간 어딘가의 웹/시스템이 악용됐을 가능성). ([MSIT][7])
-* 당국·언론 보도에서도 **HSS/USIM 데이터 유출**과 **보안미비**가 확인되었습니다(세부 제재·시정조치 포함). ([Reuters][8])
+**버전**: v1.0
+**범위**: HSS의 **관리 경로(EMS Web UI / NBI API / 북향 인터페이스)** 운영 절차 및 보안 가드레일.
+※ 서비스 신호 경로(Diameter 등)는 본 문서 범위에 포함하지 않음. 다이어그램은 `README.md` 참고.
 
 ---
 
-## 실무 체크리스트(관리 경로 기준, 빠르게 점검)
+## 1) 목적·원칙
 
-* **네트워크 분리**: 관리망↔업무망↔서비스망 L3 분리, EMS는 전용 관리 VLAN/서브넷 고정, 인터넷 직접 통신 금지.
-* **인증 강제**: VPN-MFA, EMS SSO+LDAPS, 운영자별 최소권한·세션타임아웃·비승인 단말 차단. ([infocenter.nokia.com][6])
-* **암호화/신뢰경로**: EMS/NBI **HTTPS(mTLS)**, 파일 연동은 **SFTP** 고정. ([support.huawei.com][9])
-* **로깅**: EMS **웹 요청 본문(POST-Body) 로그**, OS **감사(Audit) 로그**, NBI 호출 이력, DB 감사, 명령기록(TTY)·점프호스트 세션녹화까지 전면 수집. (HSS Web O&M·NBI가 실제 존재하므로 포털/NBI 레벨 로그가 핵심 증적.) ([iplook.com][1])
-* **경계장비**: 내부 웹 포털엔 **WAF(내부용)**, 신호 계층은 **Diameter 보안(DSC/DRA 정책)** 을 별도로.
-* **백업·알람 채널 통제**: SNMP·SFTP는 화이트리스트·계정 분리·키기반 인증·전송구간 암호화. ([support.huawei.cn][4])
+* HSS는 코어 신호 장비이지만 **운영·프로비저닝 면은 웹/API 시스템**이다.
+* 따라서 **전통적 웹 공격면(웹셸, 인증·세션, 권한, 입력 검증, 파일 업로드)** 에 동일하게 노출된다.
+* 본 문서는 “**어떻게 운영할 것인가**”를 절차 중심으로 명확히 제시한다.
 
-필요하시면, 위 구조를 기준으로 **귀사 환경용 상세 아키텍처 그림(접속 포인트·계정·로그 위치·보존주기)** 과 **감사 체크리스트**를 바로 만들어 드리겠습니다.
+---
 
-[1]: https://www.iplook.com/tmp/madeimg/IPLOOK-HSS-Web-Operation-Manual-20200408-V1.4.pdf?utm_source=chatgpt.com "HSS Web Operation Manual"
-[2]: https://realtimecommunication.wordpress.com/2015/11/20/user-data-convergence-hss-fe/?utm_source=chatgpt.com "User Data Convergence – HSS-FE | Real Time Communication"
-[3]: https://support.huawei.com/enterprise/en/doc/EDOC1100397106/3b606afb/introduction-to-northbound-open-apis?utm_source=chatgpt.com "Introduction to Northbound Open APIs - SmartPVMS 24.6.0 ..."
-[4]: https://support.huawei.cn/enterprise/en/doc/EDOC1100405706/6e78f270/snmp-api?utm_source=chatgpt.com "SNMP API - Huawei Cloud Stack 8.5.0 O&M Guide 06"
-[5]: https://docs.oracle.com/cd/E93177_01/docs.83/Feature%20Guide.pdf?utm_source=chatgpt.com "Oracle Communications Diameter Signaling Router"
-[6]: https://infocenter.nokia.com/public/7750SR222R1A/topic/com.nokia.System_Mgmt_Guide/configuring_lda-ai9exj5yc9.html?utm_source=chatgpt.com "Configuring LDAP authentication"
-[7]: https://www.msit.go.kr/eng/bbs/view.do%3Bjsessionid%3DA2aV3fQR4zqYv-G8cJpkDgnrgrACDgREHvXAqG5l.AP_msit_2?bbsSeqNo=42&mId=4&mPid=2&nttSeqNo=1139&sCode=eng&utm_source=chatgpt.com "MSIT Releases Final Investigation Results on SK Telecom ..."
-[8]: https://www.reuters.com/sustainability/boards-policy-regulation/sk-telecom-shares-plunge-after-data-breach-due-cyberattack-2025-04-28/?utm_source=chatgpt.com "SK Telecom shares plunge after data breach due to cyberattack"
-[9]: https://support.huawei.com/enterprise/en/doc/EDOC1100296026/90edb2c9/system-integration?utm_source=chatgpt.com "System Integration - Huawei Cloud Stack 8.2.1 O&M Guide ..."
+## 2) 역할·권한 (RACI 요약)
+
+| 역할                 | 책임(Responsible)              | 승인(Approver) | 지원(Consulted) | 통보(Informed) |
+| ------------------ | ---------------------------- | ------------ | ------------- | ------------ |
+| 운영자(Ops)           | 일상 모니터링, 가입자/정책 변경, 1차 장애 대응 | 보안관리자        | SysAdmin, Dev | 관련 부서        |
+| 보안관리자(SecOps)      | 접근권한 승인, WAF·로그 정책, 사고 대응 지휘 | CISO/보안책임자   | Ops, Dev      | 경영진          |
+| 시스템관리자(SysAdmin)   | 서버/OS 패치, Bastion, 백업·복구     | SecOps       | Ops           | 관련 부서        |
+| 개발/연동(Dev/OSS·BSS) | NBI 연동, 스키마 변경, 테스트          | SecOps       | Ops           | 관련 부서        |
+
+**최소권한 원칙**
+
+* 운영/배치/API 계정 분리, 관리자 승인은 2인 규칙.
+* 권한 만료·회수 주기 지정(기본 90일, 고권한 30일).
+
+---
+
+## 3) 사전 준비(공통)
+
+* **네트워크**: 관리망 전용 VLAN, 인터넷 직접 통신 금지, 소스 IP 화이트리스트.
+* **인증**: VPN+MFA 필수, EMS는 **SSO/LDAPS**, NBI는 **mTLS**.
+* **비밀관리**: 인증서·키·비밀번호는 Vault/HSM, 주기적 회전.
+* **감사**: Bastion **세션 녹화/명령기록**, 웹 **POST-Body** 및 **API 호출 이력** 저장.
+* **변경관리(MOC)**: 모든 변경은 티켓 생성 → 승인 → 실행 → 검증 → 종료.
+
+---
+
+## 4) 접근 절차
+
+### 4.1 EMS Web UI
+
+1. **VPN(MFA)** 연결 → **Bastion** 로그인(세션 녹화 활성).
+2. Bastion에서 **EMS Web** 접속(HTTPS).
+3. **SSO/LDAPS**로 인증, 역할 기반 메뉴만 사용.
+4. **MOC 티켓** 확인 후 작업 진행.
+5. 작업 완료 후 **검증 체크리스트** 수행 → 티켓 종료.
+
+### 4.2 NBI API
+
+1. **mTLS 인증서/키**는 전용 Vault에서 주입(파일 배포 금지).
+2. **소스 IP 화이트리스트**·**레이트리밋** 적용.
+3. 합의된 **API 스키마/버전**만 사용(변경 시 MOC 필수).
+4. 모든 호출에 **Correlation-ID** 부여.
+5. 실패 시 **지수 백오프**로 최대 N회 재시도(운영 환경 기본 3회).
+
+### 4.3 기타 북향 인터페이스
+
+* **SNMP**: 트랩 대상/심각도 매핑, 오프시간 억제 룰 정의.
+* **SFTP**: 키 기반 인증만 허용, 읽기/쓰기 계정 분리, 전송 무결성 검증(SHA-256).
+
+---
+
+## 5) 표준 운영 절차(SOP)
+
+### A. 가입자 프로비저닝(EMS)
+
+1. EMS 로그인 → 2) 템플릿 선택 → 3) 필수 필드 입력 → 4) **2인 검수** → 5) 커밋/적용
+2. **검증 쿼리** 실행(표본 ≥3건) → 7) 티켓 종료
+
+* **필수 로그**: 요청 본문(POST-Body), 결과 코드, 승인자 ID, 변경 전/후 스냅샷 해시.
+
+### B. 요금제/정책 변경(NBI)
+
+1. MOC 승인 → 2) 스테이징에서 샘플 N건 테스트 → 3) 생산 반영
+2. 모니터링(오류율/지연/레이트리밋) → 5) 필요 시 롤백
+
+* **필수 로그**: 요청·응답 페이로드 해시, 호출자 mTLS DN, Correlation-ID.
+
+### C. 정기 점검(주간·월간)
+
+* **주간**: 권한 드리프트 검사, Bastion 세션 표본 리뷰(≥5건), EMS/WAF 이벤트 튜닝.
+* **월간**: 패치 현황, 인증서·키 만료 30일 전 교체, 백업·복구 리허설.
+
+---
+
+## 6) 보안 가드레일(필수·점검표)
+
+* [ ] 관리망/업무망/서비스망 L3 분리, 라우팅·ACL 검증
+* [ ] EMS 앞단 **내부 WAF** 적용(파일 업로드·명령 주입·디렉터리 탐색 룰)
+* [ ] **mTLS**(TLS1.2+) 강제, 취약 스위트 차단, HSTS
+* [ ] **SSO/LDAPS**·비인가 단말 차단, 세션 타임아웃(≤15분)
+* [ ] **레이트리밋**(IP·계정·엔드포인트별), API 스키마 검증
+* [ ] **로그**: 웹 POST-Body, API 호출 요약/해시, OS 감사, DB 감사, Bastion TTY 녹화
+* [ ] **비밀관리**: Vault/HSM, 정기 회전, 사용 내역 감시
+* [ ] **MOC** 전 과정 기록, 롤백 플랜 사전 검증
+
+---
+
+## 7) 사고 대응 플레이북(웹셸/비정상 API 징후)
+
+**트리거 예시**
+
+* EMS 관리자 페이지 **POST 급증**, 비정상 파일 업로드 접근
+* NBI **4xx/5xx** 급증, 스키마 불일치, 비정상 mTLS DN
+* HSS DB **대량 조회/덤프** 패턴, 비업무시간 접근
+
+**즉시 조치(0~30분)**
+
+1. **격리**: EMS 프런트/의심 노드 서비스에서 분리, WAF 차단 룰 즉시 적용
+2. **자격증명 회수**: 관련 계정·토큰·인증서 폐기/재발급
+3. **증거보전**: 웹셸 파일/해시, 프로세스 리스트, 네트워크 연결, 메모리 스냅샷
+
+**조사·스코핑(30분~4시간)**
+4. Bastion 세션·EMS **POST-Body**·웹서버 접근 로그 상관분석
+5. **HSS_OAM/HSS_FE** 호출 흔적 추적(시간·계정·요청 본문 해시 일치 여부)
+6. DB 감사로그로 조회/추출/압축·전송 흔적 확인
+
+**복구(4~24시간)**
+7. 클린 노드로 전환(이미지 신뢰성 검증), IaC로 재배포
+8. 서명/무결성 검사 통과 후 트래픽 점진 복귀(50%→100%)
+9. IOC 기반 전체 스윕, 재발 방지 설정 반영
+
+**사후(24~72시간)**
+10. **RCA** 작성, 정책/룰 보완, 교육·리허설 업데이트
+11. 규제기관/고객 통지 요건 검토 및 이행(해당 시)
+
+---
+
+## 8) 모니터링·알림 기준(요약)
+
+| 영역  | 주요 지표                          | 임계치 예시(초기값)      | 알림        |
+| --- | ------------------------------ | ---------------- | --------- |
+| EMS | 관리자 POST/분, 파일 업로드 시도, 로그인 실패율 | 평시+3σ, 5분간 3회 초과 | SecOps P1 |
+| NBI | 4xx/5xx 비율, 지연 p95, 스키마 불일치    | 오류율 >1%, p95>1s  | Ops P2    |
+| WAF | 룰 히트율, 우회 시그니처                 | 룰 히트 급증          | SecOps P2 |
+| DB  | 대량 SELECT/EXPORT, 비업무시간 접근     | 평시+3σ            | DBA P1    |
+| 시스템 | 무결성 실패, 신규 프로세스(웹셸 지표)         | 즉시               | SecOps P1 |
+
+---
+
+## 9) 로그·증적 보존
+
+| 항목                 | 보존 기간(최소) | 비고                |
+| ------------------ | --------: | ----------------- |
+| 웹 요청 본문(POST-Body) |        1년 | 민감정보 마스킹 정책 적용    |
+| API 호출 이력/해시       |        1년 | Correlation-ID 포함 |
+| OS 감사(Audit)       |        1년 | sudo/tty 포함       |
+| DB 감사              |        2년 | 조회·추출·계정 변경       |
+| Bastion 세션 녹화      |        1년 | 무작위 표본 리뷰 주간 수행   |
+
+열람은 **사유 기록 + 2인 승인** 원칙.
+
+---
+
+## 10) 변경관리(MOC) 필수 항목
+
+* 변경 목적/영향 범위, 위험도, 롤백 플랜
+* 테스트 증빙(스테이징 결과, 샘플 로그)
+* 윈도우/담당자/연락망, 비상 중단 기준
+* 완료 후 검증 체크리스트 및 로그 위치
+
+---
+
+## 11) 템플릿/부록
+
+### 11.1 검증 체크리스트(예시)
+
+* [ ] 작업 티켓 번호 __________
+* [ ] EMS/NBI 접근 성공 및 응답 코드 2xx
+* [ ] 샘플 N건 프로비저닝/정책 반영 확인
+* [ ] 관련 로그(POST-Body/API 해시) 수집·보관
+* [ ] 권한·세션 누수 없음
+* [ ] 모니터링 지표 정상화
+
+### 11.2 API 호출 로깅 스키마(요약)
+
+```
+timestamp, source_ip, mTLS_DN, user|client_id, method, endpoint,
+correlation_id, req_hash, resp_code, resp_time_ms, rate_limit_hit(bool)
+```
+
+---
+
+## 12) 참조
+
+* `README.md` — 관리 경로 다이어그램·요약
+* `configuration.md` — WAF·mTLS·계정·레이트리밋 파라미터 표
+* `about.md` — 배경/사건 개요/교훈
+
+---
+
+## 13) 변경 이력
+
+* **v1.0 (YYYY-MM-DD)**: 초기 운영 절차·가드레일 정리, 사고 대응 포함
+
+---
