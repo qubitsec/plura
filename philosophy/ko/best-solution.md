@@ -1,12 +1,3 @@
----
-date: 2025-11-13
-draft: false
-title: "왜 이제는 ‘웹 본문까지’ 전체 웹 로그 분석이 필요할까?"
-description: "대부분의 공격이 웹에서 시작되는 시대, 왜 GET/POST를 포함한 전체 웹로그(특히 POST Body) 분석이 공공·금융·기업 보안의 최저 기준이 되어야 하는지를 정리합니다."
-featured_image: "cdn/column/very_important_analyze_web_logs.png"
-tags: ["GET 방식", "POST 방식", "웹로그 분석", "보안", "PLURA-XDR"]
----
-
 ## 1. 지금 공격은 대부분 ‘웹’에서 시작된다
 
 이제 공격자는 더 이상 방화벽 포트를 “두드리는 것”에 머물지 않습니다.  
