@@ -136,7 +136,7 @@ graph LR
   C["사용자 브라우저 / Client"]
   FW["방화벽"]
   WAF["웹방화벽"]
-  SSLV["SSL 가시성 장비 (AISVA / 수산INT)"]
+  SSLV["SSL 가시성 장비 <br> (AISVA / 수산INT)"]
   SW["미러 스위치 / TAP"]
   PLURA["PLURA-XDR Web Packet Sensor"]
   WAS["웹 서버 / WAS"]
