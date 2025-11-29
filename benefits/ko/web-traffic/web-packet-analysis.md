@@ -1,5 +1,11 @@
 ## 📖 SSL 가시성 장비(AISVA)와 PLURA-XDR 패킷 분석 엔진을 통한 웹 공격 재탐지 구성 문서
 
+가시성 장비 예시 :
+  - AISVA (Application Insight SSL Visibility Appliance)
+  - 수산INT SSL 가시성 장비 (예: SSL 가시성 어플라이언스 계열)
+
+---
+
 ## 1. 개요: AISVA + PLURA 웹 패킷 분석 통합
 
 AISVA(Application Insight SSL Visibility Appliance)는
