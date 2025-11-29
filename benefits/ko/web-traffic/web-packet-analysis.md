@@ -133,30 +133,19 @@ PLURA의 목적은 **WAF 통과 공격 재탐지**입니다.
 
 ```mermaid
 graph LR
-  subgraph Internet_Zone
-    C[사용자 브라우저 / Client]
-  end
-
-  subgraph DMZ
-    FW[방화벽]
-    WAF[웹방화벽 (WAF)]
-    SSLV[SSL 가시성 장비 (AISVA / 수산INT)]
-    SW[포트 미러링 스위치/탭]
-  end
-
-  subgraph Internal
-    PLURA[PLURA-XDR Web Packet Sensor]
-    WAS[웹 서버 / WAS]
-    SIEM[보안 관제 / 운영자]
-  end
+  C["사용자 브라우저 / Client"]
+  FW["방화벽"]
+  WAF["웹방화벽 (WAF)"]
+  SSLV["SSL 가시성 장비 (AISVA / 수산INT)"]
+  SW["미러 스위치/탭"]
+  PLURA["PLURA-XDR Web Packet Sensor"]
+  WAS["웹 서버 / WAS"]
+  SIEM["보안 관제 / 운영자"]
 
   C -->|HTTPS| FW --> WAF --> SSLV -->|복호화 후 재암호화| WAS
 
-  %% 미러 구성
-  SSLV -->|복호화된 웹 트래픽 미러| SW
-  SW -->|SPAN/Mirror| PLURA
+  SSLV -->|복호화된 웹 트래픽 미러| SW -->|SPAN/Mirror| PLURA
 
-  %% 로그/이벤트 연계 (논리선)
   WAF -. 탐지 로그 .-> PLURA
   PLURA -. 분석 결과 / 알림 .-> SIEM
 ```
