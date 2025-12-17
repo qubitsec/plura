@@ -77,6 +77,8 @@ PowerShell 스크립트를 이용해
 
 > 해당 스크립트로 **공격 시간 구간에 생성된 이벤트 수**를 비교
 
+👉 [PowerShell 스크립](https://github.com/QubitSecurity/EDR/blob/main/Windows/Event-Channel/count-logs.md)
+
 ### PLURA 에이전트 + Sysmon
 
 * **V6 LIVE 콘솔**에서 시간 범위 지정 후 로그 수 확인
