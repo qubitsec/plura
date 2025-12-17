@@ -39,9 +39,6 @@
 https://github.com/QubitSecurity/EDR/tree/main/Windows/sysmon/server
 ```
 
-* (권장) 실제 적용한 XML 파일(raw)도 보고서에 함께 명시 필요
-  ※ 예: 초기 메모에 기재된 raw XML 주소 등
-
 ---
 
 ## 3️⃣ 테스트 시나리오 및 일정 ⏱️
