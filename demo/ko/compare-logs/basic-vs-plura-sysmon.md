@@ -184,7 +184,7 @@ PowerShell 스크립트를 이용해
 
 이 구간은 단순한 기술적 한계 문제가 아니라,  
 운영자가 결정을 내릴 때 합리적·객관적 판단을 방해하는 심리적 경향, 즉  
-**사이버 보안 인지 편향(Security Cognitive Biases)**과 결합되며 더 위험해진다.
+**사이버 보안 인지 편향**(Security Cognitive Biases)과 결합되며 더 위험해진다.
 
 > **Security Cognitive Biases**  
 > “결정을 내릴 때 합리적이고 객관적인 판단을 방해하는 다양한 심리적 경향”
