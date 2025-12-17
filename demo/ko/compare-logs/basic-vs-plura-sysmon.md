@@ -52,9 +52,9 @@
   * **12/16 10:10 ~ 10:30**
 * 공격 유형:
 
-  1. 웹쉘 업로드
-  2. SST Injection
-  3. SQL Injection
+  *  웹쉘 업로드
+  * SST Injection
+  * SQL Injection
      (Post-body 기반 공격 위주)
 
 ---
