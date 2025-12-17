@@ -27,11 +27,7 @@
 | 기본 OS 서버 | `172.16.13.46` | Windows 기본 OS          |
 | 비교 서버    | `172.16.13.47` | PLURA V6 에이전트 + Sysmon |
 
-### Sysmon 설정 파일
-
-```
-https://raw.githubusercontent.com/QubitSecurity/EDR/refs/heads/main/Windows/sysmon/server/s-sysmon-plura-v3-merge-29-latest.xml
-```
+👉 [Sysmon 설정 파일](https://github.com/QubitSecurity/EDR/tree/main/Windows/sysmon/server)
 
 ---
 
