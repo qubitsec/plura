@@ -197,3 +197,6 @@ AI 기반 사이버보안 전략의 부재,
 > 사이버 보안 대응 수준은 지금과는 질적으로 다른 단계로 올라설 수 있다.**
 
 ---
+
+👉 [완벽한 보안은 가능하다](https://blog.plura.io/ko/column/perfect_security_mindset/)
+
