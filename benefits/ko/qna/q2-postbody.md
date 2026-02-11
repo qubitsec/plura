@@ -35,19 +35,19 @@ POST /login HTTP/1.1 200
 
 ## 2️⃣ 공격은 어디에 숨어 있을까요?
 
-### 💀 SQL Injection
+### 🐞 SQL Injection
 
 ```
 username=admin' OR 1=1 --
 ```
 
-### 💀 Command Injection
+### 🐞 Command Injection
 
 ```
 cmd=cat /etc/passwd
 ```
 
-### 💀 XSS
+### 🐞 XSS
 
 ```
 comment=<script>alert(1)</script>
