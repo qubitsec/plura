@@ -8,14 +8,6 @@
 
 ## 1️⃣ 많은 조직이 Sysmon을 사용합니다
 
-![Image](https://learn.microsoft.com/en-us/sysinternals/downloads/media/sysmon/event-screen-optimized.png)
-
-![Image](https://learn-attachment.microsoft.com/api/attachments/126336-image.png?platform=QnA)
-
-![Image](https://www.grantknoetze.com/Sysmon_config.webp)
-
-![Image](https://www.whatsupgold.com/images/librariesprovider2/blogs/2019/04/sysmon1-e1555000664943.png?sfvrsn=aaa97613_3)
-
 Sysmon은 매우 강력한 도구입니다.
 
 * 프로세스 생성
