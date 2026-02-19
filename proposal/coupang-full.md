@@ -153,4 +153,4 @@ q4-complements 문서가 말하듯, 기존 솔루션은 결국 “기반 이벤�
 
 공격자가 탈취한 인증 토큰(JWT)을 이용해 정상 사용자로 위장하고, 짧은 시간 동안 대량의 API 요청을 보내는 상황입니다.
 
-- 📺 [탈취된 JWT 토큰의 역습, 3천만 계정은 어떻게 털렸나? | PLURA의 API 브루트포스 탐지 시연](https://youtu.be/l6JeCeWeVSo)
+- 📺 [탈취된 JWT 토큰을 이용한 공격 대응 데모 | PLURA의 API 브루트포스 탐지 시연](https://youtu.be/l6JeCeWeVSo)
