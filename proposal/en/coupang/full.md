@@ -1,226 +1,208 @@
 # PLURA-XDR Proposal
 
----
-
 ## 0️⃣ Proposal Summary
 
-The security organization must be able to detect and control intrusion and data-exfiltration attempts autonomously — without depending on engineering change notifications or HR events.
+**Business impact:** Help prevent and contain large-scale credential stuffing and data-exfiltration attempts before they escalate, reducing financial exposure and legal/compliance risk (e.g., reportable incidents). Strengthen security primarily through security-owned policy and configuration, minimizing engineering disruption and avoiding wasted developer cycles.
 
-In reality, engineering hires/offboarding, privilege changes, and deployment/development changes are not always visible to the security organization first — and often arrive late.
+**The security organization must be able to detect and control intrusion and data-exfiltration attempts autonomously - without depending on engineering change notifications or HR events.**
 
-Any design that only works “when collaboration is perfect” inevitably creates blind spots.
+In reality, engineering hires/offboarding, privilege changes, and deployment / development changes are **not always visible to the security organization first** - and often arrive late. Any design that only works “when collaboration is perfect” inevitably creates blind spots.
 
-What Coupang needs is not “security that reacts when people/processes tell us,” but an operational security standard that can detect and enforce controls autonomously based on system behavior signals — even if security is informed late.
+What Coupang needs is not “security that reacts when people/processes tell us,” but an **operational security standard** that can **detect and enforce controls autonomously based on system behavior signals - even if security is not informed (or is informed late).**
 
 PLURA-XDR is proposed on the following four points:
 
-1. **Key rotation / revocation (Layer 1)** is mandatory.
-   However, it cannot fully cover pre/post-rotation gaps, delays, and automated attacks.
-   → A **behavior-based brute-force detection and blocking layer (Layer 2)** is required — even when “the attacker already has the key.”
+**1. Key rotation / revocation (Layer 1)** is mandatory. However, it is difficult to fully cover pre/post-rotation gaps, delays, and automated attacks with rotation alone. → A **behavior-based brute-force detection and blocking layer (Layer 2)** is required - even for “an attacker who already has the key.”
 
-2. Evidence of brute-force attacks rarely appears in Access Log surfaces (URL/status/IP).
-   It exists in **request bodies (POST Body)** and **response outcome signals (success/failure + reason).**
-   → Only request-body + response-outcome analysis reliably connects detection to blocking.
+**2.** Evidence of brute-force attacks is not primarily on the Access Log surface (URL / status code / IP). In most cases, it exists in the **request body (POST Body)** and **response outcome signals** (success/failure + reason). → Only **request-body + response-outcome analysis** reliably connects “detection” to “blocking.”
 
-3. Even under distributed IP attacks, the essence is not IP count.
-   It is repetition, time density, automation patterns, and deviation from baseline.
-   → Detection must operate at the account/key/session/endpoint level.
+**3.** Even when IPs are distributed across thousands of sources, the essence of the attack is not the IP count. It is **repetition, time density, automation patterns, and deviation from the normal baseline** (success/failure rates). → Detection and blocking are feasible using **behavior at the account / key / session / endpoint level**, not IP-centric rules.
 
-4. Remove dependence on organizational events.
-   Even without real-time offboarding/change sharing, security must operate autonomously via **Observability + Enforcement**.
+**4. Remove dependence on organizational events (key point).** Even if developer offboarding or deployment changes are not shared with security in real time, the security organization must be able to operate **autonomously** through an **Observability + Enforcement** system to continuously detect and mitigate intrusion/exfiltration attempts.
 
----
+## 1️⃣ Reframe the assumption: “Offboarding” is a security event, not just an HR event
 
-## 1️⃣ Reframe the assumption: Offboarding is a security event
+When someone who handled keys (signing keys / authentication keys / API keys, etc.) leaves, the possibility that keys moved outside of security control - via laptops, personal cloud storage, backups, etc. - becomes a risk in itself.
 
-When key custodians leave, the possibility that keys moved outside controlled environments becomes a risk in itself.
+Therefore, the starting point must be:
 
-The correct starting assumption:
+> Not “the keys were probably not taken,” but “they may already have been taken.”
 
-> Not “keys were probably not taken.”
-> But “they may already have been taken.”
+### (Operational reality) Security often learns facts late
 
-Security often learns facts late.
-HR-triggered key rotation alone leaves gaps.
+In practice, security teams frequently do not receive advance notice of engineering offboarding, privilege changes, deployment schedules, or development changes - or only learn them after the fact.
 
-We need security that works even when we **don’t know**.
+A response that relies only on an HR trigger (e.g., “offboarding notice → immediate key rotation”) will inevitably leave gaps.
 
----
+→ Conclusion: We need security that does not only work when we “know.” We need security that **still works even when we don’t**.
 
-## 2️⃣ Why key rotation alone is insufficient
+## 2️⃣ Why key rotation alone does not complete the defense
 
-Rotation is necessary — but gaps remain:
+Key rotation/revocation is necessary, but the following realities remain:
 
-* Pre-rotation exposure windows
-* Operational delays
-* Sustained automation by attackers already holding keys
+- **Gaps** before rotation takes effect
+- Potential **delays** in rotation
+- **Sustained automation** by an attacker who already has the key
 
-Key control = asset governance
-Brute-force defense = behavior control
+So Coupang also needs:
 
-Both are required.
+> A second line of defense that assumes “the attacker already has the key” = behavior-based brute-force detection and blocking
 
----
+Put simply:
 
-## 3️⃣ Why access-log-centric detection fails
+- Key control is **asset governance**
+- Brute-force defense is **behavior control**
 
-Access logs show:
+Both are required to prevent a small issue from becoming a major incident.
 
-* IP
-* Time
-* Method
-* URL
-* Status code
+## 3️⃣ Why access-log-centric detection tends to fail
 
-Example:
+Typical web Access Logs record only IP, time, method, URL, status code, etc.
 
-```
-POST /login ... 200
-```
+For example, the following can look normal:
 
-Looks normal.
+- POST /login ... 200
 
-But attack payload exists inside the **request body**.
+But the real attempt values (account / password / token / parameters) are not in the URL - they occur inside the **Body (request payload).**
 
-Many systems return HTTP 200 while embedding failure reasons inside response JSON.
+In many production designs, the HTTP status can remain 200, while failure reasons are only found in the response body (JSON message/code). → Without request/response bodies (or at least outcome signals), it becomes easy to misclassify attacks as “normal.”
 
-Without body/outcome signals → attacks look normal.
+## 4️⃣ Core proposal: Coupang’s Layer-2 defense must analyze “request bodies + response outcome signals”
 
----
+### 4-1) Why the request body (POST Body) is a required security foundation
 
-## 4️⃣ Core proposal: analyze request bodies + response outcome signals
+In most cases, the decisive evidence needed to determine web attacks exists in the **POST Body**, and cannot be identified from Access Logs alone.
 
-### 4-1 Request body is foundational
+In HTTPS environments, the payload is not visible on the network. Body analysis is only possible at the **decryption/termination point (web server / WAF / API gateway).** If you do not collect it there, there is no way to recover it later.
 
-Decisive attack evidence is inside POST Body.
+Partial collection (e.g., only first 8 KB, or selective parameters) can be abused by attackers. → **Full, original body collection** is recommended.
 
-In HTTPS environments:
+※ This is not application feature development. It can be implemented as an **operations policy/configuration at the decryption point**, so it does not need to depend on engineering release schedules or change notifications. The security team can drive it **autonomously**.
 
-* Network devices cannot see payload
-* Only termination point (WAF/API Gateway/Web server) can collect it
+### 4-2) Why response outcome signals are needed to connect “detection” to “safe blocking”
 
-Partial collection is unsafe.
+Brute-force attacks are not just “a lot of requests.” They are distinguished by outcome signals such as:
 
-Full collection recommended.
+- Login success/failure
+- Failure reason (wrong password, account lockout, step-up required, etc.)
+- Token issuance / authorization outcomes
 
-Security can implement via configuration at termination point — no major engineering dependency.
+These signals separate true attacks from legitimate spikes (promotions/incidents) and reduce false positives when enforcing blocks.
 
----
+In other words:
 
-### 4-2 Response outcome signals enable safe blocking
+> Only by combining request bodies (attempt content) with response outcome signals (success/failure + reason) can “accurate detection” reliably become “safe, automated blocking.”
 
-Brute-force is defined by:
+※ If storing full response bodies is operationally heavy, collect only **structured outcome fields** (e.g., success flag and failure reason code). This reduces privacy/performance/cost risk while significantly improving blocking accuracy.
 
-* Success/failure patterns
-* Failure reasons
-* Token issuance behavior
+This can also start as an **operational extraction/normalization of existing response result fields**, so it does not require new application development as a prerequisite. The security team can operate it **independently**.
 
-Combining:
+## 5️⃣ Why we can detect even if keys are leaked: keys may pass, but behavior is hard to hide
 
-**Request body + outcome signal**
-→ Accurate detection
-→ Safe automated enforcement
+If signing/authentication keys are taken, request signatures/headers can look legitimate. However, brute-force and automated authentication attempts typically exhibit:
 
-Structured outcome collection reduces privacy and performance risk.
+- Increased request rate per unit time (time density)
+- Repeated calls to the same resource (login/token)
+- Deviation from the normal baseline (success-rate drop / repeated failures)
+- Persistent automation patterns (regular intervals, sustained sequences)
 
----
+PLURA-XDR’s core approach is **behavior-based**, not IP blacklisting. Detection accuracy is achieved using **thresholds (Stage 1) + session behavior (Stage 2).**
 
-## 5️⃣ Detection logic: thresholds + session behavior
+Therefore, even if an attacker “looks legitimate” by holding valid keys, detection and blocking are feasible when:
 
-Even with valid keys:
+- **Threshold-based:** authentication failures/retries by the same **key/account/session** exceed the normal range
+- **Session behavior-based:** the session shows **repetitive/automated authentication or token-issuance flows**
 
-* Time density anomalies
-* Repetitive login/token calls
-* Baseline deviation
-* Automation persistence
+## 6️⃣ Distributed IP is not “undetectable” - it is exactly where behavior-based detection applies
 
-PLURA-XDR uses:
+Distributed IP is a common evasion tactic, but adding more IPs does not make an attack “normal.”
 
-Stage 1 — Threshold trigger
-Stage 2 — Session behavior confirmation
+The key point is:
 
-Not IP blacklists.
+> Detection does not become impossible because IPs are distributed. The essence of the attack is repetition, time density, automation patterns, and deviation from baseline.
 
----
+So the defensive model must shift from IP-centric rules to **account/key/session/endpoint behavior**.
 
-## 6️⃣ Distributed IP ≠ undetectable
+## 7️⃣ Coupang deployment architecture: build foundations the security organization can operate autonomously
 
-IP count is irrelevant.
+Most security solutions ultimately consume “events/logs.” If the foundation is weak, even strong tools cannot operate accurately.
 
-Detection focuses on:
+### 7-1) (Key) Autonomous Operation principle for the security organization
 
-* Repetition
-* Time density
-* Automation
-* Deviation
+To control intrusion/exfiltration even without real-time HR/engineering change sharing, security must directly own and operate at least these three capabilities:
 
-Behavior correlation neutralizes distributed IP evasion.
+1) **Observability pipeline**
 
----
+- Collect request bodies and response outcome signals at the decryption point (web server / WAF / API gateway)
+- Control privacy and sensitivity via field-level masking/hashing, separated access rights, and retention policies
 
-## 7️⃣ Autonomous deployment architecture
+2) **Detection policies**
 
-### 7-1 Security-owned foundation
+- Brute-force / automation behavior detection at the account/key/session/endpoint level (thresholds + correlation)
+- Identify abnormal deviations from baseline (success/failure ratios, time density)
 
-Security must directly own:
+3) **Enforcement policies**
 
-1. Observability pipeline
-2. Detection rules
-3. Enforcement policy
+- Staged automated responses (throttle → step-up → block/quarantine)
+- Include exception handling, rollback, and approvals to minimize operational risk
 
-Privacy handled via masking, hashing, retention control.
+### 7-2) Recommended implementation flow
 
----
+**1. At the decryption/termination point (web server / WAF / API gateway)**
 
-### 7-2 Implementation flow
+  - Collect full request bodies (POST Body)
+  - Collect response outcome signals (at minimum: success/failure + reason + token issuance signal)
 
-1. Collect request bodies + outcome signals at termination point
-2. Apply behavior detection in PLURA-XDR
-3. Stage enforcement:
+**2. In PLURA-XDR**
 
-   * Throttle
-   * Step-up
-   * Block/quarantine
+  - Behavior-based brute-force detection even when “the key is valid” (repetition/time density/deviation)
+  - Correlate by account/key/session/endpoint to neutralize distributed-IP evasion
 
-Parallel key rotation minimizes exposure windows.
+**3. Response actions (operational policy)**
 
----
+  - Stage 1: rate limiting / delay (by endpoint, key, account)
+  - Stage 2: step-up authentication (additional verification, challenge/CAPTCHA, etc.)
+  - Stage 3: automated block/quarantine (key/account) + SOC notification
+  - Run in parallel with key rotation to minimize windows of exposure
 
 ## 8️⃣ One-sentence summary
 
-Even if keys are taken and legitimate signatures are possible, attacks reveal themselves through repetitive/automated behavior captured in request bodies and response outcome signals.
+> Even if keys are taken and “legitimate signatures” are possible, attacks reveal themselves through repetitive/automated behavior captured in request bodies and response outcome signals. PLURA-XDR provides a Layer-2 defense that detects and blocks brute-force attacks using thresholds + session behavior. And even if engineering offboarding or development changes are not shared with security in real time, the security organization can independently detect and control intrusion/exfiltration attempts through an “Observability + Enforcement” operating standard.
 
-PLURA-XDR provides a Layer-2 defense based on thresholds + session behavior.
+## 9️⃣ Execution proposal: a security-team-led pilot with minimal engineering dependency
 
----
+In practice, the most important thing is not “perfect design,” but ensuring the security organization has control **starting now**.
 
-## 9️⃣ Security-led pilot
+This proposal starts with:
 
-Start immediately:
+- **Minimize scope:** begin with core endpoints (login/auth/token issuance)
+- **Minimize coordination:** prioritize **decryption-point configuration and security policy** over application feature changes
+- **Minimize false positives:** use staged enforcement (throttle → step-up → block) to maintain stability
 
-* Scope: login/auth/token endpoints
-* Configuration-driven
-* Staged enforcement
-* Minimal engineering dependency
+### 9-1) What the security team can start immediately (security-led)
 
-Deliverables:
+- Enable request-body collection at the decryption point (with masking/access/retention controls)
+- Collect and normalize response outcome signals (success/failure + reason)
+- Apply threshold + session-behavior detection rules
+- Apply staged automated enforcement (throttle / step-up / block)
 
-* Baseline profile
-* Detection/enforcement policy
-* Operational playbook
+### 9-2) Minimal approvals required
 
----
+Even with limited engineering collaboration, the following approvals are necessary:
 
-## 🔟 Final takeaway
+- Operational authority to configure the decryption point (WAF / API gateway / web server)
+- Approval of sensitive-data handling principles (masking, access separation, retention)
+- Approval of enforcement scope (start with staged controls rather than immediate hard blocks)
 
-* Assume keys may be leaked
-* Defense in depth
-* Visibility foundation
-* Autonomous security operation
+> With these three approvals, the security organization can practically begin an operating model that works even when no one tells us.
 
----
+## 🔟 Final takeaway: four operating principles for Coupang
 
-🎥 Demo
-[https://youtu.be/l6JeCeWeVSo](https://youtu.be/l6JeCeWeVSo)
+- **Assumption shift:** design from “the keys may already be leaked”
+- **Defense in depth:** key rotation (Layer 1) + behavior-based brute-force detection/blocking (Layer 2)
+- **Visibility foundation:** analyze **request bodies (required)** + **response outcome signals (improves safe blocking)** rather than Access Logs alone
+- **Remove org dependence:** control intrusion/exfiltration through an **autonomous security operating model** that works even without HR/engineering event awareness
 
----
+### 🎥 Demo video: defending against high-volume API access using a stolen JWT
+
+- https://youtu.be/l6JeCeWeVSo
