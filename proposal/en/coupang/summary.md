@@ -1,116 +1,55 @@
 # PLURA-XDR Proposal — Executive Brief
 
-Autonomous Layer-2 Defense for Brute-Force Authentication  
-Under Key Leakage & Offboarding Visibility Gaps
+Autonomous Layer-2 defense for brute-force authentication under key leakage & offboarding visibility gaps
+> Business impact: Reduce financial loss and legal/compliance exposure by containing large-scale credential stuffing and data-exfiltration attempts early - without consuming engineering cycles.
+> CISO reality: If security must be told what changed, security will miss what matters. Valid signatures do not guarantee benign intent.
+> Ask: Approve a security-led pilot and three operating approvals (visibility, data controls, staged enforcement).
 
-## Business Impact (CEO Perspective)
 
-By implementing PLURA-XDR, Coupang can proactively prevent large-scale credential stuffing and data-exfiltration incidents that may result in significant financial losses, regulatory penalties, and compliance violations.  
+## Why this matters (CISO lens)
+- Offboarding, privilege changes, and deployment changes are often discovered late by security — creating unavoidable blind spots.
+- If signing/authentication keys leave controlled environments, attackers can send requests that look legitimate at the header/signature level.
+- Access Logs alone (URL/status/IP) rarely provide decisive evidence; the signal is typically in request payloads and outcomes.
 
-At the same time, this approach strengthens security without requiring additional engineering feature development, minimizing resource waste and operational disruption.
+## What we are proposing
+Establish an autonomous operating standard — “Observability + Enforcement” — so the security organization can detect and control brute-force/automation attempts based on system behavior signals, without waiting for perfect cross-team collaboration.
+- Layer 1 (mandatory): Key rotation / revocation to reduce exposure.
+- Layer 2 (proposed): Behavior-based detection and staged enforcement for brute-force attempts — even when requests are signed with valid keys.
 
----
+## At-a-glance: what changes
+| If we only rotate keys | With PLURA-XDR Layer-2 |
+| --- | --- |
+| Windows of exposure remain (pre/post-rotation gaps, delays, sustained automation). | Behavior signals trigger containment even during gaps or delayed awareness. |
+| Signed requests can appear normal; distributed IPs dilute IP-only rules. | Threshold + session-behavior logic correlates by key/account/session/endpoint (not IP). |
+| Limited evidence for fast triage and scope assessment. | Request-body + outcome signals improve confidence, triage speed, and investigation quality. |
 
-## Why This Matters (CISO Lens)
 
-Operationally, security cannot rely on timely engineering change notifications or HR offboarding events to stay ahead of intrusion and data-exfiltration attempts.
+## Core idea: request bodies + response outcome signals
+- Collect request bodies (POST Body) and response outcome signals (success/failure + reason) at the HTTPS termination/decryption point (web server / WAF / API gateway).
+- When full response-body retention is unnecessary, collect only structured outcome fields — reducing privacy/performance/cost risk while improving enforcement accuracy.
+## How detection works (high level)
+- Stage 1 — Threshold trigger: abnormal failures/retries exceed the normal baseline for the same key/account/session.
+- Stage 2 — Session-behavior confirmation: repetitive/automated authentication or token-issuance flows are observed in-session.
+- Enforcement is staged (throttle → step-up → block/quarantine) to reduce false positives and maintain service stability.
 
-Valid signatures do not guarantee benign intent.
+## Security-led deployment (minimal engineering dependency)
+This approach is designed so security can execute primarily through configuration and policy at the termination point — without waiting on application feature work. Engineering involvement is optional for later optimization, not a prerequisite to start.
+- Pilot scope: start with the highest-risk endpoints (login / auth / token issuance).
+- Week 1–2: enable collection at the termination point with field-level masking/hashing, access separation, and retention controls.
+- Week 2–3: baseline normal behavior; enable threshold + session-behavior detection rules.
+- Week 3–4: enable staged enforcement; tune false-positive controls (exceptions/rollback).
+- Pilot deliverables: baseline profile, detection & enforcement policy set, and an operational playbook for SOC/IR.
 
-If signing/authentication keys leave controlled environments, attackers can send requests that appear legitimate at the header/signature level.
+## Decisions and minimal approvals required
+- Authorize collection at the termination point (request bodies + outcome signals) as the visibility foundation.
+- Approve sensitive-data handling principles (masking/hashing, access separation, retention) to keep compliance risk controlled.
+- Approve staged enforcement scope (throttle → step-up → block/quarantine) for rapid containment with operational safety.
 
-Access Logs alone (URL/status/IP) rarely provide decisive evidence; the signal is typically in request payloads and response outcomes.
+## Expected impact
+- Detect and contain brute-force automation even when requests are signed with valid keys.
+- Reduce dependence on organizational event awareness (offboarding, deployments) by operating on behavior signals.
+- Improve investigation quality and scope assessment through structured request/outcome evidence.
+- Complement existing WAF/SIEM/bot defenses by strengthening the visibility foundation they depend on.
 
----
-
-## What We Are Proposing
-
-Establish an autonomous operating standard — **“Observability + Enforcement”** — so security can detect and control brute-force/automation attempts based on system behavior signals, without waiting for perfect cross-team collaboration.
-
-### Layer 1 (Mandatory)
-Key rotation / revocation to reduce exposure.
-
-### Layer 2 (Proposed)
-Behavior-based detection and staged enforcement for brute-force attempts — even when requests are signed with valid keys.
-
----
-
-## At-a-Glance: What Changes
-
-### If We Only Rotate Keys
-- Windows of exposure remain (pre/post-rotation gaps, delays).
-- Signed requests appear normal.
-- Limited evidence for rapid triage.
-
-### With PLURA-XDR Layer-2
-- Behavior signals trigger containment during gaps.
-- Threshold + session behavior correlates by key/account/session.
-- Request-body + outcome signals improve investigation quality.
-
----
-
-## Core Idea: Request Bodies + Response Outcome Signals
-
-Collect:
-
-- Request bodies (POST Body)
-- Response outcome signals (success/failure + reason)
-
-at the HTTPS termination point (web server / WAF / API gateway).
-
-When full response storage is unnecessary, collect structured outcome fields only.
-
----
-
-## Detection Model (High Level)
-
-Stage 1 — Threshold Trigger  
-Abnormal failures/retries exceed baseline for key/account/session.
-
-Stage 2 — Session Behavior Confirmation  
-Repetitive/automated authentication flows detected.
-
-Enforcement is staged:
-Throttle → Step-up → Block/Quarantine
-
----
-
-## Security-Led Deployment (Minimal Engineering Dependency)
-
-Designed for security to execute primarily via configuration at the termination point.
-
-### Pilot Scope
-Login / Auth / Token endpoints
-
-### 4-Week Pilot
-Week 1-2: Enable visibility with masking & retention controls  
-Week 2-3: Baseline behavior  
-Week 3-4: Enable staged enforcement  
-
-Deliverables:
-- Baseline profile
-- Detection & enforcement policy set
-- Operational playbook
-
----
-
-## Minimal Approvals Required
-
-1. Authorization for termination-point visibility
-2. Approval of sensitive-data handling controls
-3. Approval of staged enforcement scope
-
----
-
-## Expected Impact
-
-- Detect brute-force automation even with valid keys
-- Reduce dependence on HR/engineering awareness
-- Improve triage and forensic precision
-- Complement existing WAF/SIEM/Bot defenses
-
----
-
-## Reference Demo
-
-https://youtu.be/l6JeCeWeVSo
+## Reference demo
+**Demo: defending against high-volume API access using a stolen JWT —** https://youtu.be/l6JeCeWeVSo
