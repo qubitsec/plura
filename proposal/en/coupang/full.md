@@ -1,116 +1,207 @@
-# PLURA-XDR Proposal — Executive Brief
+# PLURA-XDR Proposal
 
-Autonomous Layer-2 Defense for Brute-Force Authentication  
-Under Key Leakage & Offboarding Visibility Gaps
+## 0️⃣ Proposal Summary
 
-## Business Impact (CEO Perspective)
+### Business Impact (CEO & Board Perspective)
 
-By implementing PLURA-XDR, Coupang can proactively prevent large-scale credential stuffing and data-exfiltration incidents that may result in significant financial losses, regulatory penalties, and compliance violations.  
+Implementing PLURA-XDR enables Coupang to proactively prevent large-scale credential stuffing and data-exfiltration incidents that could lead to substantial financial loss, regulatory penalties, and compliance violations.
 
-At the same time, this approach strengthens security without requiring additional engineering feature development, minimizing resource waste and operational disruption.
-
----
-
-## Why This Matters (CISO Lens)
-
-Operationally, security cannot rely on timely engineering change notifications or HR offboarding events to stay ahead of intrusion and data-exfiltration attempts.
-
-Valid signatures do not guarantee benign intent.
-
-If signing/authentication keys leave controlled environments, attackers can send requests that appear legitimate at the header/signature level.
-
-Access Logs alone (URL/status/IP) rarely provide decisive evidence; the signal is typically in request payloads and response outcomes.
+It strengthens security posture without requiring additional feature development from engineering, minimizing resource overhead and operational friction.
 
 ---
 
-## What We Are Proposing
+The security organization must be able to detect and control intrusion and data-exfiltration attempts autonomously — without depending on engineering change notifications or HR events.
 
-Establish an autonomous operating standard — **“Observability + Enforcement”** — so security can detect and control brute-force/automation attempts based on system behavior signals, without waiting for perfect cross-team collaboration.
+In reality, engineering offboarding, privilege changes, and deployment updates are often discovered late by security.
 
-### Layer 1 (Mandatory)
-Key rotation / revocation to reduce exposure.
-
-### Layer 2 (Proposed)
-Behavior-based detection and staged enforcement for brute-force attempts — even when requests are signed with valid keys.
+What Coupang needs is not reactive security, but an autonomous operating standard driven by behavior signals.
 
 ---
 
-## At-a-Glance: What Changes
+### PLURA-XDR is proposed on four principles:
 
-### If We Only Rotate Keys
-- Windows of exposure remain (pre/post-rotation gaps, delays).
-- Signed requests appear normal.
-- Limited evidence for rapid triage.
-
-### With PLURA-XDR Layer-2
-- Behavior signals trigger containment during gaps.
-- Threshold + session behavior correlates by key/account/session.
-- Request-body + outcome signals improve investigation quality.
+1. Key rotation (Layer 1) is mandatory — but insufficient alone.
+2. Brute-force evidence lives in request bodies and outcome signals.
+3. Behavior (not IP count) defines the attack.
+4. Remove dependence on organizational events.
 
 ---
 
-## Core Idea: Request Bodies + Response Outcome Signals
+## 1️⃣ Reframe the Assumption
 
-Collect:
+Offboarding is not merely an HR event — it is a security event.
 
-- Request bodies (POST Body)
-- Response outcome signals (success/failure + reason)
+Keys may already have left controlled environments.
 
-at the HTTPS termination point (web server / WAF / API gateway).
+Design must begin with:
+> “Keys may already be leaked.”
 
-When full response storage is unnecessary, collect structured outcome fields only.
+Security often learns changes late.
 
----
-
-## Detection Model (High Level)
-
-Stage 1 — Threshold Trigger  
-Abnormal failures/retries exceed baseline for key/account/session.
-
-Stage 2 — Session Behavior Confirmation  
-Repetitive/automated authentication flows detected.
-
-Enforcement is staged:
-Throttle → Step-up → Block/Quarantine
+Therefore:
+Security must still work even when we don’t know.
 
 ---
 
-## Security-Led Deployment (Minimal Engineering Dependency)
+## 2️⃣ Why Key Rotation Alone Is Insufficient
 
-Designed for security to execute primarily via configuration at the termination point.
+Key rotation leaves:
 
-### Pilot Scope
-Login / Auth / Token endpoints
+- Pre-rotation gaps
+- Rotation delays
+- Ongoing automation by attackers
 
-### 4-Week Pilot
-Week 1-2: Enable visibility with masking & retention controls  
-Week 2-3: Baseline behavior  
-Week 3-4: Enable staged enforcement  
+Key control = asset governance  
+Brute-force defense = behavior control  
 
-Deliverables:
-- Baseline profile
-- Detection & enforcement policy set
-- Operational playbook
+Both are required.
 
 ---
 
-## Minimal Approvals Required
+## 3️⃣ Why Access-Log-Centric Detection Fails
 
-1. Authorization for termination-point visibility
-2. Approval of sensitive-data handling controls
-3. Approval of staged enforcement scope
+Access Logs record:
+- IP
+- URL
+- Status code
+
+Example:
+POST /login 200
+
+Actual attack payload lives in the request body.
+
+Failure reasons may exist only in response bodies.
+
+Without body visibility, attacks appear normal.
 
 ---
 
-## Expected Impact
+## 4️⃣ Core Proposal: Request Bodies + Outcome Signals
 
-- Detect brute-force automation even with valid keys
-- Reduce dependence on HR/engineering awareness
-- Improve triage and forensic precision
-- Complement existing WAF/SIEM/Bot defenses
+### 4-1 POST Body Is Foundational
+
+Attack evidence typically resides in the POST Body.
+
+HTTPS hides payloads from network devices.
+
+Collection must occur at:
+- Web server
+- WAF
+- API gateway
+
+Partial collection can be bypassed.
+
+Full collection is recommended.
 
 ---
 
-## Reference Demo
+### 4-2 Response Outcome Signals Enable Safe Blocking
+
+Key signals:
+- Success/failure
+- Failure reason
+- Token issuance outcome
+
+These reduce false positives and allow safe enforcement.
+
+Structured outcome fields may be collected without storing full response bodies.
+
+---
+
+## 5️⃣ Detection Even with Leaked Keys
+
+Valid signatures do not equal benign intent.
+
+Attack patterns exhibit:
+- Time density
+- Repetition
+- Baseline deviation
+- Automation persistence
+
+PLURA-XDR uses:
+Threshold (Stage 1) + Session Behavior (Stage 2)
+
+Detection remains effective under distributed IP scenarios.
+
+---
+
+## 6️⃣ Distributed IP ≠ Undetectable
+
+IP count is not the signal.
+
+Signal = repetition + density + deviation.
+
+Defense must shift to:
+Account / Key / Session / Endpoint behavior.
+
+---
+
+## 7️⃣ Autonomous Security Architecture
+
+Security must own:
+
+### 1. Observability
+- Collect request bodies
+- Collect outcome signals
+- Apply masking / retention controls
+
+### 2. Detection
+- Threshold logic
+- Correlation rules
+- Baseline deviation analysis
+
+### 3. Enforcement
+- Throttle
+- Step-up authentication
+- Block / quarantine
+- Exception / rollback controls
+
+---
+
+### Recommended Flow
+
+1. Termination-point visibility
+2. PLURA-XDR behavior detection
+3. Staged automated enforcement
+4. Parallel key rotation
+
+---
+
+## 8️⃣ One-Sentence Summary
+
+Even if keys are taken and valid signatures are possible, attacks reveal themselves through repetitive and automated behavior captured in request bodies and response outcome signals.
+
+PLURA-XDR provides a Layer-2 defense that detects and blocks brute-force attacks using thresholds + session behavior.
+
+Security can operate autonomously — even when organizational awareness is delayed.
+
+---
+
+## 9️⃣ Execution Plan: Security-Led Pilot
+
+Start with:
+
+- Login / Auth / Token endpoints
+- Configuration at termination point
+- Minimal engineering dependency
+
+Enable:
+- Body collection with masking
+- Outcome signal normalization
+- Threshold + session detection
+- Staged enforcement
+
+---
+
+## 🔟 Final Takeaway
+
+- Assume keys may be leaked.
+- Deploy defense in depth.
+- Build visibility foundation.
+- Remove organizational dependence.
+
+---
+
+## Demo
 
 https://youtu.be/l6JeCeWeVSo
