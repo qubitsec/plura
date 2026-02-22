@@ -63,5 +63,6 @@ This approach is designed so security can execute primarily through configuratio
 
 ## Reference demo
 
-**Demo: defending against high-volume API access using a stolen JWT —**   
-https://youtu.be/l6JeCeWeVSo
+### 🎥 Demo video: defending against high-volume API access using a stolen JWT
+
+- https://youtu.be/l6JeCeWeVSo
