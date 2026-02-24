@@ -1,5 +1,5 @@
 # PLURA-XDR × 업스테이지(Upstage)
-## ‘소버린 AI 기반 XDR’ 파트너십 제안 — 3페이지 Summary
+## ‘소버린 AI 기반 XDR’ 파트너십 제안 — 요약본
 
 ---
 
