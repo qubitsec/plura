@@ -5,7 +5,7 @@
 
 ## 1️⃣ PLURA 핵심 장점
 
-**한 문장:** PLURA는 “표면 로그”가 아니라 **증거 로그(Body·Outcome·Audit)**를 기반으로, 탐지→차단을 **안전하게 자동화**하는 XDR 플랫폼입니다.
+**한 문장:** PLURA는 “표면 로그”가 아니라 **증거 로그**(Body·Outcome·Audit)를 기반으로, 탐지→차단을 **안전하게 자동화**하는 XDR 플랫폼입니다.
 
 ### PLURA가 가진 차별적 자산/기술(핵심만)
 - **증거급 Observability: Body Log**
