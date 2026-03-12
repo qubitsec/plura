@@ -1,7 +1,22 @@
-# PLURA·AI-XDR Cybersecurity Platform 
-Cloud SaaS
+# 🛡️ PLURA·AI-XDR
 
-> ### **"시스템은 복잡할수록 실패하기 쉽다."**
-> 
-> 
-> — *피터 F. 드러커 (Peter F. Drucker)*
+**Cloud SaaS Cybersecurity Platform**
+
+> "시스템은 복잡할수록 실패하기 쉽다."
+> — *피터 F. 드러커*
+
+---
+
+### 핵심 구성 요소
+
+* **WAF** | 웹 공격 차단 및 서비스 보호
+* **EDR** | 단말기 실시간 위협 탐지·대응
+* **SIEM** | 통합 로그 분석 및 가시성 확보
+* **SOAR** | 보안 운영 및 대응 자동화
+* **Forensic** | 침해 사고 원인 분석 및 증거 확보
+* **VAS** | 시스템 취약점 진단 및 관리
+
+---
+
+**"복잡한 보안을 하나로, PLURA-XDR"**
+---
