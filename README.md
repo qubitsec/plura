@@ -1,9 +1,4 @@
 # PLURA
 
-1) Philosophy  
-2) Policy  
-3) PLURA v5 Change Log  
-4) Why-free  
-    - PLURA-Badge  
-5) Compliance  
-6) PLURA-XDR Diagram
+「시스템은 복잡할수록 실패하기 쉽다」  
+— 피터 F. 드러커(Peter F. Drucker)
