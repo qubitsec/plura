@@ -1,4 +1,5 @@
-# PLURA·AI-XDR Cloud SaaS Platform
+# PLURA·AI-XDR Cybersecurity Platform 
+Cloud SaaS
 
 > ### **"시스템은 복잡할수록 실패하기 쉽다."**
 > 
