@@ -1,4 +1,4 @@
-# PLURA
+# PLURA·AI-XDR Cloud SaaS Platform
 
 > ### **"시스템은 복잡할수록 실패하기 쉽다."**
 > 
