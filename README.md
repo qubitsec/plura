@@ -1,4 +1,4 @@
-# 🛡️ PLURA·AI-XDR
+# 🛡️ PLURA-AI·XDR
 
 **Cloud SaaS Cybersecurity Platform**
 
