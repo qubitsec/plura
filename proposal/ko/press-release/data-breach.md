@@ -1,5 +1,5 @@
 # 대한민국 개인정보 유출 보고서  
-## (Credential Stuffing 기반 계정 탈취 공격 중심 분석)
+(Credential Stuffing 기반 계정 탈취 공격 중심 분석)
 
 ---
 
