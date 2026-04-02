@@ -24,7 +24,7 @@
 
 관련 상세 내용은 아래 가이드를 참고 부탁드립니다.
 
-> https://blog.plura.io/ko/column/check-list-waf/
+> https://blog.plura.io/ko/tech/check-list-waf/
 
 추가적으로 필요하신 사항이 있으시면 언제든지 말씀 부탁드립니다.
 
