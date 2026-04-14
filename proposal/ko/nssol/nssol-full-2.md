@@ -934,7 +934,7 @@ NS Solutions와 PLURA-XDR의 협력은
    일본 제조·공급망 보안은 개별 솔루션보다 통합 대응 체계가 필요한 시점
 
 2. Market signal  
-   Google-Wiz 사례가 보여주듯 글로벌 시장은 클라우드+보안 통합 플랫폼으로 이동 중
+   Google-Mandiant & Wiz 사례가 보여주듯 글로벌 시장은 클라우드+보안 통합 플랫폼으로 이동 중
 
 3. Japan pain point  
    일본 중소·중견 제조기업, 특히 지방 기업은 보안 필요성은 높지만 인력 확보와 전문성 축적이 어려움
@@ -978,4 +978,4 @@ NS Solutions와 PLURA-XDR의 협력은
 
 - 파일럿으로 시작하고, 빠르게 검증한 뒤 단계적으로 확대합니다.
 - NS Solutions는 고객 접점과 서비스 운영을, PLURA-XDR은 플랫폼과 탐지·분석 역량을 담당합니다.
-- 최종적으로는 일본 제조 고객 대상 Managed Security / Cloud Security Service 모델로 발전시킵니다.
+- 최종적으로는 일본 제조 고객, 특히 지방의 중소·중견 협력사까지 포괄할 수 있는 Managed Security / Cloud Security Service 모델로 발전시킵니다.
