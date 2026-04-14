@@ -1,6 +1,9 @@
 # PLURA-XDR 제안서
 ## NHN Cloud 보안 서비스 통합 경쟁력 강화 제안
 
+> NHN Cloud는 다양한 정보보안 서비스를 이미 제공하고 있습니다.  
+> PLURA-XDR의 장점은 이러한 산재된 기능을 하나의 흐름으로 통합해 보여 주고, 실제 탐지·분석·대응 체계로 연결해 준다는 점에 있습니다.
+
 ## 0️⃣ 제안 요약
 
 NHN Cloud는 App Security Check, Server Security Check, Web Firewall, DDoS Guard, SIEM, Bastion, Vaccine, Security Monitoring 등 다양한 정보보안 서비스를 제공하고 있습니다.
