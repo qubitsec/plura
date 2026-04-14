@@ -11,27 +11,27 @@
 SentinelOne and PLURA-XDR can both be categorized as XDR platforms, but they are built around different analytical starting points and operational priorities.
 
 SentinelOne is fundamentally endpoint-centric.  
-PLURA-XDR is built around a linked analysis model across **web requests and responses, authentication/session behavior, server activity, automated response, and forensics**.
+PLURA-XDR is built around a linked analysis model spanning **web requests and responses, authentication and session behavior, server activity, automated response, and forensics**.
 
-That difference matters in environments like Coupang, where security decisions are heavily influenced by:
+This distinction becomes particularly significant in an environment like Coupang’s, where security decisions are heavily influenced by:
 
 - high-volume web and API traffic,
 - account and session abuse,
 - credential stuffing,
 - leaked token or API key misuse,
-- zero-day style web exploitation,
-- webshell upload followed by server-side pivoting,
+- zero-day-style web exploitation,
+- webshell uploads followed by server-side pivoting,
 - and post-exploitation movement using native tools such as LOLBAS or GTFOBins.
 
 Within that scope, PLURA-XDR is differentiated by combining:
 
-- **request-body analysis**,
-- **response-body / response-signal analysis**,
+- **request body analysis**,
+- **response body and response signal analysis**,
 - **authentication and session flow correlation**,
-- **server audit-policy log analysis**,
+- **server audit-policy-based log analysis**,
 - and an operating model that connects **web → server → automated response → forensics**.
 
-In addition, PLURA-XDR’s **request/response body analysis** is supported by patent-backed technology in **Korea and the United States**, and its **server audit-policy-based log analysis** can also be positioned as patented technology.
+In addition, PLURA-XDR’s **request and response body analysis** is backed by patents granted in **Korea and the United States**, and its **server audit-policy-based log analysis** can also be presented as proprietary technology supported by patent protection.
 
 This document does not attempt to claim broad superiority across the entire XDR market.  
 Its purpose is narrower: to compare which platform more directly explains and controls the attack surfaces that matter most in Coupang’s operating environment.
@@ -42,19 +42,19 @@ Its purpose is narrower: to compare which platform more directly explains and co
 
 This comparison is limited to the following criteria.
 
-### 1. Detection starting point
-Where does the platform first see the attack?
+### 1. Detection Starting Point
+Where does the platform first detect the attack?
 
-### 2. Depth of evidence
+### 2. Depth of Evidence
 How well can it explain why something is malicious?
 
-### 3. Attack-chain reconstruction
+### 3. Attack Chain Reconstruction
 Can it connect web requests, authentication outcomes, server-side activity, automated response, and forensics into a single incident narrative?
 
-### 4. Operational fit
-Is the platform practical for a large-scale web/API service environment?
+### 4. Operational Fit
+Is the platform practical for a large-scale web and API service environment?
 
-### 5. Response linkage
+### 5. Response Linkage
 Does detection naturally lead into containment, blocking, isolation, and evidence preservation?
 
 ---
@@ -68,28 +68,28 @@ SentinelOne is centered on endpoint-driven detection and automation, including:
 - behavioral endpoint detection,
 - Storyline-based event chaining,
 - automated response and rollback,
-- generative-AI-assisted investigation,
-- and broader XDR / data pipeline expansion.
+- generative AI-assisted investigation,
+- and broader XDR and data pipeline expansion.
 
-This is an endpoint-first model.
+This is an endpoint-first operating model.
 
 ### PLURA-XDR
 
-PLURA-XDR starts earlier in the kill chain.
+PLURA-XDR begins earlier in the attack chain.
 
-Instead of beginning with endpoint-side consequences, it analyzes:
+Instead of starting with endpoint-side consequences, it analyzes:
 
 - **web request bodies**,
 - **web response bodies or response signals**,
 - **authentication and session behavior**,
-- then correlates them with **server logs, automated response, and forensics**.
+- and then correlates them with **server logs, automated response, and forensics**.
 
 That architectural difference becomes material in scenarios such as:
 
 - credential stuffing,
 - brute-force activity using valid leaked credentials, keys, or tokens,
 - zero-day or non-signature web attacks,
-- webshell upload followed by LOLBAS / GTFOBins pivoting,
+- webshell uploads followed by LOLBAS or GTFOBins pivoting,
 - and data exfiltration indicators embedded in web responses.
 
 ---
@@ -99,28 +99,28 @@ That architectural difference becomes material in scenarios such as:
 | No. | Comparison Area | SentinelOne | PLURA-XDR |
 |---|---|---|---|
 | 1 | Architectural starting point | Endpoint-centric EDR/XDR | Web-account-server linked XDR |
-| 2 | Core operating model | Behavioral endpoint detection, Storyline, automated response, Purple AI | Request/response body analysis, auth/session anomaly analysis, web-server correlation, automated response, forensics linkage |
-| 3 | AI model | Behavioral AI/ML + automation + generative-AI assistance | Detection, analysis, correlation, and automated-response-oriented model |
+| 2 | Core operating model | Behavioral endpoint detection, Storyline, automated response, Purple AI | Request and response body analysis, auth/session anomaly analysis, web-server correlation, automated response, forensics linkage |
+| 3 | AI model | Behavioral AI/ML + automation + generative AI assistance | Detection, analysis, correlation, and automated-response-oriented model |
 | 4 | Primary analytical inputs | Endpoint and security telemetry | Web request body, web response body or response signals, auth/session flow, server activity, audit-policy logs |
-| 5 | Credential stuffing coverage | Endpoint / behavior-oriented interpretation | Direct interpretation through request body + response outcome + session flow |
-| 6 | Brute-force detection after leaked auth keys / tokens | Behavior-oriented interpretation | Direct interpretation through thresholds and session behavior at key / account / session level |
-| 7 | Zero-day perspective | Focus on downstream endpoint behavior | Interprets non-standard web activity through request/response analysis plus web-server correlation |
-| 8 | Web request-body analysis | - | Core analytical capability |
-| 9 | Web response-body analysis | - | Core analytical capability |
-| 10 | Technical trust basis for request/response body analysis | - | Patent-backed technology in Korea and the U.S. |
-| 11 | Server audit-policy-based log analysis | - | Patent-backed technology positioning available |
-| 12 | Interpretation of failures hidden behind HTTP 200 | Limited or requires separate integration | Directly interpretable |
+| 5 | Credential stuffing coverage | Endpoint- and behavior-oriented interpretation | Direct interpretation through request body, response outcome, and session flow |
+| 6 | Brute-force detection after leaked auth keys or tokens | Behavior-oriented interpretation | Direct interpretation through thresholds and session behavior at the key, account, and session level |
+| 7 | Zero-day perspective | Focus on downstream endpoint behavior | Interprets non-standard web activity through request and response analysis plus web-server correlation |
+| 8 | Web request body analysis | - | Core analytical capability |
+| 9 | Web response body analysis | - | Core analytical capability |
+| 10 | Technical trust basis for request and response body analysis | - | Backed by patents granted in Korea and the United States |
+| 11 | Server audit-policy-based log analysis | - | Supported by proprietary technology with patent protection |
+| 12 | Detection of malicious activity hidden behind successful HTTP 200 responses | Limited or requires separate integration | Directly interpretable |
 | 13 | Ability to explain attacks not visible in access logs alone | Limited | Directly supported |
 | 14 | Distributed-IP attack interpretation | Distributed event handling perspective | Explained through repetition, time density, automation patterns, and behavioral deviation |
 | 15 | Single-flow reconstruction from web event to server-side action | Endpoint-centered | Core product structure |
-| 16 | Linkage from web to automated response and forensics | Partial | Web → server → automated response → forensics as one operating flow |
-| 17 | Data exfiltration signal interpretation | Primarily server/endpoint-side | Can include web response layer |
-| 18 | Webshell upload followed by LOLBAS / GTFOBins pivot | Focus on downstream server behavior | Explains web upload indicators + server actions + audit logs as one chain |
-| 19 | MITRE ATT&CK interpretation | Available | Can explain web attack, account abuse, lateral movement, exfiltration, ransomware/APT as one connected flow |
+| 16 | Linkage from web to automated response and forensics | Partial | Web → server → automated response → forensics as a single operating flow |
+| 17 | Data exfiltration signal interpretation | Primarily server- and endpoint-side | Can include the web response layer |
+| 18 | Webshell upload followed by LOLBAS or GTFOBins pivot | Focus on downstream server behavior | Explains web upload indicators, server actions, and audit logs as one chain |
+| 19 | MITRE ATT&CK interpretation | Available | Can explain web attack, account abuse, lateral movement, exfiltration, and ransomware/APT activity as one connected flow |
 | 20 | Fit for a large-scale web/API service like Coupang | Endpoint-analysis-centric | More direct for web-centric attack analysis |
-| 21 | Security-team-led operating model | Depends on overall operating design | Can be designed for observation, detection, and control without waiting on dev-change notifications |
+| 21 | Security team-led operational model | Depends on overall operating design | Can be designed for observation, detection, and control without waiting for dev-change notifications |
 | 22 | Korean / English support | Primarily global English-centric operations | Korean and English support |
-| 23 | Policy tuning and field feedback cycle | Typically follows global vendor process | Faster adjustment possible with a local engineering organization |
+| 23 | Policy tuning and field feedback cycle | Typically follows a global vendor process | Faster adjustment possible through a local engineering organization |
 
 ---
 
@@ -134,29 +134,29 @@ The operating reality is:
 
 - key rotation and revocation are necessary,
 - but they do not fully eliminate pre-rotation exposure windows,
-- organizational notification delays,
-- or continued automated abuse using already-leaked credentials.
+- internal notification and response delays,
+- or continued automated abuse using already leaked credentials.
 
 That is why a **second defensive layer** is required.
 
-PLURA-XDR frames that second layer around behavior, not just static key validity.
+PLURA-XDR frames that second layer around behavior, not just static credential validity.
 
 The relevant evidence is not limited to what appears in access logs. It includes:
 
 - **request body**: what was actually attempted,
 - **response signals**: success, failure, denial reason, MFA requirement, token issuance outcome,
-- **session flow**: repetition and automation patterns within the same key/account/session context,
+- **session flow**: repetition and automation patterns within the same key, account, or session context,
 - **behavioral deviation**: shifts in success/failure ratios, timing density, and repeated access patterns.
 
-That allows interpretation even when the attacker has a valid credential artifact.
+That allows interpretation even when the attacker holds a technically valid credential artifact.
 
 Examples include:
 
 - repeated failures or retries beyond expected thresholds at the **key / account / session** level,
-- repeated and automated token issuance or auth attempts within a session,
+- repeated and automated token issuance or authentication attempts within a session,
 - and attack behavior that remains detectable even when source IPs are highly distributed.
 
-This is one of the most important distinctions in Coupang’s environment.  
+This is one of the more important distinctions in Coupang’s environment.  
 The question is not simply whether a request is cryptographically valid.  
 It is whether the request sequence, timing, outcomes, and session behavior indicate abuse.
 
@@ -170,19 +170,19 @@ The more meaningful questions are:
 
 - Which accounts, sessions, or endpoints show repeated attempts?
 - What was actually submitted in the request body?
-- Was the outcome a real authentication failure, an MFA challenge, a denial, or a success?
+- Was the outcome a real authentication failure, an MFA challenge, an access denial, or a successful login?
 - Can automated attack patterns be separated from normal user error?
 
 PLURA-XDR addresses that by combining:
 
-- request-body analysis,
+- request body analysis,
 - response outcome interpretation,
 - and session-flow correlation.
 
 That makes it possible to describe credential stuffing as an **authentication attack sequence**, not just an elevated traffic condition.
 
-In contrast, SentinelOne’s model is not centered on web request bodies or response semantics as primary analytical inputs.  
-For Coupang’s web and API-heavy environment, that difference is operationally relevant.
+By contrast, SentinelOne’s analytical model is not centered on web request bodies or response semantics as primary inputs.  
+For Coupang’s web- and API-heavy environment, that difference is operationally relevant.
 
 ---
 
@@ -207,7 +207,7 @@ PLURA-XDR adds an earlier layer:
 
 That means zero-day-style attacks can be interpreted not only as post-exploitation endpoint behavior, but as a connected chain spanning:
 
-**web signal → server behavior → automated containment → forensics**.
+**web signal → server behavior → automated containment → forensics**
 
 For Coupang, that reduces dependence on reconstructing everything after the fact from fragmented sources.
 
@@ -243,7 +243,7 @@ The more important question is whether the platform can explain:
 1. the abnormal web request or upload event,
 2. the response-side change,
 3. the server-side execution path,
-4. the transition into LOLBAS / GTFOBins abuse,
+4. the transition into LOLBAS or GTFOBins abuse,
 5. and the resulting incident chain.
 
 ### SentinelOne perspective
@@ -267,25 +267,25 @@ It is about explaining **how that execution began at the web layer** and how far
 
 One of the more important aspects of PLURA-XDR is not any single feature in isolation, but the operating model that ties them together.
 
-That flow can be described as follows:
+That flow can be described as follows.
 
 ### 1. Web layer
-- request-body analysis,
-- response-body or response-signal analysis,
+- request body analysis,
+- response body or response signal analysis,
 - identification of zero-day indicators,
 - identification of credential stuffing patterns,
 - identification of suspicious uploads or payloads.
 
 ### 2. XDR correlation
-- link web events with authentication and session anomalies,
-- correlate with existing security events,
-- interpret activity using a MITRE ATT&CK-aligned framework.
+- linking web events with authentication and session anomalies,
+- correlating with existing security events,
+- interpreting activity using a MITRE ATT&CK-aligned framework.
 
 ### 3. Server layer
 - process, file, network, and account activity analysis,
 - audit-policy-based log analysis,
 - detection of webshell follow-on behavior,
-- detection of LOLBAS / GTFOBins pivoting,
+- detection of LOLBAS or GTFOBins pivoting,
 - detection of propagation or ransomware/APT-like follow-on activity.
 
 ### 4. Automated response
@@ -295,8 +295,8 @@ That flow can be described as follows:
 - operational alerting.
 
 ### 5. Forensics
-- evidence preserved at detection time,
-- not only through later manual collection.
+- preserving evidence at detection time,
+- rather than relying only on later manual collection.
 
 This is the basis for the statement that PLURA-XDR connects:
 
@@ -385,4 +385,4 @@ The narrower point is this:
 The most defensible conclusion is not that PLURA-XDR is universally better across every XDR dimension.  
 It is that **for Coupang’s actual web/API-heavy attack surface and operating model, PLURA-XDR can provide a more direct and operationally useful explanation layer in several critical areas**.
 
-That should be validated through PoC.
+That conclusion should be validated through PoC.
