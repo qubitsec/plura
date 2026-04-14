@@ -560,7 +560,7 @@ NS Solutions와 PLURA-XDR의 협력은
 
 ---
 
-## 부록 A. 7개 핵심 방향 요약
+## 정리 A. 7개 핵심 방향 요약
 
 1. Why now  
    일본 제조·공급망 보안은 개별 솔루션보다 통합 대응 체계가 필요한 시점
@@ -583,7 +583,7 @@ NS Solutions와 PLURA-XDR의 협력은
 7. Business model  
    일본 제조 고객 대상 Managed Security / Cloud Security Service로 패키지화 가능
 
-## 부록 B. 제안 핵심 문장
+## 정리 B. 제안 핵심 문장
 
 > 미토스 AI와 같은 신종 위협이 등장하는 시대에,  
 > 현재의 보안 운영 방식만으로 충분하다고 말할 수 있을까요?
