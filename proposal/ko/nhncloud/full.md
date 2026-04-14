@@ -1,8 +1,6 @@
 # PLURA-XDR 제안서
 ## NHN Cloud 보안 서비스 통합 경쟁력 강화 제안
 
----
-
 ## 0️⃣ 제안 요약
 
 NHN Cloud는 App Security Check, Server Security Check, Web Firewall, DDoS Guard, SIEM, Bastion, Vaccine, Security Monitoring 등 다양한 정보보안 서비스를 제공하고 있습니다.
