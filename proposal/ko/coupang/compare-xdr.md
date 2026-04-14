@@ -318,7 +318,7 @@ PLURA-XDR은 서버 행위 분석에서
 - 실제 운영 관점의 방어 흐름
 
 ### 데모 영상
-- https://www.youtube.com/watch?v=l6JeCeWeVSo
+- https://www.youtube.com/watch?v=l6JeCeWeVSo&feature=youtu.be
 
 ---
 
