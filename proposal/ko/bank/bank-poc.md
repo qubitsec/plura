@@ -13,6 +13,9 @@
 - **실제 공격 상황에서 운영 판단 지원 가치 확인**
 - **금융권 환경에서 웹 구간 분석 기반 보안의 필요성 확인**
 
+
+![PLURA-PoC System Diagram](https://xwaf.io/res/images/web-packet-mirroring.png)
+
 ---
 
 ## Executive Summary
