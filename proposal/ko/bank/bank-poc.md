@@ -13,9 +13,6 @@
 - **실제 공격 상황에서 운영 판단 지원 가치 확인**
 - **금융권 환경에서 웹 구간 분석 기반 보안의 필요성 확인**
 
-
-![PLURA-PoC System Diagram](https://xwaf.io/res/images/web-packet-mirroring.png)
-
 ---
 
 ## Executive Summary
@@ -47,6 +44,12 @@
 1. **웹 패킷 분석 기반 침입차단시스템(IPS) 보완 가능성 검토**
 2. **크리덴셜 스터핑 공격 탐지 가능성 검증**
 3. **해킹(APT) 공격 진행 상황 시각화 대시보드 제공 가능성 검토**
+
+### 1-2-1) PoC 구성도
+
+아래 구성도는 이번 PoC에서 웹 트래픽 분석과 로그 수집이 어떤 구조로 이루어졌는지를 보여줍니다.
+
+![PLURA-PoC System Diagram](https://xwaf.io/res/images/web-packet-mirroring.png)
 
 ### 1-3) 1차 결과 보고
 
