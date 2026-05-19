@@ -114,4 +114,4 @@ graph TD
 * LOLBin 명령어 시그니처 기반 행위 분석 정책
 * 로그 수집/탐지 연계된 실시간 알림 설정
 
-👉 [자세히](plura_waf_xdr_detection.md)
+👉 [자세히](/demo/ko/lol/plura_waf_xdr_detection.md)
