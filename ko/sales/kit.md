@@ -456,5 +456,5 @@ Sales/Marketing 담당자는 보안 전문가처럼 무리하게 설명하려고
 
 ## 19. 월 구독료 가격표
 
-> https://w.plura.io/index.html?doc=/sales/ko/pricing.md
+> https://w.plura.io/index.html?doc=/ko/sales/pricing.md
 
