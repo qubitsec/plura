@@ -125,6 +125,8 @@
 
 ![Earth](https://blog.plura.io/cdn/imgs/why-eartch-is-unique/why-earth-is-unique-ko-5.png)
 
+![Earth](https://blog.plura.io/cdn/imgs/why-eartch-is-unique/why-earth-is-unique-ko-6.png)
+
 ---
 
 ## 💧 6. 물과 화학적, 생태학적 조건
@@ -153,7 +155,7 @@
 99. 눈덩이 지구와 같은 극단적 빙하기가 있었더라도 생명체가 바다 밑, 열수구, 얼음 아래 환경 등에서 살아남을 수 있었던 것이 중요합니다.
 100. 마지막으로, 이 수많은 우주적, 천문학적, 지질학적, 화학적 조건들이 수십억 년 동안 완전히 끊어지지 않고 서로 영향을 주며 유지된 장기적 안정성이 지구 생명권의 가장 놀라운 특징입니다.
 
-![Earth](https://blog.plura.io/cdn/imgs/why-eartch-is-unique/why-earth-is-unique-ko-6.png)
+![Earth](https://blog.plura.io/cdn/imgs/why-eartch-is-unique/why-earth-is-unique-ko-7.png)
 
 ---
 
@@ -167,5 +169,4 @@
 
 우리가 매일 숨 쉬며 살아가는 이 평범한 하루는, 우주적 시간과 지질학적 변화, 그리고 생명의 끈질긴 적응이 함께 만들어낸 놀라운 결과입니다.
 
-![Earth](https://blog.plura.io/cdn/imgs/why-eartch-is-unique/why-earth-is-unique-ko-7.png)
 
