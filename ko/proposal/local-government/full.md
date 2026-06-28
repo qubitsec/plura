@@ -428,17 +428,11 @@ flowchart LR
 ```mermaid
 flowchart LR
     subgraph CompanyBefore[기업별 개별 대응]
-        C1[전산 담당자 겸직]
-        C2[백신·방화벽 중심]
-        C3[로그 분산]
-        C4[랜섬웨어 발생 후 인지]
+        C1["전산 담당자 겸직<br><br>백신·방화벽 중심<br><br>로그 분산<br><br>랜섬웨어 발생 후 인지"]
     end
 
     subgraph PublicModel[지자체 연계 공동 보호]
-        P1[산단 주요 기업 신청]
-        P2[웹·서버·PC·계정 연결]
-        P3[PLURA-XDR 통합 관제]
-        P4[위협 전파·차단·보고 지원]
+        P1["산단 주요 기업 신청<br><br>웹·서버·PC·계정 연결<br><br>PLURA-XDR 통합 관제<br><br>위협 전파·차단·보고 지원<br><br>미토스급 AI 해킹 징후 공동 대응"]
     end
 
     CompanyBefore --> PublicModel
