@@ -44,9 +44,9 @@ PLURA V6의 TI 및 AI 기반 탐지·자동화 기능을 원활히 이용하기 
 ## 6. PLURA V6 최신 대응 기능
 
 * [웹방화벽 자동 IP 차단 기능 안내](https://docs.plura.io/ko/v6/fn/comm/ipblock/auto)
-* [제로데이 의심 공격 탐지 기능 안내](https://docs.plura.io/ko/v6/fn/comm/sdetection/zeroday)
 * [EDR 및 자동 포렌식 연동 기능 안내](https://docs.plura.io/ko/v6/fn/comm/edr)
 * [시스템 보안 상태 조회 기능 안내](https://docs.plura.io/ko/v6/fn/comm/systemsec)
+* [제로데이 의심 공격 탐지 기능 안내](https://docs.plura.io/ko/v6/fn/comm/sdetection/zeroday)
 
 ## 7. PLURA V6 이용을 위한 사전 준비 및 주의사항
 
