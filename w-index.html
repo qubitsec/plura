@@ -297,6 +297,29 @@
     .mermaid-source summary{ cursor:pointer; padding:8px 12px; color:var(--muted); background:#f6f8fa; font-size:12px; }
     .mermaid-source pre{ margin:0; border-radius:0; }
 
+    .mermaid-loading,
+    .mermaid-error{
+      width:100%;
+      padding:18px 14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+    }
+
+    .mermaid-error{
+      color:#991b1b;
+      background:#fff1f2;
+    }
+
+    .mermaid-diagram img{
+      display:block;
+      width:auto;
+      max-width:100%;
+      height:auto;
+      margin:0 auto;
+    }
+
     .error-box{
       border:1px solid #fecaca;
       background:#fff1f2;
@@ -780,6 +803,10 @@
     const $doc = document.getElementById('docInput');
     const $btnDownload = document.getElementById('btnDownload');
 
+    let mermaidLoadPromise = null;
+    let mermaidInitialized = false;
+    let mermaidRenderSequence = 0;
+
     const FALLBACK_DOC = `# PLURA Markdown PDF Viewer\n\n문서 경로를 지정해 주세요.\n\n- 예: \`index.html?doc=/proposal/ko/sample.md\`\n- 전체 UI: \`index.html?ui=full&doc=/proposal/ko/sample.md\`\n\n표와 긴 문서도 A4 PDF 양식에 맞게 출력됩니다.`;
 
     function escapeHtml(str = ''){
@@ -1024,11 +1051,187 @@
     }
 
     function mermaidSvgToDataUri(svgText){
-      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(String(svgText || ''));
+      let svg = String(svgText || '');
+
+      if (!/\bxmlns=/.test(svg)) {
+        svg = svg.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+      }
+
+      const viewBoxMatch = svg.match(/\bviewBox=["']([^"']+)["']/i);
+      if (viewBoxMatch) {
+        const nums = viewBoxMatch[1].trim().split(/\s+/).map(Number);
+        if (nums.length === 4 && nums.every(Number.isFinite)) {
+          const width = Math.max(1, Math.ceil(nums[2]));
+          const height = Math.max(1, Math.ceil(nums[3]));
+          svg = svg.replace(/<svg\b([^>]*)>/i, (match, attrs) => {
+            const cleanAttrs = attrs
+              .replace(/\swidth=(["']).*?\1/i, '')
+              .replace(/\sheight=(["']).*?\1/i, '');
+            return `<svg${cleanAttrs} width="${width}" height="${height}">`;
+          });
+        }
+      }
+
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    function normalizeMermaidSource(source){
+      const text = String(source || '').trim();
+      const firstLine = text.split(/\r?\n/).find(line => line.trim()) || '';
+
+      // 기존 문서에서 노드 줄바꿈을 "\\n"으로 작성한 경우를 지원합니다.
+      // Flowchart/Graph에서만 <br/>로 바꾸어 다른 Mermaid 문법에는 영향을 주지 않습니다.
+      if (/^(graph|flowchart)\b/i.test(firstLine.trim())) {
+        return text.replace(/\\n/g, '<br/>');
+      }
+
+      return text;
+    }
+
+    async function ensureMermaidLibrary(){
+      if (window.mermaid && typeof window.mermaid.render === 'function') {
+        if (!mermaidInitialized) {
+          window.mermaid.initialize({
+            startOnLoad:false,
+            securityLevel:'loose',
+            theme:'base',
+            fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", Arial, sans-serif',
+            themeVariables:{
+              background:'#ffffff',
+              primaryColor:'#eef4ff',
+              primaryTextColor:'#111827',
+              primaryBorderColor:'#7aa2d6',
+              lineColor:'#64748b',
+              secondaryColor:'#f8fafc',
+              tertiaryColor:'#ffffff',
+              clusterBkg:'#f8fafc',
+              clusterBorder:'#cbd5e1',
+              edgeLabelBackground:'#ffffff',
+              fontSize:'15px'
+            },
+            flowchart:{
+              htmlLabels:true,
+              useMaxWidth:true,
+              curve:'basis'
+            }
+          });
+          mermaidInitialized = true;
+        }
+        return window.mermaid;
+      }
+
+      if (!mermaidLoadPromise) {
+        mermaidLoadPromise = (async () => {
+          await loadFirstAvailableScript([
+            'https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js',
+            'https://unpkg.com/mermaid@10.9.1/dist/mermaid.min.js'
+          ], () => Boolean(window.mermaid && typeof window.mermaid.render === 'function'));
+
+          if (!window.mermaid || typeof window.mermaid.render !== 'function') {
+            throw new Error('Mermaid 라이브러리를 불러오지 못했습니다.');
+          }
+
+          window.mermaid.initialize({
+            startOnLoad:false,
+            securityLevel:'loose',
+            theme:'base',
+            fontFamily:'-apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", Arial, sans-serif',
+            themeVariables:{
+              background:'#ffffff',
+              primaryColor:'#eef4ff',
+              primaryTextColor:'#111827',
+              primaryBorderColor:'#7aa2d6',
+              lineColor:'#64748b',
+              secondaryColor:'#f8fafc',
+              tertiaryColor:'#ffffff',
+              clusterBkg:'#f8fafc',
+              clusterBorder:'#cbd5e1',
+              edgeLabelBackground:'#ffffff',
+              fontSize:'15px'
+            },
+            flowchart:{
+              htmlLabels:true,
+              useMaxWidth:true,
+              curve:'basis'
+            }
+          });
+          mermaidInitialized = true;
+          return window.mermaid;
+        })().catch(error => {
+          mermaidLoadPromise = null;
+          throw error;
+        });
+      }
+
+      return mermaidLoadPromise;
     }
 
     async function renderMermaidIn(container){
-      return;
+      const blocks = Array.from(container.querySelectorAll('pre > code'))
+        .filter(isMermaidCodeElement);
+
+      if (!blocks.length) return;
+
+      let mermaidApi;
+      try {
+        mermaidApi = await ensureMermaidLibrary();
+      } catch (error) {
+        console.error('Mermaid library load error:', error);
+        blocks.forEach(code => {
+          const pre = code.closest('pre');
+          if (!pre || pre.dataset.mermaidErrorShown === '1') return;
+          pre.dataset.mermaidErrorShown = '1';
+          const warning = document.createElement('div');
+          warning.className = 'mermaid-error';
+          warning.textContent = 'Mermaid 라이브러리를 불러오지 못해 원본 코드를 표시합니다.';
+          pre.before(warning);
+        });
+        return;
+      }
+
+      for (const code of blocks) {
+        const originalSource = (code.textContent || '').trim();
+        const source = normalizeMermaidSource(originalSource);
+        const pre = code.closest('pre');
+        if (!pre || !source) continue;
+
+        const wrapper = document.createElement('section');
+        wrapper.className = 'mermaid-block';
+
+        const figure = document.createElement('figure');
+        figure.className = 'mermaid-figure';
+
+        const diagram = document.createElement('div');
+        diagram.className = 'mermaid-diagram';
+        diagram.innerHTML = '<div class="mermaid-loading">Mermaid 다이어그램을 렌더링하는 중입니다…</div>';
+
+        figure.appendChild(diagram);
+        wrapper.appendChild(figure);
+
+        const details = document.createElement('details');
+        details.className = 'mermaid-source';
+        details.innerHTML = `
+          <summary>Mermaid 원본 코드</summary>
+          <pre><code class="language-mermaid">${escapeHtml(originalSource)}</code></pre>
+        `;
+        wrapper.appendChild(details);
+        pre.replaceWith(wrapper);
+
+        try {
+          const renderId = `mermaid-${Date.now()}-${++mermaidRenderSequence}`;
+          const result = await mermaidApi.render(renderId, source);
+          const image = document.createElement('img');
+          image.alt = 'Mermaid diagram';
+          image.loading = 'eager';
+          image.decoding = 'sync';
+          image.src = mermaidSvgToDataUri(result.svg);
+          diagram.replaceChildren(image);
+        } catch (error) {
+          console.error('Mermaid render error:', error, originalSource);
+          diagram.innerHTML = `<div class="mermaid-error">Mermaid 렌더링에 실패했습니다.<br>${escapeHtml(error?.message || String(error))}</div>`;
+          details.open = true;
+        }
+      }
     }
 
     function waitForImages(root){
