@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
-  <title>PLURA Markdown PDF</title>
+  <title>PLURA | QubitSec</title>
+  <!-- PDF pagination + Markdown bare-URL auto-link fix (v4) -->
   <link rel="shortcut icon" href="https://blog.plura.io/images/favicon.ico" type="image/x-icon" />
 
   <style>
@@ -180,6 +181,12 @@
       font-weight:600;
     }
     .markdown-body a:hover{ text-decoration:underline; }
+
+    /* 자동 생성된 긴 URL이 화면과 A4 PDF 영역 밖으로 넘치지 않도록 처리 */
+    .markdown-body a.auto-link{
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
 
     .markdown-body hr{
       height:1px;
@@ -561,7 +568,7 @@
     }
 
 
-    /* PDF Download 전용: 화면의 본문을 A4 비율로 잠시 정렬한 뒤 canvas로 직접 저장합니다. */
+    /* PDF Download 전용: 본문을 A4 폭으로 정렬한 뒤, 안전한 줄/블록 경계에서 페이지를 나눕니다. */
     body.pdf-direct-mode{
       background:#ffffff !important;
       overflow-x:hidden !important;
@@ -669,6 +676,32 @@
     @media print{
       :root{ color-scheme:light; }
 
+      .markdown-body p,
+      .markdown-body li{
+        orphans:3;
+        widows:3;
+      }
+
+      .markdown-body h1,
+      .markdown-body h2,
+      .markdown-body h3,
+      .markdown-body h4,
+      .markdown-body h5,
+      .markdown-body h6{
+        break-after:avoid-page;
+        page-break-after:avoid;
+      }
+
+      .markdown-body tr,
+      .markdown-body pre,
+      .markdown-body blockquote,
+      .markdown-body .mermaid-block,
+      .markdown-body figure,
+      .markdown-body img{
+        break-inside:avoid-page;
+        page-break-inside:avoid;
+      }
+
       html,body{
         width:auto;
         height:auto;
@@ -743,15 +776,6 @@
 
       .markdown-body tbody tr:nth-child(even) td{ background:#fbfcfd !important; }
       .markdown-body thead{ display:table-header-group; }
-      .markdown-body tr{ page-break-inside:avoid; break-inside:avoid; }
-
-      .markdown-body blockquote,
-      .markdown-body pre,
-      .markdown-body img,
-      .mermaid-block{
-        page-break-inside:avoid;
-        break-inside:avoid;
-      }
 
       .markdown-body pre{
         margin:3mm 0 !important;
@@ -803,6 +827,8 @@
     const $doc = document.getElementById('docInput');
     const $btnDownload = document.getElementById('btnDownload');
 
+    const serviceTitle = 'PLURA';
+
     let mermaidLoadPromise = null;
     let mermaidInitialized = false;
     let mermaidRenderSequence = 0;
@@ -819,7 +845,12 @@
     }
 
     function inlineMarkdown(text = ''){
-      let s = escapeHtml(text);
+      // 표 셀 등에서 자주 사용하는 <br>, <br/>, <br />만 안전하게 허용합니다.
+      // 나머지 HTML은 기존처럼 escape하여 임의 태그 삽입을 막습니다.
+      const brToken = '__PLURA_MD_BR__';
+      const normalized = String(text).replace(/<br\s*\/?\s*>/gi, brToken);
+      let s = escapeHtml(normalized);
+      s = s.replace(new RegExp(brToken, 'g'), '<br>');
       s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, '<img src="$2" alt="$1">');
       s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g, '<a href="$2">$1</a>');
       s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
@@ -827,6 +858,125 @@
       s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
       s = s.replace(/(^|\s)\*([^*]+)\*(?=\s|$)/g, '$1<em>$2</em>');
       return s;
+    }
+
+
+    // 일반 텍스트로 적힌 URL을 클릭 가능한 하이퍼링크로 변환합니다.
+    // 예: "참고 기사: https://example.com/news" → 자동 <a> 링크
+    // 이미 Markdown 링크로 렌더링된 <a>, 코드 블록, Mermaid/SVG 안의 URL은 제외합니다.
+    function splitBareUrlSuffix(candidate = ''){
+      let url = String(candidate || '');
+      let suffix = '';
+
+      // 문장 끝에 붙는 일반 문장부호는 URL에서 분리합니다.
+      const trailingPunctuation = /[.,!?;:'"’”»。．，！？；：…）】》〉]$/u;
+      while (url && trailingPunctuation.test(url)) {
+        suffix = url.slice(-1) + suffix;
+        url = url.slice(0, -1);
+      }
+
+      // 닫는 괄호가 URL 내부의 여는 괄호보다 많을 때만 문장부호로 간주합니다.
+      const pairs = [
+        ['(', ')'],
+        ['[', ']'],
+        ['{', '}']
+      ];
+      let changed = true;
+      while (url && changed) {
+        changed = false;
+        for (const [open, close] of pairs) {
+          if (!url.endsWith(close)) continue;
+          const openCount = url.split(open).length - 1;
+          const closeCount = url.split(close).length - 1;
+          if (closeCount > openCount) {
+            suffix = close + suffix;
+            url = url.slice(0, -1);
+            changed = true;
+          }
+        }
+      }
+
+      return { url, suffix };
+    }
+
+    function linkifyBareUrls(root){
+      if (!root || !root.ownerDocument) return;
+
+      const doc = root.ownerDocument;
+      const view = doc.defaultView || window;
+      const nodeFilter = view.NodeFilter || NodeFilter;
+      const urlPattern = /(?:https?:\/\/|www\.)[^\s<>"']+/gi;
+      const hasUrlPattern = /(?:https?:\/\/|www\.)/i;
+      const blockedSelector = [
+        'a',
+        'code',
+        'pre',
+        'script',
+        'style',
+        'textarea',
+        'noscript',
+        'svg',
+        'math',
+        '.mermaid-source',
+        '[data-no-autolink]'
+      ].join(',');
+
+      const walker = doc.createTreeWalker(root, nodeFilter.SHOW_TEXT, {
+        acceptNode(node){
+          const value = node.nodeValue || '';
+          const parent = node.parentElement;
+          if (!parent || !hasUrlPattern.test(value)) return nodeFilter.FILTER_REJECT;
+          if (parent.closest(blockedSelector)) return nodeFilter.FILTER_REJECT;
+          return nodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      // 교체 과정에서 TreeWalker 순회가 흔들리지 않도록 대상 텍스트 노드를 먼저 수집합니다.
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+      textNodes.forEach(textNode => {
+        const source = textNode.nodeValue || '';
+        const fragment = doc.createDocumentFragment();
+        let cursor = 0;
+        let matched = false;
+        urlPattern.lastIndex = 0;
+
+        for (const match of source.matchAll(urlPattern)) {
+          const index = match.index ?? 0;
+          const rawCandidate = match[0];
+          const { url, suffix } = splitBareUrlSuffix(rawCandidate);
+          if (!url) continue;
+
+          const href = /^www\./i.test(url) ? `https://${url}` : url;
+          let parsed;
+          try {
+            parsed = new URL(href);
+          } catch {
+            continue;
+          }
+          if (!/^https?:$/.test(parsed.protocol)) continue;
+
+          fragment.appendChild(doc.createTextNode(source.slice(cursor, index)));
+
+          const link = doc.createElement('a');
+          link.className = 'auto-link';
+          link.href = parsed.href;
+          link.textContent = url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.title = parsed.href;
+          fragment.appendChild(link);
+
+          if (suffix) fragment.appendChild(doc.createTextNode(suffix));
+          cursor = index + rawCandidate.length;
+          matched = true;
+        }
+
+        if (!matched) return;
+        fragment.appendChild(doc.createTextNode(source.slice(cursor)));
+        textNode.replaceWith(fragment);
+      });
     }
 
     // Markdown hard line break 지원
@@ -1271,12 +1421,20 @@
 
     async function afterRender(){
       stripEmptyTrailingColumns($app);
+      linkifyBareUrls($app);
 
       await renderMermaidIn($app);
       await waitForImages($app);
 
-      const title = ($app.querySelector('h1')?.textContent || $app.querySelector('h2')?.textContent || 'PLURA Document').trim();
-      document.title = title;
+      const docTitle = (
+        $app.querySelector('h1')?.textContent ||
+        $app.querySelector('h2')?.textContent ||
+        ''
+      ).trim();
+
+      document.title = docTitle
+        ? `${docTitle} | ${serviceTitle}`
+        : `${serviceTitle} | QubitSecurity`;
     }
 
     async function renderMarkdownText(mdText){
@@ -1458,16 +1616,35 @@
       }
     }
 
+    const DIRECT_PDF_LAYOUT = Object.freeze({
+      marginLeft: 12,
+      marginRight: 12,
+      marginTop: 13,
+      marginBottom: 13,
+      bottomSafety: 1.5
+    });
+
+    const PDF_PAGE_LAYOUT = Object.freeze({
+      widthMm: 210,
+      heightMm: 297,
+      marginTopMm: 14,
+      marginRightMm: 12,
+      marginBottomMm: 14,
+      marginLeftMm: 12,
+      minFillRatio: 0.62,
+      whitespaceSearchPx: 240
+    });
+
     function collectPdfLinks(source){
-      const pageRect = source.getBoundingClientRect();
+      const sourceRect = source.getBoundingClientRect();
       return Array.from(source.querySelectorAll('a[href]'))
         .flatMap(a => {
           const href = a.href;
           if (!href || /^javascript:/i.test(href)) return [];
           return Array.from(a.getClientRects()).map(rect => ({
             href,
-            left: rect.left - pageRect.left,
-            top: rect.top - pageRect.top,
+            left: rect.left - sourceRect.left,
+            top: rect.top - sourceRect.top,
             width: rect.width,
             height: rect.height
           }));
@@ -1475,61 +1652,376 @@
         .filter(r => r.width > 1 && r.height > 1);
     }
 
-    function addPdfLinkAnnotations(pdf, links, cssPageWidth, cssPageHeight){
-      if (!links.length || !cssPageWidth || !cssPageHeight || typeof pdf.link !== 'function') return;
+    function collectPdfLayoutHints(source, maxPageHeightCss){
+      const sourceRect = source.getBoundingClientRect();
+      const sourceHeight = Math.max(source.scrollHeight, source.offsetHeight, sourceRect.height);
+      const preferred = new Set([0, sourceHeight]);
+      const avoid = [];
+      const keepWithNext = [];
+
+      const clampY = value => Math.max(0, Math.min(sourceHeight, Number(value) || 0));
+      const boxOf = element => {
+        const rect = element.getBoundingClientRect();
+        const top = clampY(rect.top - sourceRect.top);
+        const bottom = clampY(rect.bottom - sourceRect.top);
+        return { top, bottom, height: Math.max(0, bottom - top) };
+      };
+      const addBoundary = value => {
+        const y = clampY(value);
+        if (y > 0.5 && y < sourceHeight - 0.5) preferred.add(Math.round(y * 10) / 10);
+      };
+      const addAvoid = (box, type) => {
+        if (!box || box.height < 3 || box.height > maxPageHeightCss * 0.92) return;
+        avoid.push({ start:box.top, end:box.bottom, type });
+      };
+
+      // 제목은 다음 본문 첫 부분과 함께 이동하도록 제목 앞을 우선 절단점으로 사용합니다.
+      source.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(heading => {
+        const box = boxOf(heading);
+        addBoundary(box.top);
+
+        let next = heading.nextElementSibling;
+        while (next && next.matches('script,style')) next = next.nextElementSibling;
+        let keepEnd = Math.min(sourceHeight, box.bottom + Math.min(96, maxPageHeightCss * 0.13));
+        if (next) {
+          const nextBox = boxOf(next);
+          keepEnd = Math.min(keepEnd, Math.max(box.bottom, nextBox.bottom));
+        }
+        if (keepEnd > box.top + 4) {
+          keepWithNext.push({ start:box.top, end:keepEnd, type:'heading' });
+        }
+      });
+
+      // 일반 블록의 끝은 안전한 페이지 절단 후보입니다.
+      source.querySelectorAll('p,hr').forEach(element => {
+        const box = boxOf(element);
+        addBoundary(box.bottom);
+      });
+
+      source.querySelectorAll('ul,ol').forEach(list => {
+        const box = boxOf(list);
+        addBoundary(box.top);
+        addBoundary(box.bottom);
+        if (box.height <= maxPageHeightCss * 0.42) addAvoid(box, 'list');
+      });
+
+      source.querySelectorAll('li').forEach(item => {
+        const box = boxOf(item);
+        addBoundary(box.bottom);
+        if (box.height <= maxPageHeightCss * 0.32) addAvoid(box, 'list-item');
+      });
+
+      source.querySelectorAll('table').forEach(table => {
+        const tableBox = boxOf(table);
+        addBoundary(tableBox.top);
+        addBoundary(tableBox.bottom);
+
+        // 작은 표는 통째로 이동하고, 중·대형 표는 행 경계에서만 나눕니다.
+        if (tableBox.height <= maxPageHeightCss * 0.55) {
+          addAvoid(tableBox, 'table');
+        }
+        table.querySelectorAll('tr').forEach(row => {
+          const rowBox = boxOf(row);
+          addBoundary(rowBox.bottom);
+          addAvoid(rowBox, 'table-row');
+        });
+      });
+
+      source.querySelectorAll('pre,blockquote,.mermaid-block,figure').forEach(element => {
+        const box = boxOf(element);
+        addBoundary(box.top);
+        addBoundary(box.bottom);
+        addAvoid(box, 'atomic-block');
+      });
+
+      source.querySelectorAll('img').forEach(image => {
+        if (image.closest('.mermaid-block')) return;
+        const box = boxOf(image);
+        addBoundary(box.top);
+        addBoundary(box.bottom);
+        addAvoid(box, 'image');
+      });
+
+      return {
+        preferred: Array.from(preferred).sort((a, b) => a - b),
+        avoid,
+        keepWithNext,
+        sourceHeight
+      };
+    }
+
+    function isCutInsideRanges(cut, ranges, edgePadding = 1.5){
+      return ranges.some(range => (
+        cut > range.start + edgePadding &&
+        cut < range.end - edgePadding
+      ));
+    }
+
+    function adjustCutForProtectedRanges(cut, start, minEnd, target, hints){
+      let result = cut;
+      const ranges = [...hints.keepWithNext, ...hints.avoid];
+
+      // 중첩된 목록/표 구조가 있을 수 있으므로 몇 차례 안정화합니다.
+      for (let pass = 0; pass < 5; pass++) {
+        const range = ranges.find(item => (
+          result > item.start + 1.5 &&
+          result < item.end - 1.5
+        ));
+        if (!range) break;
+
+        const softMinimum = start + Math.min(120, (target - start) * 0.25);
+        if (range.start >= minEnd && range.start > start + 12) {
+          result = range.start;
+        } else if (range.start > softMinimum) {
+          // 내용이 잘리는 것보다 페이지 하단 여백이 조금 늘어나는 편을 우선합니다.
+          result = range.start;
+        } else if (range.end <= target && range.end > start + 12) {
+          result = range.end;
+        } else {
+          break;
+        }
+      }
+
+      return Math.max(start + 1, Math.min(target, result));
+    }
+
+    function findPreferredPdfCut(hints, start, minEnd, target){
+      let best = null;
+      for (const point of hints.preferred) {
+        if (point < minEnd) continue;
+        if (point > target) break;
+        if (point <= start + 1) continue;
+        if (isCutInsideRanges(point, hints.avoid)) continue;
+        best = point;
+      }
+      return best;
+    }
+
+    function findCanvasWhitespaceCut(canvas, cssWidth, start, minEnd, target, hints, searchPx){
+      try {
+        const scale = canvas.width / cssWidth;
+        if (!Number.isFinite(scale) || scale <= 0) return null;
+
+        const searchStartCss = Math.max(minEnd, target - searchPx);
+        const fromY = Math.max(0, Math.floor(searchStartCss * scale));
+        const toY = Math.min(canvas.height - 1, Math.ceil(target * scale));
+        const regionHeight = toY - fromY + 1;
+        if (regionHeight < 4) return null;
+
+        const ctx = canvas.getContext('2d', { willReadFrequently:true });
+        if (!ctx) return null;
+        const data = ctx.getImageData(0, fromY, canvas.width, regionHeight).data;
+        const xStep = Math.max(2, Math.floor(canvas.width / 520));
+        const sampleCount = Math.ceil(canvas.width / xStep);
+        const maxInkSamples = Math.max(1, Math.floor(sampleCount * 0.004));
+        const minBlankRun = Math.max(3, Math.round(scale * 2.2));
+
+        const rowIsBlank = row => {
+          let ink = 0;
+          const rowOffset = row * canvas.width * 4;
+          for (let x = 0; x < canvas.width; x += xStep) {
+            const i = rowOffset + x * 4;
+            const r = data[i];
+            const g = data[i + 1];
+            const b = data[i + 2];
+            const a = data[i + 3];
+            if (a > 10 && (r < 247 || g < 247 || b < 247)) {
+              ink++;
+              if (ink > maxInkSamples) return false;
+            }
+          }
+          return true;
+        };
+
+        let runBottom = -1;
+        let runLength = 0;
+
+        // 목표 지점부터 위로 검색하여 가장 가까운 빈 수평 띠를 사용합니다.
+        for (let row = regionHeight - 1; row >= 0; row--) {
+          if (rowIsBlank(row)) {
+            if (runLength === 0) runBottom = row;
+            runLength++;
+          } else {
+            if (runLength >= minBlankRun) {
+              const centerRow = runBottom - (runLength - 1) / 2;
+              const cut = (fromY + centerRow) / scale;
+              if (
+                cut >= minEnd &&
+                cut <= target &&
+                !isCutInsideRanges(cut, hints.avoid)
+              ) {
+                return cut;
+              }
+            }
+            runBottom = -1;
+            runLength = 0;
+          }
+        }
+
+        if (runLength >= minBlankRun) {
+          const centerRow = runBottom - (runLength - 1) / 2;
+          const cut = (fromY + centerRow) / scale;
+          if (
+            cut >= minEnd &&
+            cut <= target &&
+            !isCutInsideRanges(cut, hints.avoid)
+          ) {
+            return cut;
+          }
+        }
+      } catch (e) {
+        console.warn('PDF whitespace scan skipped:', e);
+      }
+      return null;
+    }
+
+    function buildPdfPageSlices(source, canvas, cssWidth, cssHeight, layout = PDF_PAGE_LAYOUT){
+      const contentWidthMm = layout.widthMm - layout.marginLeftMm - layout.marginRightMm;
+      const contentHeightMm = layout.heightMm - layout.marginTopMm - layout.marginBottomMm;
+      const maxPageHeightCss = cssWidth * contentHeightMm / contentWidthMm;
+      const hints = collectPdfLayoutHints(source, maxPageHeightCss);
+      const slices = [];
+
+      let start = 0;
+      let guard = 0;
+      while (start < cssHeight - 0.5 && guard++ < 250) {
+        const target = Math.min(cssHeight, start + maxPageHeightCss);
+        let end = target;
+
+        if (target < cssHeight - 0.5) {
+          const minEnd = start + maxPageHeightCss * layout.minFillRatio;
+          const whitespaceCut = findCanvasWhitespaceCut(
+            canvas,
+            cssWidth,
+            start,
+            minEnd,
+            target,
+            hints,
+            Math.min(layout.whitespaceSearchPx, maxPageHeightCss * 0.30)
+          );
+          const preferredCut = findPreferredPdfCut(hints, start, minEnd, target);
+
+          // 목표 지점에 더 가까운 안전한 절단점을 선택합니다.
+          const candidates = [whitespaceCut, preferredCut]
+            .filter(value => Number.isFinite(value) && value > start + 1 && value <= target)
+            .sort((a, b) => b - a);
+          if (candidates.length) end = candidates[0];
+
+          end = adjustCutForProtectedRanges(end, start, minEnd, target, hints);
+
+          // 보호 블록을 통째로 다음 페이지로 이동하면 한 페이지가 다소 짧아질 수 있습니다.
+          // 다만 25% 미만으로 지나치게 짧아지는 경우에만 다른 안전 경계를 다시 찾습니다.
+          if (end < start + maxPageHeightCss * 0.25) {
+            const fallback = findPreferredPdfCut(hints, start, start + maxPageHeightCss * 0.25, target);
+            end = fallback || target;
+            end = adjustCutForProtectedRanges(end, start, start + 24, target, hints);
+          }
+        }
+
+        if (cssHeight - end < 4) end = cssHeight;
+        if (end <= start + 1) end = Math.min(cssHeight, target);
+
+        slices.push({ startCss:start, endCss:end });
+        start = end;
+      }
+
+      if (!slices.length) slices.push({ startCss:0, endCss:cssHeight });
+      return { slices, maxPageHeightCss };
+    }
+
+    function addCanvasSlicesToPdf(pdf, canvas, cssPageWidth, slices, layout = PDF_PAGE_LAYOUT){
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      const contentWidth = pageWidth - layout.marginLeftMm - layout.marginRightMm;
+      const contentHeight = pageHeight - layout.marginTopMm - layout.marginBottomMm;
+      const canvasScale = canvas.width / cssPageWidth;
+      const sliceCanvas = document.createElement('canvas');
+      const sliceCtx = sliceCanvas.getContext('2d');
+      if (!sliceCtx) throw new Error('PDF 페이지 canvas context를 생성하지 못했습니다.');
+
+      sliceCanvas.width = canvas.width;
+      const transforms = [];
+      let previousEndPx = 0;
+
+      slices.forEach((slice, index) => {
+        const sourceY = index === 0 ? 0 : previousEndPx;
+        const requestedEndPx = index === slices.length - 1
+          ? canvas.height
+          : Math.round(slice.endCss * canvasScale);
+        const endY = Math.max(sourceY + 1, Math.min(canvas.height, requestedEndPx));
+        previousEndPx = endY;
+
+        const actualSliceHeight = endY - sourceY;
+        sliceCanvas.height = actualSliceHeight;
+        sliceCtx.fillStyle = '#ffffff';
+        sliceCtx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
+        sliceCtx.drawImage(
+          canvas,
+          0, sourceY, canvas.width, actualSliceHeight,
+          0, 0, sliceCanvas.width, actualSliceHeight
+        );
+
+        if (index > 0) pdf.addPage();
+
+        let drawWidth = contentWidth;
+        let drawHeight = actualSliceHeight * drawWidth / canvas.width;
+        if (drawHeight > contentHeight) {
+          const fit = contentHeight / drawHeight;
+          drawWidth *= fit;
+          drawHeight = contentHeight;
+        }
+
+        const x = layout.marginLeftMm + (contentWidth - drawWidth) / 2;
+        const y = layout.marginTopMm;
+        const imgData = sliceCanvas.toDataURL('image/jpeg', 0.97);
+        pdf.addImage(imgData, 'JPEG', x, y, drawWidth, drawHeight, undefined, 'FAST');
+
+        transforms.push({
+          startCss: sourceY / canvasScale,
+          endCss: endY / canvasScale,
+          xMm: x,
+          yMm: y,
+          mmPerCssPx: drawWidth / cssPageWidth,
+          pageIndex: index
+        });
+      });
+
+      return transforms;
+    }
+
+    function addPdfLinkAnnotations(pdf, links, pageTransforms){
+      if (!links.length || !pageTransforms.length || typeof pdf.link !== 'function') return;
 
       const pdfPageWidth = pdf.internal.pageSize.getWidth();
       const pdfPageHeight = pdf.internal.pageSize.getHeight();
-      const mmPerPx = pdfPageWidth / cssPageWidth;
-      const pageCssHeight = cssPageHeight;
 
       links.forEach(link => {
-        const pageIndex = Math.floor(link.top / pageCssHeight);
-        const yOnPage = link.top - pageIndex * pageCssHeight;
-        const x = link.left * mmPerPx;
-        const y = yOnPage * mmPerPx;
-        const w = link.width * mmPerPx;
-        const h = Math.max(2.2, link.height * mmPerPx);
+        const centerY = link.top + link.height / 2;
+        const transform = pageTransforms.find(page => (
+          centerY >= page.startCss && centerY < page.endCss
+        ));
+        if (!transform) return;
 
-        if (x < 0 || y < 0 || x > pdfPageWidth || y > pdfPageHeight) return;
+        const x = transform.xMm + link.left * transform.mmPerCssPx;
+        const y = transform.yMm + (link.top - transform.startCss) * transform.mmPerCssPx;
+        const w = link.width * transform.mmPerCssPx;
+        const h = Math.max(2.2, link.height * transform.mmPerCssPx);
+
+        if (x < 0 || y < 0 || x >= pdfPageWidth || y >= pdfPageHeight) return;
 
         try {
-          pdf.setPage(pageIndex + 1);
-          pdf.link(x, y, Math.min(w, pdfPageWidth - x), Math.min(h, pdfPageHeight - y), { url: link.href });
+          pdf.setPage(transform.pageIndex + 1);
+          pdf.link(
+            x,
+            y,
+            Math.min(w, pdfPageWidth - x),
+            Math.min(h, pdfPageHeight - y),
+            { url:link.href }
+          );
         } catch (e) {
           console.warn('PDF link annotation skipped:', e);
         }
       });
-    }
-
-    function addCanvasSlicesToPdf(pdf, canvas, cssPageWidth, cssPageHeight){
-      const pageWidth = pdf.internal.pageSize.getWidth();
-      const pageHeight = pdf.internal.pageSize.getHeight();
-      const scale = canvas.width / cssPageWidth;
-      const sliceCanvasHeight = Math.max(1, Math.floor(cssPageHeight * scale));
-      const sliceCanvas = document.createElement('canvas');
-      const sliceCtx = sliceCanvas.getContext('2d');
-
-      sliceCanvas.width = canvas.width;
-
-      let page = 0;
-      const tinyRemainder = Math.max(8, Math.round(scale * 4));
-      for (let sourceY = 0; sourceY < canvas.height; sourceY += sliceCanvasHeight) {
-        const remaining = canvas.height - sourceY;
-        if (remaining <= tinyRemainder && page > 0) break;
-
-        const actualSliceHeight = Math.min(sliceCanvasHeight, remaining);
-        sliceCanvas.height = actualSliceHeight;
-        sliceCtx.fillStyle = '#ffffff';
-        sliceCtx.fillRect(0, 0, sliceCanvas.width, sliceCanvas.height);
-        sliceCtx.drawImage(canvas, 0, sourceY, canvas.width, actualSliceHeight, 0, 0, sliceCanvas.width, actualSliceHeight);
-
-        if (page > 0) pdf.addPage();
-        const imgHeightMm = actualSliceHeight * pageWidth / canvas.width;
-        const imgData = sliceCanvas.toDataURL('image/jpeg', 0.96);
-        pdf.addImage(imgData, 'JPEG', 0, 0, pageWidth, Math.min(pageHeight, imgHeightMm), undefined, 'FAST');
-        page++;
-      }
     }
 
     async function downloadPdfDirect(){
@@ -1539,8 +2031,8 @@
       const oldTitle = document.title;
 
       try {
-        const page = document.querySelector('.page');
-        if (!page) throw new Error('PDF 캡처 대상(.page)을 찾지 못했습니다.');
+        const source = $app;
+        if (!source) throw new Error('PDF 캡처 대상(#app)을 찾지 못했습니다.');
 
         const { html2canvas, jsPDF } = await ensurePdfDownloadLibraries();
         const title = getRenderedTitle();
@@ -1554,21 +2046,21 @@
         if (document.fonts && document.fonts.ready) {
           try { await document.fonts.ready; } catch {}
         }
-        await waitForImages(page);
+        await waitForImages(source);
         await waitFrame(3);
 
-        const rect = page.getBoundingClientRect();
-        const cssWidth = Math.ceil(Math.max(rect.width, page.scrollWidth, page.offsetWidth));
-        const cssHeight = Math.ceil(Math.max(rect.height, page.scrollHeight, page.offsetHeight));
+        const rect = source.getBoundingClientRect();
+        const cssWidth = Math.ceil(Math.max(rect.width, source.scrollWidth, source.offsetWidth));
+        const cssHeight = Math.ceil(Math.max(rect.height, source.scrollHeight, source.offsetHeight));
 
         if (cssWidth < 50 || cssHeight < 50) {
           throw new Error(`PDF 캡처 대상 크기가 비정상입니다. width=${cssWidth}, height=${cssHeight}`);
         }
 
-        const links = collectPdfLinks(page);
+        const links = collectPdfLinks(source);
         const scale = Math.min(2.2, Math.max(1.5, window.devicePixelRatio || 2));
 
-        const canvas = await html2canvas(page, {
+        const canvas = await html2canvas(source, {
           backgroundColor:'#ffffff',
           scale,
           useCORS:true,
@@ -1576,7 +2068,7 @@
           logging:false,
           width:cssWidth,
           height:cssHeight,
-          windowWidth:Math.max(cssWidth, document.documentElement.clientWidth || 0),
+          windowWidth:Math.max(794, cssWidth, document.documentElement.clientWidth || 0),
           windowHeight:Math.max(cssHeight, document.documentElement.clientHeight || 0),
           scrollX:0,
           scrollY:0,
@@ -1595,10 +2087,20 @@
           compress:true
         });
 
-        const cssPageHeight = cssWidth * 297 / 210;
-        addCanvasSlicesToPdf(pdf, canvas, cssWidth, cssPageHeight);
-        addPdfLinkAnnotations(pdf, links, cssWidth, cssPageHeight);
-        pdf.setProperties({ title, subject:title, creator:'PLURA Markdown PDF' });
+        const pagination = buildPdfPageSlices(source, canvas, cssWidth, cssHeight, PDF_PAGE_LAYOUT);
+        const transforms = addCanvasSlicesToPdf(
+          pdf,
+          canvas,
+          cssWidth,
+          pagination.slices,
+          PDF_PAGE_LAYOUT
+        );
+        addPdfLinkAnnotations(pdf, links, transforms);
+        pdf.setProperties({
+          title,
+          subject:title,
+          creator:'PLURA'
+        });
         pdf.save(filename);
       } catch (e) {
         console.error('PDF Download failed:', e);
