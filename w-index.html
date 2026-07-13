@@ -829,6 +829,31 @@
       return s;
     }
 
+    // Markdown hard line break 지원
+    // - 줄 끝 공백 2개 이상: "  "
+    // - 줄 끝 역슬래시 1개: "\\"
+    // 일반 줄바꿈은 기존 Markdown 규칙대로 한 칸으로 이어 붙입니다.
+    function renderInlineLines(lines = []){
+      const sourceLines = Array.from(lines || [], line => String(line ?? ''));
+
+      return sourceLines.map((rawLine, index) => {
+        const trailingSpaces = rawLine.match(/ +$/)?.[0].length || 0;
+        const trailingBackslashes = rawLine.match(/\\+$/)?.[0].length || 0;
+        const hardBreak = trailingSpaces >= 2 || trailingBackslashes % 2 === 1;
+
+        let content = rawLine;
+        if (trailingSpaces >= 2) {
+          content = content.slice(0, -trailingSpaces);
+        } else if (trailingBackslashes % 2 === 1) {
+          content = content.slice(0, -1);
+        }
+
+        const html = inlineMarkdown(content.trim());
+        if (index === sourceLines.length - 1) return html;
+        return html + (hardBreak ? '<br>\n' : ' ');
+      }).join('');
+    }
+
     function isTableSep(line){
       return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line || '');
     }
@@ -852,7 +877,7 @@
 
       const flushParagraph = () => {
         if (!paragraph.length) return;
-        out.push('<p>' + inlineMarkdown(paragraph.join(' ')) + '</p>');
+        out.push('<p>' + renderInlineLines(paragraph) + '</p>');
         paragraph = [];
       };
 
@@ -864,7 +889,7 @@
 
       const flushQuote = () => {
         if (!quote.length) return;
-        out.push('<blockquote><p>' + inlineMarkdown(quote.join(' ')) + '</p></blockquote>');
+        out.push('<blockquote><p>' + renderInlineLines(quote) + '</p></blockquote>');
         quote = [];
       };
 
@@ -914,7 +939,7 @@
           continue;
         }
 
-        const quoteLine = trimmed.match(/^>\s?(.*)$/);
+        const quoteLine = line.match(/^\s*>\s?(.*)$/);
         if (quoteLine) {
           flushParagraph();
           flushList();
@@ -954,7 +979,8 @@
 
         flushList();
         flushQuote();
-        paragraph.push(trimmed);
+        // 선행 공백은 정리하되, Markdown hard break 판정을 위해 줄 끝 공백은 보존합니다.
+        paragraph.push(line.trimStart());
       }
 
       if (fence) {
