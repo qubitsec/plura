@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
   <title>PLURA | QubitSec</title>
-  <!-- PDF pagination + Markdown bare-URL auto-link fix (v4) -->
+  <!-- PDF pagination + Markdown bare-URL auto-link + explicit page-break fix (v5) -->
   <link rel="shortcut icon" href="https://blog.plura.io/images/favicon.ico" type="image/x-icon" />
 
   <style>
@@ -285,6 +285,23 @@
       height:auto;
       page-break-inside:avoid;
       break-inside:avoid;
+    }
+
+    /*
+     * Markdown 문서에서 허용한 명시적 페이지 구분자입니다.
+     * 화면에서는 아무 문자열이나 선을 표시하지 않고,
+     * 브라우저 인쇄에서는 다음 내용을 새 페이지에서 시작합니다.
+     */
+    .markdown-body .page-break{
+      display:block;
+      width:100%;
+      height:0;
+      margin:0;
+      padding:0;
+      border:0;
+      clear:both;
+      break-after:page;
+      page-break-after:always;
     }
 
     .mermaid-block{
@@ -1004,6 +1021,14 @@
       }).join('');
     }
 
+    function isPageBreakMarker(line){
+      const value = String(line || '').trim();
+
+      // 임의 HTML 실행은 허용하지 않고, 페이지 구분 용도의 안전한 div만 선별합니다.
+      return /^<div\s+style=(["'])[^"']*(?:page-break-after\s*:\s*always|break-after\s*:\s*page)[^"']*\1\s*>\s*<\/div>$/i.test(value) ||
+        /^<div\s+class=(["'])[^"']*\bpage-break\b[^"']*\1\s*>\s*<\/div>$/i.test(value);
+    }
+
     function isTableSep(line){
       return /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line || '');
     }
@@ -1078,6 +1103,12 @@
         if (/^---+$/.test(trimmed)) {
           closeBlocks();
           out.push('<hr>');
+          continue;
+        }
+
+        if (isPageBreakMarker(trimmed)) {
+          closeBlocks();
+          out.push('<div class="page-break" data-page-break="always" aria-hidden="true"></div>');
           continue;
         }
 
@@ -1656,6 +1687,7 @@
       const sourceRect = source.getBoundingClientRect();
       const sourceHeight = Math.max(source.scrollHeight, source.offsetHeight, sourceRect.height);
       const preferred = new Set([0, sourceHeight]);
+      const forced = [];
       const avoid = [];
       const keepWithNext = [];
 
@@ -1674,6 +1706,16 @@
         if (!box || box.height < 3 || box.height > maxPageHeightCss * 0.92) return;
         avoid.push({ start:box.top, end:box.bottom, type });
       };
+
+      // Markdown 문서에 명시된 페이지 구분자는 직접 PDF 다운로드에서도 강제 절단점으로 사용합니다.
+      source.querySelectorAll('.page-break,[data-page-break="always"]').forEach(marker => {
+        const box = boxOf(marker);
+        const y = Math.round(box.top * 10) / 10;
+        if (y > 0.5 && y < sourceHeight - 0.5) {
+          forced.push(y);
+          preferred.add(y);
+        }
+      });
 
       // 제목은 다음 본문 첫 부분과 함께 이동하도록 제목 앞을 우선 절단점으로 사용합니다.
       source.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach(heading => {
@@ -1744,6 +1786,7 @@
 
       return {
         preferred: Array.from(preferred).sort((a, b) => a - b),
+        forced: Array.from(new Set(forced)).sort((a, b) => a - b),
         avoid,
         keepWithNext,
         sourceHeight
@@ -1887,8 +1930,15 @@
       while (start < cssHeight - 0.5 && guard++ < 250) {
         const target = Math.min(cssHeight, start + maxPageHeightCss);
         let end = target;
+        const forcedCut = hints.forced.find(point => (
+          point > start + 1 &&
+          point <= target + 0.5
+        ));
 
-        if (target < cssHeight - 0.5) {
+        if (Number.isFinite(forcedCut)) {
+          // 문서 작성자가 지정한 페이지 구분은 자동 여백 최적화보다 우선합니다.
+          end = forcedCut;
+        } else if (target < cssHeight - 0.5) {
           const minEnd = start + maxPageHeightCss * layout.minFillRatio;
           const whitespaceCut = findCanvasWhitespaceCut(
             canvas,
