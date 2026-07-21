@@ -51,7 +51,7 @@ flowchart LR
     subgraph XDR["PLURA-XDR"]
         direction TB
         PACKET["웹 패킷 분석<br/>Request / Response Body"]
-        EVENT["WAF·Nginx·웹 로그 분석"]
+        EVENT["WAF 웹 로그 분석"]
         MITRE["행위·감사 로그 분석<br/><b>MITRE ATT&CK / LOLBAS·LOTL</b>"]
         AI["AI 분석<br/><b>ChatGPT 기반 공격 판단</b>"]
         RESPONSE["대응<br/>차단·알림·자동 포렌식"]
