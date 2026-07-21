@@ -133,6 +133,7 @@ flowchart LR
 - Nginx와 웹 애플리케이션의 해석 차이를 이용한 공격
 - 기존 WAF가 탐지하지 못한 제로데이 의심 공격
 - 요청 본문과 응답 본문을 함께 확인해야 하는 공격
+- 데이터 유출 공격
 
 #### 확인 결과
 
@@ -262,7 +263,6 @@ sequenceDiagram
         WAF-->>XDR: 탐지·차단 이벤트
     else 기존 WAF가 공격 미탐
         WAF->>WEB: 공격 요청 통과
-        WEB-->>XDR: Nginx·웹 로그
         WEB-->>XDR: 명령·파일·프로세스 이벤트
         WEB-->>XDR: LOLBAS·LOTL 및 계정·네트워크 행위
     end
