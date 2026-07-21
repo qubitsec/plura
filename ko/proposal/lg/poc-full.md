@@ -31,6 +31,7 @@ T-Proxy에서 제공하는 복호화 웹 트래픽과 WAF·Nginx·웹·호스트
     "lineColor": "#1f2937"
   }
 }}%%
+
 flowchart LR
 
     ATTACKER(["미토스급 AI / 레드팀<br/><b>변형·제로데이 공격</b>"])
@@ -64,16 +65,21 @@ flowchart LR
     WEB -. "침투 후 내부 확산 시도" .-> INTERNAL
 
     TP -. "복호화 웹 트래픽" .-> PACKET
+
     WAF -. "탐지·차단 이벤트" .-> EVENT
+    WAF -. "의심 웹 공격·원본 요청" .-> AI
+
     WEB -. "명령·프로세스·파일·Audit 이벤트" .-> MITRE
     INTERNAL -. "계정·원격접속·Audit / EDR 이벤트" .-> MITRE
 
     PACKET --> AI
     EVENT --> AI
     MITRE --> AI
+
+    AI -. "공격 판단·위험도·차단 요청" .-> WAF
     AI --> RESPONSE --> DASH --> SOC
 
-    RESPONSE -. "공격 IP 차단" .-> WAF
+    RESPONSE -. "공격 IP·웹 요청 차단" .-> WAF
     RESPONSE -. "호스트 대응·포렌식" .-> WEB
     RESPONSE -. "호스트 대응·포렌식" .-> INTERNAL
 
