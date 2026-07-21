@@ -39,8 +39,7 @@ flowchart LR
         direction LR
         FW["방화벽 / DDoS"]
         TP["T-Proxy<br/><b>SSL/TLS 복호화</b>"]
-        WAF["기존 WAF / PLURA-WAF<br/><b>웹 공격 탐지·차단</b>"]
-        NGINX["Nginx<br/><b>리버스 프록시</b>"]
+        WAF["PLURA-WAF<br/><b>웹 공격 탐지·차단</b>"]
     end
 
     subgraph HOST["서버·엔드포인트"]
@@ -61,12 +60,11 @@ flowchart LR
 
     SOC(["보안담당자 / 레드팀"])
 
-    ATTACKER --> FW --> TP --> WAF --> NGINX --> WEB
+    ATTACKER --> FW --> TP --> WAF --> WEB
     WEB -. "침투 후 내부 확산 시도" .-> INTERNAL
 
     TP -. "복호화 웹 트래픽" .-> PACKET
     WAF -. "탐지·차단 이벤트" .-> EVENT
-    NGINX -. "Access / Error 로그" .-> EVENT
     WEB -. "명령·프로세스·파일·Audit 이벤트" .-> MITRE
     INTERNAL -. "계정·원격접속·Audit / EDR 이벤트" .-> MITRE
 
@@ -86,7 +84,7 @@ flowchart LR
     classDef soc fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
 
     class ATTACKER attack;
-    class FW,TP,WAF,NGINX edge;
+    class FW,TP,WAF edge;
     class WEB,INTERNAL host;
     class PACKET,EVENT,MITRE,AI,RESPONSE,DASH xdr;
     class SOC soc;
