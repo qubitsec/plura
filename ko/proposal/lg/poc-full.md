@@ -191,7 +191,6 @@ flowchart TB
     EXFIL["데이터 외부 유출<br/><b>T1041 / T1567</b>"]
 
     P1["웹 패킷·PLURA-WAF 이벤트"]
-    P2["Nginx·웹 로그"]
     P3["Process · Command Line<br/>Audit · EDR 로그"]
     P4["계정·원격접속·네트워크 이벤트"]
     P5["파일 접근·수집·압축·전송 이벤트"]
@@ -203,7 +202,6 @@ flowchart TB
     LOTL --> C2 --> EXFIL
 
     P1 -.-> T1190
-    P2 -.-> EXEC
     P3 -.-> EXEC
     P3 -.-> SHELL
     P3 -.-> LOTL
