@@ -44,20 +44,20 @@ flowchart LR
 
     ATTACKER(["미토스급 AI / 레드팀<br/><b>변형·제로데이 공격</b>"])
 
-    subgraph EDGE["외부 공격 표면"]
+    subgraph EDGE["<b>외부 공격 표면</b>"]
         direction LR
         FW["방화벽 / DDoS"]
         TP["T-Proxy<br/><b>SSL/TLS 복호화</b>"]
         WAF["PLURA-WAF<br/><b>웹 공격 탐지·차단</b>"]
     end
 
-    subgraph HOST["서버·엔드포인트"]
+    subgraph HOST["<b>서버·엔드포인트</b>"]
         direction LR
         WEB["Nginx·웹·애플리케이션 서버<br/><b>PLURA-EDR / Audit</b>"]
         INTERNAL["내부 서버·PC<br/><b>PLURA-EDR / Audit</b>"]
     end
 
-    subgraph XDR["PLURA-XDR"]
+    subgraph XDR["<b>PLURA-XDR</b>"]
         direction TB
         PACKET["웹 패킷 분석<br/>Request / Response Body"]
         EVENT["PLURA-WAF 웹 로그 분석"]
