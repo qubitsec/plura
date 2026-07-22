@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="color-scheme" content="light" />
   <title>PLURA | QubitSec</title>
-  <!-- PDF pagination + Markdown bare-URL auto-link + explicit page-break fix (v5) -->
+  <!-- PDF pagination + Markdown bare-URL + explicit page-break + Mermaid wheel zoom + drag pan fix (v8) -->
   <link rel="shortcut icon" href="https://blog.plura.io/images/favicon.ico" type="image/x-icon" />
 
   <style>
@@ -342,6 +342,137 @@
       max-width:100%;
       height:auto;
       margin:0 auto;
+      cursor:zoom-in;
+      transition:transform .15s ease, filter .15s ease;
+    }
+
+    .mermaid-diagram img:hover{
+      transform:scale(1.01);
+      filter:drop-shadow(0 8px 16px rgba(15,23,42,.14));
+    }
+
+    .mermaid-diagram img:focus-visible{
+      outline:3px solid rgba(37,99,235,.45);
+      outline-offset:5px;
+      border-radius:6px;
+    }
+
+    body.mermaid-lightbox-open{
+      overflow:hidden !important;
+    }
+
+    .mermaid-lightbox{
+      position:fixed;
+      inset:0;
+      z-index:5000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:62px 24px 24px;
+      background:rgba(2,6,23,.88);
+      backdrop-filter:blur(4px);
+    }
+
+    .mermaid-lightbox.is-open{
+      display:flex;
+    }
+
+    .mermaid-lightbox-stage{
+      width:100%;
+      height:100%;
+      overflow:auto;
+      overscroll-behavior:contain;
+      border-radius:12px;
+      background:#ffffff;
+      box-shadow:0 24px 80px rgba(0,0,0,.38);
+    }
+
+    .mermaid-lightbox-image{
+      display:block;
+      width:min(1600px, 94vw);
+      max-width:none;
+      height:auto;
+      min-height:1px;
+      margin:0 auto;
+      padding:28px;
+      background:#ffffff;
+      box-sizing:border-box;
+      cursor:default;
+    }
+
+    .mermaid-lightbox-close{
+      position:absolute;
+      top:14px;
+      right:18px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      padding:0;
+      border:1px solid rgba(255,255,255,.35);
+      border-radius:999px;
+      background:rgba(15,23,42,.75);
+      color:#ffffff;
+      font-size:26px;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .mermaid-lightbox-close:hover{
+      background:#ffffff;
+      color:#0f172a;
+    }
+
+    .mermaid-lightbox-caption{
+      position:absolute;
+      top:20px;
+      left:24px;
+      right:76px;
+      overflow:hidden;
+      color:#e5e7eb;
+      font-size:13px;
+      font-weight:700;
+      line-height:1.4;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      pointer-events:none;
+    }
+
+    .mermaid-lightbox-stage{
+      cursor:grab;
+      user-select:none;
+      -webkit-user-select:none;
+      touch-action:none;
+    }
+
+    .mermaid-lightbox-stage.is-dragging{
+      cursor:grabbing;
+    }
+
+    .mermaid-lightbox-stage.is-dragging .mermaid-lightbox-image{
+      cursor:grabbing;
+    }
+
+    @media (max-width:640px){
+      .mermaid-lightbox{
+        padding:56px 10px 10px;
+      }
+
+      .mermaid-lightbox-image{
+        width:max(1000px, 94vw);
+        padding:18px;
+      }
+
+      .mermaid-lightbox-caption{
+        left:14px;
+        top:18px;
+      }
+
+      .mermaid-lightbox-close{
+        top:10px;
+        right:10px;
+      }
     }
 
     .error-box{
@@ -807,6 +938,7 @@
       }
 
       .mermaid-source{ display:none !important; }
+      .mermaid-lightbox{ display:none !important; }
     }
 
     @media print{
@@ -849,6 +981,19 @@
     let mermaidLoadPromise = null;
     let mermaidInitialized = false;
     let mermaidRenderSequence = 0;
+    let mermaidLightbox = null;
+    let mermaidLightboxImage = null;
+    let mermaidLightboxCaption = null;
+    let mermaidLightboxLastFocus = null;
+    let mermaidLightboxZoom = 1;
+    let mermaidLightboxBaseWidth = 0;
+    let mermaidLightboxLabel = 'Mermaid 다이어그램';
+    let mermaidLightboxDrag = null;
+    let mermaidLightboxSuppressClick = false;
+
+    const MERMAID_LIGHTBOX_MIN_ZOOM = 0.4;
+    const MERMAID_LIGHTBOX_MAX_ZOOM = 3;
+    const MERMAID_LIGHTBOX_ZOOM_STEP = 1.12;
 
     const FALLBACK_DOC = `# PLURA Markdown PDF Viewer\n\n문서 경로를 지정해 주세요.\n\n- 예: \`index.html?doc=/proposal/ko/sample.md\`\n- 전체 UI: \`index.html?ui=full&doc=/proposal/ko/sample.md\`\n\n표와 긴 문서도 A4 PDF 양식에 맞게 출력됩니다.`;
 
@@ -1373,6 +1518,244 @@
       return mermaidLoadPromise;
     }
 
+    function ensureMermaidLightbox(){
+      if (mermaidLightbox?.isConnected) return mermaidLightbox;
+
+      const overlay = document.createElement('div');
+      overlay.className = 'mermaid-lightbox';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.innerHTML = `
+        <div class="mermaid-lightbox-caption">Mermaid 다이어그램 확대 보기</div>
+        <button class="mermaid-lightbox-close" type="button" aria-label="확대 화면 닫기">&times;</button>
+        <div class="mermaid-lightbox-stage">
+          <img class="mermaid-lightbox-image" alt="확대된 Mermaid 다이어그램">
+        </div>
+      `;
+
+      const closeButton = overlay.querySelector('.mermaid-lightbox-close');
+      const stage = overlay.querySelector('.mermaid-lightbox-stage');
+      mermaidLightboxImage = overlay.querySelector('.mermaid-lightbox-image');
+      mermaidLightboxCaption = overlay.querySelector('.mermaid-lightbox-caption');
+
+      const close = () => closeMermaidLightbox();
+
+      closeButton.addEventListener('click', close);
+      overlay.addEventListener('click', event => {
+        if (event.target === overlay) close();
+      });
+      stage.addEventListener('click', event => {
+        if (mermaidLightboxSuppressClick) {
+          mermaidLightboxSuppressClick = false;
+          event.preventDefault();
+          return;
+        }
+        if (event.target === stage) close();
+      });
+
+      stage.addEventListener('pointerdown', event => {
+        if (!overlay.classList.contains('is-open')) return;
+        if (event.button !== 0 && event.pointerType === 'mouse') return;
+
+        mermaidLightboxDrag = {
+          pointerId:event.pointerId,
+          startX:event.clientX,
+          startY:event.clientY,
+          scrollLeft:stage.scrollLeft,
+          scrollTop:stage.scrollTop,
+          moved:false
+        };
+
+        stage.classList.add('is-dragging');
+        stage.setPointerCapture?.(event.pointerId);
+        event.preventDefault();
+      });
+
+      stage.addEventListener('pointermove', event => {
+        const drag = mermaidLightboxDrag;
+        if (!drag || drag.pointerId !== event.pointerId) return;
+
+        const deltaX = event.clientX - drag.startX;
+        const deltaY = event.clientY - drag.startY;
+
+        if (!drag.moved && Math.hypot(deltaX, deltaY) >= 4) {
+          drag.moved = true;
+        }
+
+        stage.scrollLeft = drag.scrollLeft - deltaX;
+        stage.scrollTop = drag.scrollTop - deltaY;
+        event.preventDefault();
+      });
+
+      const finishDrag = event => {
+        const drag = mermaidLightboxDrag;
+        if (!drag || drag.pointerId !== event.pointerId) return;
+
+        mermaidLightboxSuppressClick = drag.moved;
+        mermaidLightboxDrag = null;
+        stage.classList.remove('is-dragging');
+
+        if (stage.hasPointerCapture?.(event.pointerId)) {
+          stage.releasePointerCapture(event.pointerId);
+        }
+      };
+
+      stage.addEventListener('pointerup', finishDrag);
+      stage.addEventListener('pointercancel', finishDrag);
+      stage.addEventListener('lostpointercapture', event => {
+        if (mermaidLightboxDrag?.pointerId !== event.pointerId) return;
+        mermaidLightboxSuppressClick = mermaidLightboxDrag.moved;
+        mermaidLightboxDrag = null;
+        stage.classList.remove('is-dragging');
+      });
+
+      stage.addEventListener('wheel', event => {
+        if (!overlay.classList.contains('is-open')) return;
+        if (!Number.isFinite(event.deltaY) || event.deltaY === 0) return;
+
+        event.preventDefault();
+
+        const factor = event.deltaY < 0
+          ? MERMAID_LIGHTBOX_ZOOM_STEP
+          : 1 / MERMAID_LIGHTBOX_ZOOM_STEP;
+
+        updateMermaidLightboxZoom(
+          mermaidLightboxZoom * factor,
+          {
+            clientX:event.clientX,
+            clientY:event.clientY
+          }
+        );
+      }, { passive:false });
+
+      stage.addEventListener('dblclick', event => {
+        event.preventDefault();
+        updateMermaidLightboxZoom(1, {
+          clientX:event.clientX,
+          clientY:event.clientY
+        });
+      });
+
+      document.body.appendChild(overlay);
+      mermaidLightbox = overlay;
+      return overlay;
+    }
+
+    function clampMermaidLightboxZoom(value){
+      return Math.min(
+        MERMAID_LIGHTBOX_MAX_ZOOM,
+        Math.max(MERMAID_LIGHTBOX_MIN_ZOOM, Number(value) || 1)
+      );
+    }
+
+    function updateMermaidLightboxCaption(){
+      if (!mermaidLightboxCaption) return;
+      const percent = Math.round(mermaidLightboxZoom * 100);
+      mermaidLightboxCaption.textContent =
+        `${mermaidLightboxLabel} · ${percent}% · 휠 확대/축소 · 마우스 드래그 이동 · 더블클릭 초기화`;
+    }
+
+    function updateMermaidLightboxZoom(nextZoom, pointer = null){
+      if (!mermaidLightboxImage || !mermaidLightbox) return;
+
+      const stage = mermaidLightbox.querySelector('.mermaid-lightbox-stage');
+      if (!stage) return;
+
+      const oldScrollWidth = Math.max(1, stage.scrollWidth);
+      const oldScrollHeight = Math.max(1, stage.scrollHeight);
+      const stageRect = stage.getBoundingClientRect();
+
+      const pointerOffsetX = pointer
+        ? pointer.clientX - stageRect.left
+        : stage.clientWidth / 2;
+      const pointerOffsetY = pointer
+        ? pointer.clientY - stageRect.top
+        : stage.clientHeight / 2;
+
+      const anchorX = stage.scrollLeft + pointerOffsetX;
+      const anchorY = stage.scrollTop + pointerOffsetY;
+      const anchorRatioX = anchorX / oldScrollWidth;
+      const anchorRatioY = anchorY / oldScrollHeight;
+
+      mermaidLightboxZoom = clampMermaidLightboxZoom(nextZoom);
+      mermaidLightboxImage.style.width =
+        `${Math.max(120, Math.round(mermaidLightboxBaseWidth * mermaidLightboxZoom))}px`;
+
+      updateMermaidLightboxCaption();
+
+      requestAnimationFrame(() => {
+        stage.scrollLeft = Math.max(
+          0,
+          anchorRatioX * stage.scrollWidth - pointerOffsetX
+        );
+        stage.scrollTop = Math.max(
+          0,
+          anchorRatioY * stage.scrollHeight - pointerOffsetY
+        );
+      });
+    }
+
+    function openMermaidLightbox(sourceImage){
+      if (!sourceImage?.src) return;
+
+      const overlay = ensureMermaidLightbox();
+      const stage = overlay.querySelector('.mermaid-lightbox-stage');
+      const label = sourceImage.alt || 'Mermaid 다이어그램';
+
+      mermaidLightboxLastFocus = document.activeElement;
+      mermaidLightboxLabel = label;
+      mermaidLightboxZoom = 1;
+
+      mermaidLightboxImage.style.width = '';
+      mermaidLightboxImage.src = sourceImage.src;
+      mermaidLightboxImage.alt = `확대된 ${label}`;
+      mermaidLightboxImage.draggable = false;
+      stage.scrollTo(0, 0);
+
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('mermaid-lightbox-open');
+
+      requestAnimationFrame(() => {
+        mermaidLightboxBaseWidth = Math.max(
+          120,
+          mermaidLightboxImage.getBoundingClientRect().width
+        );
+        updateMermaidLightboxZoom(1);
+        stage.scrollTo(0, 0);
+      });
+
+      overlay.querySelector('.mermaid-lightbox-close')?.focus({ preventScroll:true });
+    }
+
+    function closeMermaidLightbox(){
+      if (!mermaidLightbox?.classList.contains('is-open')) return;
+
+      mermaidLightbox.classList.remove('is-open');
+      mermaidLightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('mermaid-lightbox-open');
+
+      mermaidLightboxZoom = 1;
+      mermaidLightboxBaseWidth = 0;
+      mermaidLightboxDrag = null;
+      mermaidLightboxSuppressClick = false;
+      mermaidLightbox
+        .querySelector('.mermaid-lightbox-stage')
+        ?.classList.remove('is-dragging');
+      if (mermaidLightboxImage) mermaidLightboxImage.style.width = '';
+
+      const focusTarget = mermaidLightboxLastFocus;
+      mermaidLightboxLastFocus = null;
+      if (focusTarget && typeof focusTarget.focus === 'function') {
+        focusTarget.focus({ preventScroll:true });
+      }
+    }
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeMermaidLightbox();
+    });
+
     async function renderMermaidIn(container){
       const blocks = Array.from(container.querySelectorAll('pre > code'))
         .filter(isMermaidCodeElement);
@@ -1431,7 +1814,19 @@
           image.alt = 'Mermaid diagram';
           image.loading = 'eager';
           image.decoding = 'sync';
+          image.draggable = false;
           image.src = mermaidSvgToDataUri(result.svg);
+          image.tabIndex = 0;
+          image.setAttribute('role', 'button');
+          image.setAttribute('aria-label', 'Mermaid 다이어그램 크게 보기');
+          image.title = '클릭하여 크게 보기';
+          image.addEventListener('click', () => openMermaidLightbox(image));
+          image.addEventListener('keydown', event => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              openMermaidLightbox(image);
+            }
+          });
           diagram.replaceChildren(image);
         } catch (error) {
           console.error('Mermaid render error:', error, originalSource);
