@@ -131,10 +131,12 @@ flowchart LR
     G --> K["기업별 맞춤 시스템통합"]
     G --> L["인증·규정·관리체계 컨설팅"]
 
-    classDef cyber fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef policy fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef response fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
     classDef excluded fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
 
-    class A,B,C,D,E,F cyber;
+    class A policy;
+    class B,C,D,E,F response;
     class G,H,I,J,K,L excluded;
 ```
 
@@ -257,13 +259,17 @@ flowchart LR
 
     BEFORE --> CHANGE --> AFTER
 
-    classDef before fill:#f8fafc,stroke:#94a3b8,color:#475569;
+    classDef before fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
     classDef change fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
-    classDef after fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef plan fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef operate fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef outcome fill:#fff7ed,stroke:#fb923c,stroke-width:2px,color:#9a3412;
 
     class A1,A2,A3,A4 before;
     class CHANGE change;
-    class B1,B2,B3,B4,B5 after;
+    class B1,B2 plan;
+    class B3,B4 operate;
+    class B5 outcome;
 ```
 
 | No. | 구분 | 개별 제품·관리 중심 | 제안하는 침해대응 중심 |
@@ -380,6 +386,14 @@ flowchart TB
     G --> J["인사·직무·권한체계 연동"]
     G --> K["비표준 애플리케이션 개발"]
     G --> L["OT 제어장비 직접 연동"]
+
+    classDef standard fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef operation fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef excluded fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
+
+    class A standard;
+    class B,C,D,E,F operation;
+    class G,H,I,J,K,L excluded;
 ```
 
 ## 5.3 IT·OT 경계 우선 보호
@@ -463,6 +477,16 @@ flowchart LR
     ANALYST --> SUPPLIER_DASH
     ANALYST --> KHNP_DASH
     ANALYST --> REPORT
+
+    classDef attacker fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+    classDef asset fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef security fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef outcome fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+
+    class ATTACKER attacker;
+    class WEB,VPN,SERVER,PC asset;
+    class WAF,EDR,XDR,RESP,EVIDENCE,ANALYST security;
+    class SUPPLIER_DASH,KHNP_DASH,REPORT outcome;
 ```
 
 ## 6.3 협력기업별 데이터 분리
@@ -493,6 +517,16 @@ flowchart TB
 
     A -. "타 기업 접근 불가" .- B
     B -. "타 기업 접근 불가" .- C
+
+    classDef platform fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef supplier fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef supplierData fill:#f8fafc,stroke:#64748b,stroke-width:1.5px,color:#334155;
+    classDef khnp fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+
+    class PLATFORM platform;
+    class A,B,C supplier;
+    class AD,BD,CD supplierData;
+    class KHNP,K1,K2,K3,K4 khnp;
 ```
 
 ## 6.4 PLURA-XDR의 구체적인 역할
@@ -648,22 +682,29 @@ sequenceDiagram
     participant COMPANY as 협력기업 담당자
     participant KHNP as 한수원 담당부서
 
-    SYS->>XDR: 웹·서버·PC·계정 보안이벤트
-    XDR->>XDR: 외부 공격체인 분석
-    XDR->>SOC: 중요경보·원본증거 제공
-    SOC->>SOC: 실제 공격 여부 검증
-
-    alt 중대 외부침해
-        SOC->>COMPANY: 긴급통보·조치요청
-        SOC->>XDR: 차단·격리·포렌식
-        SOC->>KHNP: SLA 기반 중대사고 보고
-        COMPANY->>SOC: 현장조치·복구결과 회신
-    else 일반 공격·취약징후
-        SOC->>COMPANY: 차단·기술적 개선권고
+    rect rgb(239,246,255)
+        SYS->>XDR: 웹·서버·PC·계정 보안이벤트
+        XDR->>XDR: 외부 공격체인 분석
+        XDR->>SOC: 중요경보·원본증거 제공
     end
 
-    SOC->>KHNP: 원인·영향·공급망 확산 가능성 보고
-    XDR->>KHNP: 미조치·재발 여부 확인
+    rect rgb(240,253,244)
+        SOC->>SOC: 실제 공격 여부 검증
+
+        alt 중대 외부침해
+            SOC->>COMPANY: 긴급통보·조치요청
+            SOC->>XDR: 차단·격리·포렌식
+            SOC->>KHNP: SLA 기반 중대사고 보고
+            COMPANY->>SOC: 현장조치·복구결과 회신
+        else 일반 공격·취약징후
+            SOC->>COMPANY: 차단·기술적 개선권고
+        end
+    end
+
+    rect rgb(255,247,237)
+        SOC->>KHNP: 원인·영향·공급망 확산 가능성 보고
+        XDR->>KHNP: 미조치·재발 여부 확인
+    end
 ```
 
 ## 9.2 권고 SLA
@@ -758,6 +799,16 @@ flowchart LR
     A --> B --> C --> D
     D -- "완료" --> E
     D -- "미완료·반복" --> F --> G --> H
+
+    classDef detect fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef decision fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef success fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef sanction fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+
+    class A,B,C detect;
+    class D decision;
+    class E success;
+    class F,G,H sanction;
 ```
 
 고의적 보안기능 무력화, 중대사고 은폐, 로그·증거 조작, 긴급사고 대응거부와 허위자료 제출은 즉시 배제심사를 진행할 수 있습니다.
@@ -853,6 +904,16 @@ flowchart LR
     P4["차년도<br/><b>상시운영·고도화</b><br/>적격기업 연속지원"]
 
     P0 --> P1 --> P2 --> P3 --> P4
+
+    classDef plan fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef build fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef operate fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef future fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#334155;
+
+    class P0 plan;
+    class P1 build;
+    class P2,P3 operate;
+    class P4 future;
 ```
 
 ## 13.1 2026년 7~9월 사전준비
