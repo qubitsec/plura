@@ -372,11 +372,15 @@ flowchart LR
 
     classDef before fill:#f8fafc,stroke:#94a3b8,color:#475569;
     classDef change fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
-    classDef after fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef plan fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef operate fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef outcome fill:#fff7ed,stroke:#fb923c,stroke-width:2px,color:#9a3412;
 
     class A1,A2,A3,A4 before;
     class CHANGE change;
-    class B1,B2,B3,B4,B5 after;
+    class B1,B2 plan;
+    class B3,B4 operate;
+    class B5 outcome;
 ```
 
 | No. | 구분 | 개별 제품·관리 중심 | 제안하는 침해대응 중심 |
@@ -600,6 +604,16 @@ flowchart LR
     ANALYST --> COMPANY_DASH
     ANALYST --> CITY_DASH
     ANALYST --> REPORT
+
+    classDef attacker fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+    classDef asset fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef platform fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef outcome fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+
+    class ATTACKER attacker;
+    class WEB,VPN,SERVER,PC asset;
+    class WAF,EDR,XDR,RESP,EVIDENCE,ANALYST platform;
+    class COMPANY_DASH,CITY_DASH,REPORT outcome;
 ```
 
 ## 7.3 기업별 데이터 분리
@@ -749,22 +763,29 @@ sequenceDiagram
     participant COMPANY as 기업 담당자
     participant ULSAN as 울산시 담당부서
 
-    SYS->>XDR: 웹·서버·PC·계정 보안이벤트
-    XDR->>XDR: 외부 공격체인 분석
-    XDR->>SOC: 중요경보·원본증거 제공
-    SOC->>SOC: 실제 공격 여부 검증
-
-    alt 중대 외부침해
-        SOC->>COMPANY: 긴급통보·조치요청
-        SOC->>XDR: 차단·격리·포렌식
-        SOC->>ULSAN: SLA 기반 중대사고 보고
-        COMPANY->>SOC: 현장조치·복구결과 회신
-    else 일반 공격·취약징후
-        SOC->>COMPANY: 차단·개선 권고
+    rect rgb(239,246,255)
+        SYS->>XDR: 웹·서버·PC·계정 보안이벤트
+        XDR->>XDR: 외부 공격체인 분석
+        XDR->>SOC: 중요경보·원본증거 제공
     end
 
-    SOC->>ULSAN: 원인·영향·대응결과 보고
-    XDR->>ULSAN: 미조치·재발 여부 확인
+    rect rgb(240,253,244)
+        SOC->>SOC: 실제 공격 여부 검증
+
+        alt 중대 외부침해
+            SOC->>COMPANY: 긴급통보·조치요청
+            SOC->>XDR: 차단·격리·포렌식
+            SOC->>ULSAN: SLA 기반 중대사고 보고
+            COMPANY->>SOC: 현장조치·복구결과 회신
+        else 일반 공격·취약징후
+            SOC->>COMPANY: 차단·개선 권고
+        end
+    end
+
+    rect rgb(255,247,237)
+        SOC->>ULSAN: 원인·영향·대응결과 보고
+        XDR->>ULSAN: 미조치·재발 여부 확인
+    end
 ```
 
 ## 10.2 권고 SLA
@@ -859,6 +880,16 @@ flowchart LR
     A --> B --> C --> D
     D -- "완료" --> E
     D -- "미완료·반복" --> F --> G --> H
+
+    classDef detect fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef action fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef success fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef sanction fill:#fee2e2,stroke:#dc2626,stroke-width:2px,color:#7f1d1d;
+
+    class A,B,C detect;
+    class D action;
+    class E success;
+    class F,G,H sanction;
 ```
 
 고의적 보안기능 무력화, 중대사고 은폐, 로그·증거 조작, 긴급사고 대응거부와 부정수급은 즉시 배제심사를 진행할 수 있습니다.
@@ -959,6 +990,16 @@ flowchart LR
     P4["차년도<br/><b>300개사·12개월</b><br/>연속지원+신규선정"]
 
     P0 --> P1 --> P2 --> P3 --> P4
+
+    classDef plan fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef build fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef operate fill:#fff7ed,stroke:#f97316,stroke-width:2px,color:#7c2d12;
+    classDef expand fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#334155;
+
+    class P0 plan;
+    class P1 build;
+    class P2,P3 operate;
+    class P4 expand;
 ```
 
 ## 14.1 2026년 7~9월 사전준비
