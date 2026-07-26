@@ -533,11 +533,19 @@ flowchart TB
     A --> F["공통 탐지·대응 플레이북"]
 
     G["본 사업 제외영역"]
-    G --> H["사내 문서·DRM·DLP 연동"]
+    G --> H["문서·DRM·DLP 연동"]
     G --> I["ERP·그룹웨어 업무맥락 분석"]
     G --> J["인사·직무·권한체계 연동"]
     G --> K["비표준 애플리케이션 개발"]
     G --> L["OT 제어장비 직접 연동"]
+
+    classDef standard fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e3a8a;
+    classDef operation fill:#f0fdf4,stroke:#16a34a,stroke-width:2px,color:#14532d;
+    classDef excluded fill:#f8fafc,stroke:#94a3b8,stroke-width:1.5px,color:#475569;
+
+    class A standard;
+    class B,C,D,E,F operation;
+    class G,H,I,J,K,L excluded;
 ```
 
 ---
