@@ -37,17 +37,98 @@
 
 EMR 솔루션 회사가 병원별 IT 환경을 파악하고, 보안 전문기업이 PC·서버·웹서비스에서 발생하는 위협을 통합 분석합니다. 탐지된 위험은 병원 담당자에게 안내하고, 필요한 경우 원격 대응과 사고 분석을 지원합니다.
 
-```text
-병원 EMR·IT 환경
-        ↓
-PC·서버·웹서비스 보안 이벤트 수집
-        ↓
-통합 보안 플랫폼 분석
-        ↓
-24시간 보안관제 및 위험 판단
-        ↓
-알림·차단·격리·포렌식·대응 보고
+### 통합 보안 서비스 구성
+
+```mermaid
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Pretendard, Noto Sans KR, Arial",
+    "background": "#ffffff",
+    "primaryTextColor": "#0f172a",
+    "lineColor": "#1f2937"
+  },
+  "themeCSS": "
+    .node rect, .node circle, .node ellipse, .node polygon {
+      filter: drop-shadow(0px 4px 8px rgba(15, 23, 42, 0.16));
+    }
+    .edgePath path {
+      stroke-width: 2.6px;
+    }
+    .edgeLabel {
+      background-color: #ffffff;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .cluster rect {
+      rx: 18px;
+      ry: 18px;
+      filter: drop-shadow(0px 6px 12px rgba(15, 23, 42, 0.14));
+    }
+    .cluster-label {
+      font-size: 20px;
+      font-weight: 800;
+    }
+  "
+}}%%
+
+flowchart LR
+
+    INTERNET(["🌐<br/><b>인터넷·외부 접속</b>"])
+
+    WAF["🧱<br/><b>PLURA-WAF</b><br/>EMR 웹 공격 탐지·차단"]
+
+    subgraph HOSPITAL["중소병원 EMR 운영환경"]
+        direction TB
+        PC["💻<br/><b>업무용 PC</b><br/>진료·간호·원무"]
+        EMR["🩺<br/><b>EMR 서버</b>"]
+        SERVER["🗄️<br/><b>DB·PACS·연계 서버</b>"]
+    end
+
+    EDRPC["🛡️<br/><b>PLURA-EDR</b><br/>PC 보호"]
+    EDRSERVER["🛡️<br/><b>PLURA-EDR</b><br/>서버 보호"]
+
+    SIEM["📊<br/><b>PLURA-SIEM 서비스</b><br/>보안 로그 통합 수집·분석"]
+    SOC["🧑‍💻<br/><b>통합 보안관제</b><br/>24시간 모니터링·대응"]
+
+    INTERNET --> WAF
+    WAF --> EMR
+    PC --> EMR
+    EMR --> SERVER
+
+    EDRPC --- PC
+    EDRSERVER --- EMR
+    EDRSERVER --- SERVER
+
+    WAF -. "웹 보안 이벤트" .-> SIEM
+    EDRPC -. "PC 보안 이벤트" .-> SIEM
+    EDRSERVER -. "서버 보안 이벤트" .-> SIEM
+
+    SIEM --> SOC
+
+    classDef internet fill:#eff6ff,stroke:#1e88e5,stroke-width:2px,color:#0f3f8c,font-size:17px,font-weight:bold;
+    classDef hospital fill:#eef9ff,stroke:#0288d1,stroke-width:2px,color:#0f172a,font-size:17px,font-weight:bold;
+    classDef waf fill:#fff1f2,stroke:#ef4444,stroke-width:2.5px,color:#7f1d1d,font-size:17px,font-weight:bold;
+    classDef edr fill:#f0fdf4,stroke:#16a34a,stroke-width:2.5px,color:#14532d,font-size:17px,font-weight:bold;
+    classDef siem fill:#ecfeff,stroke:#00acc1,stroke-width:2.5px,color:#164e63,font-size:17px,font-weight:bold;
+    classDef soc fill:#fff7ed,stroke:#f97316,stroke-width:2.5px,color:#7c2d12,font-size:17px,font-weight:bold;
+
+    class INTERNET internet;
+    class PC,EMR,SERVER hospital;
+    class WAF waf;
+    class EDRPC,EDRSERVER edr;
+    class SIEM siem;
+    class SOC soc;
+
+    style HOSPITAL fill:#f8fbff,stroke:#0288d1,stroke-width:2px,color:#075985;
+
+    linkStyle 0,1,2,3 stroke:#1f2937,stroke-width:2.6px;
+    linkStyle 4,5,6 stroke:#16a34a,stroke-width:2.3px;
+    linkStyle 7,8,9 stroke:#0891b2,stroke-width:2.3px,stroke-dasharray:6 4;
+    linkStyle 10 stroke:#f97316,stroke-width:2.8px;
 ```
+
+PLURA-WAF는 외부에서 접근하는 EMR 웹서비스의 공격을 탐지·차단하고, PLURA-EDR은 병원 업무용 PC와 Windows·Linux 서버를 보호합니다. 각 보안 이벤트는 PLURA-SIEM 서비스에서 통합 분석되며, 24시간 보안관제를 통해 위험 알림과 대응을 제공합니다.
 
 ---
 
